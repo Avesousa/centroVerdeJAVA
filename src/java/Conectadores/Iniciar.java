@@ -2,8 +2,11 @@
 package Conectadores;
 
 import java.lang.Exception;
+import java.util.ArrayList;
 
 public class Iniciar extends Conexion{
+    public int cargo = 0;
+    public ArrayList imgCanales = new ArrayList();
     
     public boolean ingresar(String usuario, String contraseña){
         try {
@@ -13,7 +16,11 @@ public class Iniciar extends Conexion{
            ps.setString(1, usuario);
            ps.setString(2, contraseña);
            resultado = ps.executeQuery();
-           return resultado.absolute(1);
+           if(resultado.next()){
+            cargo = resultado.getInt("id_cargo");
+            traerMetodos(resultado.getInt("id_centroverde"));
+           }
+           return true;
         } catch (Exception e) {
             throw new NullPointerException ("No conecto por error: " + e);
         }
@@ -21,6 +28,22 @@ public class Iniciar extends Conexion{
            cerrarConexion();
         }
     }
+    
+    public void traerMetodos(int idcv){
+        try {
+            String sql = "SELECT c.imagen_canal"
+                + "FROM canales c, canalesporcentro m"
+                + "WHERE m.id_centroverde = "+idcv;
+            resultado = ps.executeQuery();
+            while(resultado.next()){
+                imgCanales.add(resultado.getString("c.imagen_canal"));
+        }
+        } catch (Exception e) {
+        }
+        
+              
+    }
+    
     
     public boolean registrar(String user, String nombre, String clave, 
             String correo, int cargo, String fecha){

@@ -430,30 +430,7 @@ footer a{
 footer span{
     color:rgb(82, 80, 80);
 }
-
-/*#escritorio, Escritorio de todas las cargas*/
-#carga, /*Carga de los elementos*/
-#elementos, /*Elementos para cargar, cuando tiene varios metodos*/
-#camion,
-#bolson, /*Carga de bolson*/
-#informacion, /*Información de cantidad de cargas*/
-#mostradorPeso, /*///MOSTRADOR DEL PESO EN CARGA///*/
-#mostradorCantidad,/*///MOSTRADOR DE CANTIDAD EN CARGA///*/
-#mixta, /*///////Carga de mixto//////////*/
-#botonContinuar /*///////BOTON DE CONTINUAR MIXTO//////*/
-{
-    display: none;
-}
-
-#etapaDiv, 
-#subetapaDiv, 
-#materialDiv, 
-#caracteristicaDiv,
-#tablabolson,
-#tablapesomaterial,
-#botonAtrasMovil{
-    display: none;
-  }
+ 
 @media screen and (max-width: 1200px){
     .seccionBolson tr{
         font-size: 0.5em;

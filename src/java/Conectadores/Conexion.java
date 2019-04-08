@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package Conectadores;
 
 
@@ -11,10 +6,6 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 
-/**
- *
- * @author 20956852766
- */
 public class Conexion {
     private static final String HOST = "172.27.204.57";
     private static final String PORT = "3306";
@@ -35,15 +26,13 @@ public class Conexion {
     }
     
     public static Connection establecerConexion(){
-        
        Connection conexion = null;
-        
         try{
             Class.forName("com.mysql.cj.jdbc.Driver");
             conexion = DriverManager.getConnection(URL, USERNAME, PASSWORD);
             
         } catch(Exception e){
-            System.out.println("No conecto: " + e);
+            System.out.println("No conectó: " + e);
         }
         return conexion;
     }

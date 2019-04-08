@@ -1,19 +1,9 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
-    <head>
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>JSP Page</title>
-        <link href="css/estilos.css" rel="stylesheet" type="text/css"/>
-        <script src="js/jquery-3.3.1.js" type="text/javascript"></script>
-        <script src="js/estilos.js" type="text/javascript"></script>
-        <script src="js/ingreso.js" type="text/javascript"></script>
-    </head>
+    <%@include file='include/infocabecera.html' %>
     <body>
-        <header>
-            <img src="http://carlitos.com.ar/DGREC/image/SED.png" alt="logo" onMouseOver="hacerHover('SED', this, 'on')" onMouseOut="hacerHover('SED', this, '')">
-            <img class = "logoCV" src="http://carlitos.com.ar/DGREC/image/LEYENDA.png" alt="Logo de la dirección">
-        </header>
+        <%@include file='include/cabecera.html' %>
         <div id="contenido">
             <div id="ingreso-principal" class ="ingreso contenedor contenedorIngreso">
                 <div class="caja">
@@ -32,12 +22,6 @@
                 </div>
             </div>    
         </div>
-        
-        <footer>
-            <h1>Contacto</h1>
-            <p><span>Correo: </span><a href="mailto:soportedgrec@gmail.com">soportedgrec@gmail.com</a>
-                <span>Teléfono Fijo:</span> <a href=”tel:43606000”>4360-6000</a> INT:2901
-            </p>
-        </footer>
+        <%@include file='include/pie.html' %>
     </body>
 </html>
