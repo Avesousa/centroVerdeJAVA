@@ -22,7 +22,7 @@ public class InicioSesion extends HttpServlet {
             response.getWriter().write("noOk");
         }
          request.getSession().setAttribute("lista",in.imgCanales);
-         request.getSession().setAttribute("listaDos", in.imgCanalesOn);
+         request.getSession().setAttribute("listaDos",in.imgCanalesOn);
          //response.sendRedirect("/include/escritorio.jsp");
     }
 
