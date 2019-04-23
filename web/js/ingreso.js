@@ -7,7 +7,6 @@ $(document).ready(function(){
              pass:clave
         };
         $.post('iniciar',data,function(responseText){
-            console.log(responseText);
             switch(responseText){
                 case "ok1":
                     $('#contenido').load("include/escritorio.jsp");
@@ -19,10 +18,10 @@ $(document).ready(function(){
                     $('#contenido').load("include/escritoriodgrec.html");
                     break;
                 case "noOk":
-                    $("#aviso").html("<p>Hubo un error con la base de datos</p>");
+                    $("#aviso").html("<p>Usuario y/o Clave incorrecto</p>");
                     break;
                 default:
-                    alert("Esta vaina no ingreso");
+                    $("#aviso").html("<p>Hubo un error de conexión</p>");
             } 
         });    
     });

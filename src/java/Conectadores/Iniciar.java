@@ -3,14 +3,16 @@ package Conectadores;
 
 import java.lang.Exception;
 import java.util.ArrayList;
+import java.util.List;
 
 public class Iniciar extends Conexion{
     public int cargo = 0;
-    public ArrayList imgCanales = new ArrayList();
+    public List imgCanales = new ArrayList();
+    public List imgCanalesOn = new ArrayList();
     
     public boolean ingresar(String usuario, String contraseña){
         try {
-           String sql = "SELECT * FROM usuarios WHERE user_usuario = ? and " +
+           String sql = "SELECT * FROM usuarios WHERE usuario_usuario = ? and " +
                    "clave_usuario = ?";
            ps = conectador.prepareStatement(sql);
            ps.setString(1, usuario);
@@ -18,7 +20,13 @@ public class Iniciar extends Conexion{
            resultado = ps.executeQuery();
            if(resultado.next()){
             cargo = resultado.getInt("id_cargo");
-            traerMetodos(resultado.getInt("id_centroverde"));
+            switch(cargo){
+                case 1: 
+                    traerMetodos(resultado.getInt("id_centroverde"));
+                    break;
+                default:
+                    System.out.println("Aun no ha sido preparado los otros cargos");
+            }
            }
            return true;
         } catch (Exception e) {
@@ -31,24 +39,26 @@ public class Iniciar extends Conexion{
     
     public void traerMetodos(int idcv){
         try {
-            String sql = "SELECT c.imagen_canal"
-                + "FROM canales c, canalesporcentro m"
-                + "WHERE m.id_centroverde = "+idcv;
+            String sql = "SELECT DISTINCT C.imagen, C.imagendos "
+                + "FROM canales C, canal_centroverde M "
+                + "WHERE M.id_centroverde = "+idcv+"  and C.id_canal = M.id_canal";
+            ps = conectador.prepareStatement(sql);
             resultado = ps.executeQuery();
             while(resultado.next()){
-                imgCanales.add(resultado.getString("c.imagen_canal"));
-        }
+                imgCanales.add(resultado.getString("C.imagen"));
+                imgCanalesOn.add(resultado.getString("C.imagendos"));
+            }
         } catch (Exception e) {
+            System.out.println(e);
         }
         
               
     }
-    
-    
+
     public boolean registrar(String user, String nombre, String clave, 
             String correo, int cargo, String fecha){
         try {
-            String sql = "INSERT INTO usuarios(user_usuario, nombre_usuario,"+
+            String sql = "INSERT INTO usuarios(usuario_usuario, nombre_usuario,"+
                     "clave_usuario, correo_usuario, id_cargo, fecha_usuario) "+
                     "VALUES(?,?,?,?,?,?)";
             ps = conectador.prepareStatement(sql);

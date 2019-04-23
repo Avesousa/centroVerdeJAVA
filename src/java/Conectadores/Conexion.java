@@ -10,7 +10,7 @@ public class Conexion {
     private static final String HOST = "172.27.204.57";
     private static final String PORT = "3306";
     private static final String USERNAME = "dgrecuser";
-    private static final String PASSWORD = "123456789dgrec";
+    private static final String PASSWORD = "";
     private static final String DATABASE = "centroverde";
     private static final String URL = "jdbc:mysql://"+HOST+":"+PORT+"/"+DATABASE;
     public Connection conectador = null;

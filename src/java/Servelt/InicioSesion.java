@@ -21,12 +21,9 @@ public class InicioSesion extends HttpServlet {
         }else {
             response.getWriter().write("noOk");
         }
-    }
-
-    @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        processRequest(request, response);
+         request.getSession().setAttribute("lista",in.imgCanales);
+         request.getSession().setAttribute("listaDos", in.imgCanalesOn);
+         //response.sendRedirect("/include/escritorio.jsp");
     }
 
     @Override

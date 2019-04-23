@@ -4,9 +4,17 @@
         <servlet-name>InicioSesion</servlet-name>
         <servlet-class>Servelt.InicioSesion</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>enviar</servlet-name>
+        <servlet-class>Servelt.enviar</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>InicioSesion</servlet-name>
         <url-pattern>/iniciar</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>enviar</servlet-name>
+        <url-pattern>/enviar</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
