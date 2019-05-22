@@ -8,7 +8,14 @@ import java.util.List;
 public class Iniciar extends Conexion{
     public int cargo = 0;
     public List imgCanales = new ArrayList();
-    public List imgCanalesOn = new ArrayList();
+    public List imgCanalesDos = new ArrayList();
+    public List nombreCanal = new ArrayList();
+    public List abreviaturaCanal = new ArrayList();
+    public List idCanal = new ArrayList();
+    public int id_centroverde = 0;
+    public int id_coop = 0;
+    public String centroverde;
+    public String cooperativa;
     
     public boolean ingresar(String usuario, String contraseña){
         try {
@@ -20,9 +27,11 @@ public class Iniciar extends Conexion{
            resultado = ps.executeQuery();
            if(resultado.next()){
             cargo = resultado.getInt("id_cargo");
+            id_centroverde = resultado.getInt("id_centroverde");
+            traerCentroVerde(id_centroverde);
             switch(cargo){
                 case 1: 
-                    traerMetodos(resultado.getInt("id_centroverde"));
+                    traerMetodos(id_centroverde);
                     break;
                 default:
                     System.out.println("Aun no ha sido preparado los otros cargos");
@@ -37,48 +46,40 @@ public class Iniciar extends Conexion{
         }
     }
     
+    private void traerCentroVerde(int n){
+        try {
+            String sql = "SELECT cv.nombre_centroverde, coop.nombre_cooperativa, coop.id_cooperativa"
+                + " FROM cooperativas coop, centro_verde cv"
+                + " WHERE cv.id_centroverde = "+n+" and coop.id_cooperativa = cv.id_cooperativa";
+            ps = conectador.prepareStatement(sql);
+            resultado = ps.executeQuery();
+            if(resultado.next()){
+                centroverde = resultado.getString("cv.nombre_centroverde");
+                cooperativa = resultado.getString("coop.nombre_cooperativa");
+                id_coop = resultado.getInt("coop.id_cooperativa");
+            }
+        } catch (Exception e) {
+            System.out.println("No conecto por el siguiente error: " + e);
+        }
+    }
+    
     public void traerMetodos(int idcv){
         try {
-            String sql = "SELECT DISTINCT C.imagen, C.imagendos "
+            String sql = "SELECT DISTINCT C.imagen, C.imagendos, C.nombre, C.abreviatura, C.id_canal "
                 + "FROM canales C, canal_centroverde M "
                 + "WHERE M.id_centroverde = "+idcv+"  and C.id_canal = M.id_canal";
             ps = conectador.prepareStatement(sql);
             resultado = ps.executeQuery();
             while(resultado.next()){
                 imgCanales.add(resultado.getString("C.imagen"));
-                imgCanalesOn.add(resultado.getString("C.imagendos"));
+                imgCanalesDos.add(resultado.getString("C.imagendos"));
+                nombreCanal.add(resultado.getString("C.nombre"));
+                idCanal.add(resultado.getString("C.id_canal"));
+                abreviaturaCanal.add(resultado.getString("C.abreviatura"));
             }
         } catch (Exception e) {
             System.out.println(e);
         }
-        
               
     }
-
-    public boolean registrar(String user, String nombre, String clave, 
-            String correo, int cargo, String fecha){
-        try {
-            String sql = "INSERT INTO usuarios(usuario_usuario, nombre_usuario,"+
-                    "clave_usuario, correo_usuario, id_cargo, fecha_usuario) "+
-                    "VALUES(?,?,?,?,?,?)";
-            ps = conectador.prepareStatement(sql);
-            ps.setString(1, user);
-            ps.setString(2, nombre);
-            ps.setString(3, clave);
-            ps.setString(4, correo);
-            ps.setInt(5, cargo);
-            ps.setString(6, fecha);
-            if(ps.executeUpdate() == 1){
-                return true;
-            } 
-        } catch (Exception e) {
-            System.out.println("Error: " + e);
-        }
-//        finally{
-//            cerrarConexion();
-//        }
-        return false;
-    
-    }
-    
 }

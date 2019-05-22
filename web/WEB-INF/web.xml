@@ -8,6 +8,30 @@
         <servlet-name>enviar</servlet-name>
         <servlet-class>Servelt.enviar</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>abrirMetodo</servlet-name>
+        <servlet-class>Servelt.abrirMetodo</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>TraerIdRu</servlet-name>
+        <servlet-class>Servelt.TraerIdRu</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>pantallaMetodo</servlet-name>
+        <servlet-class>Servelt.pantallaMetodo</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>mandarMetodo</servlet-name>
+        <servlet-class>Servelt.mandarMetodo</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>buscador</servlet-name>
+        <servlet-class>Servelt.buscador</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>enviarDatos</servlet-name>
+        <servlet-class>Servelt.enviarDatos</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>InicioSesion</servlet-name>
         <url-pattern>/iniciar</url-pattern>
@@ -15,6 +39,30 @@
     <servlet-mapping>
         <servlet-name>enviar</servlet-name>
         <url-pattern>/enviar</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>abrirMetodo</servlet-name>
+        <url-pattern>/abrirMetodo</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>TraerIdRu</servlet-name>
+        <url-pattern>/traeridru</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>pantallaMetodo</servlet-name>
+        <url-pattern>/pantallaMetodo</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>mandarMetodo</servlet-name>
+        <url-pattern>/mandarMetodo</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>buscador</servlet-name>
+        <url-pattern>/buscador</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>enviarDatos</servlet-name>
+        <url-pattern>/enviarDatos</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

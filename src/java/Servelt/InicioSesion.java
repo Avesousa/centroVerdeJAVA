@@ -16,14 +16,24 @@ public class InicioSesion extends HttpServlet {
         String usuario = request.getParameter("user");
         String contraseña = request.getParameter("pass");
         Iniciar in = new Iniciar();
-        if(in.ingresar(usuario, contraseña)){
+        boolean valor = in.ingresar(usuario, contraseña);
+        request.getSession().setAttribute("lista",in.imgCanales);
+        request.getSession().setAttribute("listados", in.imgCanalesDos);
+        request.getSession().setAttribute("canales", in.abreviaturaCanal);
+        request.getSession().setAttribute("listaCanal",in.nombreCanal);
+        request.getSession().setAttribute("listaId",in.idCanal);
+        request.getSession().setAttribute("id_centroverde", in.id_centroverde);
+        request.getSession().setAttribute("usuario",usuario);
+        request.getSession().setAttribute("centroverde",in.centroverde);
+        request.getSession().setAttribute("cooperativa", in.cooperativa);
+        request.getSession().setAttribute("id_coop", in.id_coop);
+        if(valor){
+            request.getSession().setAttribute("inicio","si");
             response.getWriter().write("ok"+in.cargo);
         }else {
             response.getWriter().write("noOk");
+            request.getSession().setAttribute("inicio",null);
         }
-         request.getSession().setAttribute("lista",in.imgCanales);
-         request.getSession().setAttribute("listaDos",in.imgCanalesOn);
-         //response.sendRedirect("/include/escritorio.jsp");
     }
 
     @Override
