@@ -6,49 +6,46 @@ import java.sql.Statement;
 import javax.swing.JOptionPane;
 
 public class envioDeDatos extends Conexion {
-    Camion camion;
-    int id = 0;
-    public void recibirDatos(Camion ca,String cv) {
-        camion = ca;
+    public void recibirDatos(Camion camion,String cv) {
         try {
             System.out.println("[ENTRO EN BASE DE DATOS]: ENTRO RECIEN, CAMION: " +camion + " CV: " + cv );
             System.out.println("[ENTRO EN BASE DE DATOS]: FECHA: " + camion.getFecha());
-            String sql = "INSERT INTO ingresos_centros_verdes(fecha_y_hora,id_cv,peso_total) VALUES("+
-                    camion.getFecha()+","+cv+","+camion.getPesoTotal()+");";
+            String sql = "INSERT INTO ingresos_centros_verdes(fecha,hora,id_cv,peso_total) VALUES('"+
+                    camion.getFecha()+"','"+camion.getHora()+"',"+cv+","+
+                    camion.getPesoTotal()+");";
             ps = conectador.prepareStatement(sql,Statement.RETURN_GENERATED_KEYS);
-            resultado = this.ps.getGeneratedKeys();
             ps.executeUpdate();
+            resultado = this.ps.getGeneratedKeys();
             while(resultado.next()){
-                id = resultado.getInt(0);
+                subirRestante(resultado.getInt(1),camion);
             }
-            resultado.close();
-            
         } catch (Exception e) {
             System.out.println("Ha ocurrido un error " + e);
             
         }
     }
     
-    private void subirRestante(){
-        String canalesSQL = "";
-        String bolsonSQL = "";
-        String camionSQL = "INSERT INTO camiones (patente)"+
-                "VALUES("+id+");";
+    private void subirRestante(int id, Camion camion){
+        try {
+            ps = conectador.prepareStatement("INSERT INTO ingreso_camiones "+
+                "VALUES("+id+",'"+camion.getPatente()+"'); ");
+            ps.executeUpdate();
         for(int i = 0; i < camion.getCanales().size(); i++){
+            System.out.println("[SUBIRRESTANTE]: ENTRO PRIMER FOR");
             Canal ca = camion.getCanales().get(i);
-            canalesSQL += "INSERT INTO canales_asociados VALUES("+
-                id+","+ca.nombreCanal+","+ca.getPesoTotal()+");";
-            for(int j = 0; j < ca.getBolsones().size();i++){
+                ps = conectador.prepareStatement("INSERT INTO canales_asociados"
+                        + " VALUES("+id+","+ca.getNombreCanal()+","
+                        +ca.getPesoTotal()+"); ");
+                ps.executeUpdate();
+            for(int j = 0; j < ca.getBolsones().size();j++){
+            System.out.println("[SUBIRRESTANTE]: ENTRO SEGUNDO FOR");
                 Bolson bo = ca.getBolsones().get(j);
-                bolsonSQL += "INSERT INTO bolsones VALUES("+
-                    id+","+bo.idBolson+","+bo.pesoTotal+","+bo.etapa+","+
-                    bo.subEtapa+","+bo.material+","+ca.nombreCanal+");";
+                ps = conectador.prepareStatement("INSERT INTO bolsones VALUES("+
+                    id+",'"+bo.getIdbolson()+"',"+bo.getPesoTotal()+",'"+bo.getEtapa()+"','"+
+                    bo.getSubEtapa()+"','"+bo.getMaterial()+"',"+ca.getNombreCanal()+"); ");
+                ps.executeUpdate();
             }
         }
-        String sql = canalesSQL+bolsonSQL+camionSQL;
-        try {
-            ps = conectador.prepareStatement(sql);
-            ps.executeUpdate();
         } catch (Exception e) {
             System.out.println("Ha ocurrido un error " + e);
         }

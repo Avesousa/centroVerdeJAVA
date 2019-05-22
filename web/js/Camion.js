@@ -17,6 +17,7 @@ class Camion {
 
     cargarDatos(){
         this.patente = $('#patente').val();
+        console.log("[EN EL CAMION]: PATENTE: " + this.patente);
         this.fecha = $('#fecha').val();
         this.hora = $('#hora').val();
     }

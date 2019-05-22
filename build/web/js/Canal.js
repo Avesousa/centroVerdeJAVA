@@ -13,14 +13,15 @@ class Canal {
     }
     
     enviar(){
-        limpiarInput(true,camion.ultimoCanal.metodo);
-        delete camion.ultimoCanal;
         camion.cargarDatos();
+        var metodo = camion.ultimoCanal.metodo;
+        delete camion.ultimoCanal;
         delete this.metodo;
         var datos = JSON.stringify(camion);
+        limpiarInput(true,metodo);
         $.post("enviarDatos", {valor: datos,cv:$("#idCv").val()}, function (res){
             console.log(res);
-        })
+        });
     }
 
     comenzarMetodo(_metodo){

@@ -22,6 +22,7 @@ public class enviarDatos extends HttpServlet {
         String json = request.getParameter("valor");
         String cv = request.getParameter("cv");
         System.out.println("¡Entro en EnviarDatos, y realizo la converción correctamente!");
+        System.out.println("[ENVIARDATOS]: STRING = " + json);
         ConversorJson cj = new ConversorJson();
         Camion camion = cj.convertirJson(json);
         System.out.println("[ENVIARDATO]: se creo el camión" + camion);
