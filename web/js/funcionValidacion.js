@@ -46,3 +46,11 @@ function validador(estado, texto, id) {
     }
 }
 
+function validarPesoBolson(pesoBolson) {
+
+    if(pesoBolson>300)  
+    validador(pesoBolson < 300,"El peso máximo por bolsón es 300 kg", "#validadorBolson");
+
+
+
+}
