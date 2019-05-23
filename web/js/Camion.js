@@ -18,8 +18,8 @@ class Camion {
     cargarDatos(){
         this.patente = $('#patente').val();
         console.log("[EN EL CAMION]: PATENTE: " + this.patente);
-        this.fecha = $('#fecha').val();
-        this.hora = $('#hora').val();
+        this.fechaHora = new Date($('#fecha').val()+" "+$('#hora').val());
+
     }
     /*Este método devuelve el peso total de todos los canales asociados al camión*/
    pesoTotal(){
