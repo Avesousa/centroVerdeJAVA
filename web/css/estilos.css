@@ -221,6 +221,9 @@ header img {
 .botonCargar{
     width: 50%;
 }
+.botonEnviar{
+    display: none;
+}
 .contenidoCarga{
     padding: 2%;
     width: 100%;
