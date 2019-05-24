@@ -10,9 +10,11 @@ class Canal {
         $("#cantidadMostrado").html(this.elementosCargados.length);
         $("#pesoMostrado").html(this.obtenerPesoTotal()+"KG");
         limpiarInput();
+        if(this.metodo.envioDirecto) this.enviar()
     }
     
     enviar(){
+        
         camion.cargarDatos();
         var metodo = camion.ultimoCanal.metodo;
         delete camion.ultimoCanal;

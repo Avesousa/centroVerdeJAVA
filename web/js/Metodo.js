@@ -1,13 +1,14 @@
 class Metodo {
-    constructor(){
+    constructor() {
         this.nombre = "Metodo creado";
         armarEtapa();
         limpiarZona();
+        this.envioDirecto = false;
         //consultaOpcionesSelect(idcv, "#etapa",'e');
         //consultaOpcionesSelect(idcanal, "#material",'m');
     }
-    
-    datos(){
+
+    datos() {
         this.etapa = $('#etapa').val();
         this.subetapa = $('#subetapa').val();
         this.material = $('#material').val();
@@ -19,14 +20,14 @@ class Metodo {
         this.cantidad = $('#cantidad').val();
         this.pesoSalida = $('#pesoSalida').val();
         this.pesoUnitario = $('#pesoUnitario').val();
-        
+
     }
 
-  
-    
+
+
 }
 
-class CargaConBolsonesEtapa extends Metodo{
+class CargaConBolsonesEtapa extends Metodo {
 
     mostrarPantallaDeMetodo() {
         $('#etapaDiv').slideToggle(50);
@@ -36,21 +37,25 @@ class CargaConBolsonesEtapa extends Metodo{
     }
 
     cargar() {
-       this.datos();
-       return new Bolson(this.idBolson, parseFloat(this.pesoEntrada),
-       this.etapa, this.subetapa, "Mixto");
+        this.datos();
+        return new Bolson(this.idBolson, parseFloat(this.pesoEntrada),
+            this.etapa, this.subetapa, "Mixto");
     }
 
-    
+
 }
 
 
 class EntradaSalida extends Metodo {
 
-  cargar() {
-    this.datos();
-    return new PesoTotalEntradaSalida(this.pesoEntrada,this.pesoSalida);
-  }
+    constructor() {
+        this.envioDirecto = true;
+    }
+
+    cargar() {
+        this.datos();
+        return new PesoTotalEntradaSalida(this.pesoEntrada, this.pesoSalida);
+    }
 
 }
 
