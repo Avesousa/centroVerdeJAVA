@@ -10,6 +10,7 @@ class Bolson {
         this.subEtapa = _subEtapa;
         this.material = _material;
         this.caracteristica = "bolson";
+        this.esBolson = true;
     }
 
     /*Se obtiene el peso total del bolson*/

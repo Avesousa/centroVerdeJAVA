@@ -334,7 +334,7 @@ header img {
 
 }
 .seccionBolson td{
-    border: 1px solid white;
+    border: 1px solid black;
 }
 #seccionEstadistica{
     margin-left: auto;
@@ -535,6 +535,10 @@ footer span{
     
     .caja{
         padding: 10%;
+    }
+    
+    .seccionBolson tr{
+        font-size: 0.4em;
     }
     
     .contenedorCargaMovil{

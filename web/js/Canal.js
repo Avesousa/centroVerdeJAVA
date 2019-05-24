@@ -18,7 +18,6 @@ class Canal {
         delete camion.ultimoCanal;
         delete this.metodo;
         var datos = JSON.stringify(camion);
-        alert(datos);
         limpiarInput(true,metodo);
         $.post("enviarDatos", {valor: datos,cv:$("#idCv").val()}, function (res){
             console.log(res);

@@ -37,6 +37,7 @@ public class envioDeDatos extends Conexion {
                         + " VALUES("+id+","+ca.getNombreCanal()+","
                         +ca.getPesoTotal()+"); ");
                 ps.executeUpdate();
+            //Colocar el if para comprobar si es bolson o no....   
             for(int j = 0; j < ca.getBolsones().size();j++){
             System.out.println("[SUBIRRESTANTE]: ENTRO SEGUNDO FOR");
                 Bolson bo = ca.getBolsones().get(j);

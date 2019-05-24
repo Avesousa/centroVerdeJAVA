@@ -124,6 +124,11 @@
                       </div>
                       <div class="seccionBolson">
                           <table id="tablaResumen">
+                              <tr>
+                                  <td>HOLA AMIGOS</td>
+                                  <td>HOLA AMIGOS</td>
+                                  <td>HOLA AMIGOS</td>
+                              </tr>
                           </table>
                               <button disabled id="botonEnviar" class="boton botonCargar" name="btn1" onClick="camion.ultimoCanal.enviar()">Enviar</button>
                       </div>
