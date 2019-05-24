@@ -114,14 +114,14 @@
                       <div class="seccionBolson" id="datosParaAgregar">
                         <div id ="validadorBolson" class = "divValidacion"></div>
                         <!-- FIJAR QUE ES LO QUE NECESITA CAMBIAR PARA VERIFICAR NOMBRE E ID-->
-                        <input type="text" name="NOMBRERD" id="nombre" placeholder = "Recuperador">
-                        <input type="number" name="IDRD" id="idRecuperador" min = "1" max ="5" placeholder = "ID del Recuperador">
-                        <input type="number" name="IDBL" id="idBolson" min = "1" max ="5" placeholder = "ID del Bolsón">
-                        <input type="number" name="peso" id="pesoBolson" placeholder = "Peso Bolson(KG)" oninput="validarPesoBolson(this.value)">
-                        <input type="number" name="peso" id="pesoEntrada" placeholder = "P. Entrada(KG)">
-                        <input type="number" name="cantidad" id="cantidad" placeholder = "Cantidad">
-                        <input type="number" name="peso" id="pesoSalida" placeholder = "P. Salida(KG)">
-                        <input type="number" name="peso" id="pesoUnitario" placeholder = "P. Material(KG)">
+                        <input type="text" name="NOMBRERD" id="nombre" placeholder = "Recuperador" oninput="camion.ultimoCanal.metodo.vericadorCargar();">
+                        <input type="number" name="IDRD" id="idRecuperador" min = "1" max ="5" placeholder = "ID del Recuperador" oninput="camion.ultimoCanal.metodo.vericadorCargar();">
+                        <input type="number" name="IDBL" id="idBolson" min = "1" max ="5" placeholder = "ID del Bolsón" oninput="camion.ultimoCanal.metodo.vericadorCargar();">
+                        <input type="number" name="peso" id="pesoBolson" placeholder = "Peso Bolson(KG)" oninput="camion.ultimoCanal.metodo.vericadorCargar();">
+                        <input type="number" name="peso" id="pesoEntrada" placeholder = "P. Entrada(KG)" oninput="camion.ultimoCanal.metodo.vericadorCargar();">
+                        <input type="number" name="cantidad" id="cantidad" placeholder = "Cantidad" oninput="camion.ultimoCanal.metodo.vericadorCargar();">
+                        <input type="number" name="peso" id="pesoSalida" placeholder = "P. Salida(KG)" oninput="camion.ultimoCanal.metodo.vericadorCargar();">
+                        <input type="number" name="peso" id="pesoUnitario" placeholder = "P. Material(KG)" oninput="camion.ultimoCanal.metodo.vericadorCargar();">
                         <button id="botonCargar" class="boton botonCargar" name="btn1" onClick="camion.ultimoCanal.cargar();" disabled>Cargar</button>
                       </div>
                       <div class="seccionBolson">
