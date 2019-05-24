@@ -122,7 +122,7 @@
                         <input type="number" name="cantidad" id="cantidad" placeholder = "Cantidad">
                         <input type="number" name="peso" id="pesoSalida" placeholder = "P. Salida(KG)">
                         <input type="number" name="peso" id="pesoUnitario" placeholder = "P. Material(KG)">
-                        <button id="botonCargar" class="boton botonCargar" name="btn1" onClick="camion.ultimoCanal.cargar();">Cargar</button>
+                        <button id="botonCargar" class="boton botonCargar" name="btn1" onClick="camion.ultimoCanal.cargar();" disabled>Cargar</button>
                       </div>
                       <div class="seccionBolson">
                           <table id="tablaResumen">
@@ -137,7 +137,8 @@
                                   <td>1</td>
                               </tr>
                           </table>
-                              <button disabled id="botonEnviar" class="boton botonCargar" name="btn1" onClick="camion.ultimoCanal.enviar()">Enviar</button>
+                              <button disabled id="botonEnviar" class="boton botonCargar botonEnviar" name="btn1" onClick="camion.ultimoCanal.enviar()">Enviar</button>
+                              <button disabled id="botonEntradaSalida" class="boton botonCargar botonEnviar" name="btn1" onClick="camion.ultimoCanal.enviar()">Enviar</button>
                       </div>
                     </div>
                   </div>

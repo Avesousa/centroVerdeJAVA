@@ -32,7 +32,8 @@ class CargaConBolsonesEtapa extends Metodo {
     mostrarPantallaDeMetodo() {
         $('#etapaDiv').slideToggle(50);
         $('#idBolson').slideToggle(50);
-        $('#pesoEntrada').slideToggle(50);
+        $('#pesoBolson').slideToggle(50);
+        $('#botonEnviar').slideToggle(50);
         //consultar();
     }
 
@@ -42,8 +43,14 @@ class CargaConBolsonesEtapa extends Metodo {
             this.etapa, this.subetapa, "Mixto");
     }
 
+    verificadorCargar(){
+        $("#botonCargar").attr("disabled",validadorPesoBolson($("#pesoBolson").val())&& $("#idBolson").val() == "");
+    }
+
 
 }
+
+camion.ultimoCanal.metodo.verificadorCargar();
 
 
 class EntradaSalida extends Metodo {
@@ -56,6 +63,19 @@ class EntradaSalida extends Metodo {
         this.datos();
         return new PesoTotalEntradaSalida(this.pesoEntrada, this.pesoSalida);
     }
+
+    verificadorCargar(){
+        $("#botonEntradaSalida").attr("disabled",$("#pesoSalida").val() != "" && $("#pesoEntrada").val() != "" && verificarPatente($("#patente").val()));
+    }
+
+    mostrarPantallaDeMetodo() {
+        $('#pesoSalida').slideToggle(50);
+        $('#botonCargar').css("display","none");
+        $('#pesoEntrada').slideToggle(50);
+        $('#botonEntradaSalida').slideToggle(50);
+        //consultar();
+    }
+
 
 }
 
