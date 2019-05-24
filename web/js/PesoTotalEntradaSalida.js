@@ -7,6 +7,8 @@ class PesoTotalEntradaSalida {
 
   }
 
-
+  pesoTotal(){
+    return this.pesoTotal;
+}
 
 }

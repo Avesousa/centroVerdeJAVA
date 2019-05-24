@@ -21,6 +21,10 @@ class Metodo {
         this.pesoUnitario = $('#pesoUnitario').val();
         
     }
+
+    pesoTotal(elementosCargados) {
+        return elementosCargados.map(elemento => elemento.pesoTotal().reduce((elemento1, elemento2) => elemento1 + elemento2);
+    }
     
 }
 
@@ -39,9 +43,7 @@ class CargaConBolsonesEtapa extends Metodo{
        this.etapa, this.subetapa, "Mixto");
     }
 
-    pesoTotal(elementosCargados) {
-        return elementosCargados.map(elemento => elemento.obtenerPesoTotal()).reduce((elemento1, elemento2) => elemento1 + elemento2);
-    }
+    
 }
 
 
