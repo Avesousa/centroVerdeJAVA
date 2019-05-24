@@ -20,7 +20,6 @@ class Camion {
         this.patente = $('#patente').val();
         if($('#fecha').val() == "in"){
             this.fechaHora = new Date().toString();
-            alert(this.fechaHora);
         }else{
             this.fechaHora = new Date($('#fecha').val() + " " + $('#hora').val());
         }
