@@ -7,12 +7,13 @@ import java.sql.Statement;
 import javax.swing.JOptionPane;
 
 public class envioDeDatos extends Conexion {
-    public void recibirDatos(Camion camion,String cv) {
+    public void recibirDatos(Camion camion,String cv,String user) {
         try {
             System.out.println("[ENTRO EN BASE DE DATOS]: ENTRO RECIEN, CAMION: " +camion + " CV: " + cv );
             System.out.println("[ENTRO EN BASE DE DATOS]: FECHA: " + camion.getFecha());
-            String sql = "INSERT INTO ingresos_centros_verdes(fecha,id_cv,peso_total) VALUES('"+
-                    new Timestamp(camion.getFecha().getTime())+"',"+cv+","+camion.getPesoTotal()+");";
+            String sql = "INSERT INTO ingresos_centros_verdes(fecha,id_cv,peso_total,id_usuario) VALUES('"+
+                    new Timestamp(camion.getFecha().getTime())+"',"+cv+","+camion.getPesoTotal()+
+                    ","+user+");";
             ps = conectador.prepareStatement(sql,Statement.RETURN_GENERATED_KEYS);
             ps.executeUpdate();
             resultado = this.ps.getGeneratedKeys();
@@ -38,14 +39,17 @@ public class envioDeDatos extends Conexion {
                         +ca.getPesoTotal()+"); ");
                 ps.executeUpdate();
             //Colocar el if para comprobar si es bolson o no....   
-            for(int j = 0; j < ca.getBolsones().size();j++){
-            System.out.println("[SUBIRRESTANTE]: ENTRO SEGUNDO FOR");
-                Bolson bo = ca.getBolsones().get(j);
-                ps = conectador.prepareStatement("INSERT INTO bolsones VALUES("+
-                    id+",'"+bo.getIdbolson()+"',"+bo.getPesoTotal()+",'"+bo.getEtapa()+"','"+
-                    bo.getSubEtapa()+"','"+bo.getMaterial()+"',"+ca.getNombreCanal()+"); ");
-                ps.executeUpdate();
+            if(ca.getBolsones().get(0).getEsBolson()){
+                for(int j = 0; j < ca.getBolsones().size();j++){
+                    System.out.println("[SUBIRRESTANTE]: ENTRO SEGUNDO FOR");
+                    ElementosCargados bo = ca.getBolsones().get(j);
+                    ps = conectador.prepareStatement("INSERT INTO bolsones VALUES("+
+                        id+",'"+bo.getIdbolson()+"',"+bo.getPesoTotal()+",'"+bo.getEtapa()+"','"+
+                        bo.getSubEtapa()+"','"+bo.getMaterial()+"',"+ca.getNombreCanal()+"); ");
+                    ps.executeUpdate();
+                }
             }
+            
         }
         } catch (Exception e) {
             System.out.println("Ha ocurrido un error " + e);

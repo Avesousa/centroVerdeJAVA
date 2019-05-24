@@ -218,6 +218,16 @@ function cambioPantalla(idNuevo, link, metodo) {
     });
 }
 
+function trabajoCompleto(){
+  swal({
+  position: 'top-end',
+  icon: 'success',
+  title: '¡Ya se ha cargado correctamente!',
+  showConfirmButton: false,
+  timer: 1500
+})
+}
+
 function traerFecha(tipo){
     var fecha = new Date();
     var valor;

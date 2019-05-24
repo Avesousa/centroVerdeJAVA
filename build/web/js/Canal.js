@@ -10,22 +10,23 @@ class Canal {
         $("#cantidadMostrado").html(this.elementosCargados.length);
         $("#pesoMostrado").html(this.obtenerPesoTotal()+"KG");
         limpiarInput();
+        if(this.metodo.envioDirecto) this.enviar();
     }
     
     enviar(){
         camion.cargarDatos();
-        var metodo = camion.ultimoCanal.metodo;
+        const metodoBandera = this.nombreMetodo
         delete camion.ultimoCanal;
         delete this.metodo;
         var datos = JSON.stringify(camion);
-        limpiarInput(true,metodo);
-        $.post("enviarDatos", {valor: datos,cv:$("#idCv").val()}, function (res){
-            console.log(res);
+        limpiarInput(true,metodoBandera);
+        $.post("enviarDatos", {valor: datos,cv:$("#idCv").val(),user:$("#idUser").val()}, function (res){
+            trabajoCompleto();
         });
     }
 
     comenzarMetodo(_metodo){
-        this.metodo = _metodo;
+        this.nombreMetodo = _metodo;
         limpiarZona();
     switch (_metodo) {
         case "cargaBolsonEtapa":
@@ -54,7 +55,7 @@ class Canal {
             break;
         case "entradaSalida":
             alerta("EL METODO QUE SE INTENTA CREAR, NO ESTÁ EN FUNCIONAMIENTO...");
-            //this.metodo = new entradaSalida();
+            this.metodo = new EntradaSalida();
             break;
         case "cantidadPesoE":
             alerta("EL METODO QUE SE INTENTA CREAR, NO ESTÁ EN FUNCIONAMIENTO...");
@@ -90,7 +91,7 @@ class Canal {
 }
     
     obtenerPesoTotal() {
-        return parseFloat(this.metodo.pesoTotal(this.elementosCargados).toFixed(2));
+        return this.elementosCargados.map(elemento => elemento.pesoTotal).reduce((elemento1, elemento2) => elemento1 + elemento2);
     }
 
 }

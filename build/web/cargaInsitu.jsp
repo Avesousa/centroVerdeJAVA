@@ -13,6 +13,7 @@
             List nombreCanal = (List)request.getSession().getAttribute("listaCanal");
             List idCanal = (List)request.getSession().getAttribute("listaId");
             String metodo = (String)request.getSession().getAttribute("metodo");
+            int iduser = Integer.parseInt((String)request.getSession().getAttribute("id_user").toString());
             String canalUsadoString = (String)request.getSession().getAttribute("canalUsado").toString();
             String idCvString = (String)request.getSession().getAttribute("id_centroverde").toString();
             String idCoopString = (String)request.getSession().getAttribute("id_coop").toString();
@@ -98,6 +99,7 @@
                             <input type="hidden" id="linkCanal" value="<%=linkDosUsado%>">
                             <input type="hidden" id="idCv" value="<%=idCv%>">
                             <input type="hidden" id="idCoop" value="<%=idCoop%>">
+                            <input type="hidden" id="idUser" value="<%=iduser%>">
                             <input type="hidden" id="metodo">
                             <div id="etapaDiv">
                             <select name="etapa" id="etapa"></select><br>
@@ -125,9 +127,14 @@
                       <div class="seccionBolson">
                           <table id="tablaResumen">
                               <tr>
-                                  <td>HOLA AMIGOS</td>
-                                  <td>HOLA AMIGOS</td>
-                                  <td>HOLA AMIGOS</td>
+                                  <th>MEDIO DE CAPTACIÓN</th>
+                                  <th>MATERIAL</th>
+                                  <th>PESO</th>
+                              </tr>
+                              <tr>
+                                  <td>H</td>
+                                  <td>ESTO ES UNA PRUEBA PARA ORDENAR</td>
+                                  <td>1</td>
                               </tr>
                           </table>
                               <button disabled id="botonEnviar" class="boton botonCargar" name="btn1" onClick="camion.ultimoCanal.enviar()">Enviar</button>

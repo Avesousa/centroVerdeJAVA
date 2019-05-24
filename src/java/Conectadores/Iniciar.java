@@ -12,6 +12,7 @@ public class Iniciar extends Conexion{
     public List nombreCanal = new ArrayList();
     public List abreviaturaCanal = new ArrayList();
     public List idCanal = new ArrayList();
+    public int id_user = 0;
     public int id_centroverde = 0;
     public int id_coop = 0;
     public String centroverde;
@@ -28,6 +29,7 @@ public class Iniciar extends Conexion{
            if(resultado.next()){
             cargo = resultado.getInt("id_cargo");
             id_centroverde = resultado.getInt("id_centroverde");
+            id_user = resultado.getInt("id_usuario");
             traerCentroVerde(id_centroverde);
             switch(cargo){
                 case 1: 

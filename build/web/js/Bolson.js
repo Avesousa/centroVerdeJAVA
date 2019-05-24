@@ -15,7 +15,7 @@ class Bolson {
 
     /*Se obtiene el peso total del bolson*/
     /*bolson.obtenerPesototal();*/
-    obtenerPesoTotal() {
+    pesoTotal(){
         return this.pesoTotal;
     }
 }

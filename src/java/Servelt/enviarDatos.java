@@ -22,6 +22,7 @@ public class enviarDatos extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         String json = request.getParameter("valor");
         String cv = request.getParameter("cv");
+        String user = request.getParameter("user");
         System.out.println("[SERVLET/ENVIARDATOS]: JSON: " + json);
         Camion camion = ConversorJson.convertirJson(json);
         /*
@@ -29,7 +30,7 @@ public class enviarDatos extends HttpServlet {
         */
         //Date fecha = new Date("'"+camion.getFecha()+"'");
         envioDeDatos envio = new envioDeDatos();
-        envio.recibirDatos(camion, cv);
+        envio.recibirDatos(camion,cv,user);
         
     }
 

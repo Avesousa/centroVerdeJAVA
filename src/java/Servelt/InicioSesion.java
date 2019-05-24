@@ -27,6 +27,7 @@ public class InicioSesion extends HttpServlet {
         request.getSession().setAttribute("centroverde",in.centroverde);
         request.getSession().setAttribute("cooperativa", in.cooperativa);
         request.getSession().setAttribute("id_coop", in.id_coop);
+        request.getSession().setAttribute("id_user", in.id_user);
         if(valor){
             request.getSession().setAttribute("inicio","si");
             response.getWriter().write("ok"+in.cargo);
