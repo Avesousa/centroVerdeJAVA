@@ -48,7 +48,7 @@ class CargaConBolsonesEtapa extends Metodo{
 class EntradaSalida extends Metodo {
 
   cargar() {
-
+    this.datos();
     return new PesoTotalEntradaSalida(this.pesoEntrada,this.pesoSalida);
   }
 
