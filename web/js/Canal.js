@@ -90,7 +90,7 @@ class Canal {
 }
     
     obtenerPesoTotal() {
-        return parseFloat(this.metodo.pesoTotal(this.elementosCargados).toFixed(2));
+        return this.elementosCargados.map(elemento => elemento.pesoTotal()).reduce((elemento1, elemento2) => elemento1 + elemento2);
     }
 
 }

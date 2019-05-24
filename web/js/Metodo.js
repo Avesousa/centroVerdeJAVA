@@ -22,9 +22,7 @@ class Metodo {
         
     }
 
-    pesoTotal(elementosCargados) {
-        return elementosCargados.map(elemento => elemento.pesoTotal().reduce((elemento1, elemento2) => elemento1 + elemento2);
-    }
+  
     
 }
 
