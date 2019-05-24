@@ -16,10 +16,14 @@ class Camion {
     }
 
     cargarDatos(){
+        //Elimine hora, para que pueda recibirlo de mejor manera en JAVA
         this.patente = $('#patente').val();
-        console.log("[EN EL CAMION]: PATENTE: " + this.patente);
-        this.fecha = $('#fecha').val();
-        this.hora = $('#hora').val();
+        if($('#fecha').val() == "in"){
+            this.fechaHora = new Date().toString();
+            alert(this.fechaHora);
+        }else{
+            this.fechaHora = new Date($('#fecha').val() + " " + $('#hora').val());
+        }
     }
     /*Este método devuelve el peso total de todos los canales asociados al camión*/
    pesoTotal(){

@@ -9,6 +9,7 @@ import Conectadores.envioDeDatos;
 import domain.*;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.Date;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -21,15 +22,14 @@ public class enviarDatos extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         String json = request.getParameter("valor");
         String cv = request.getParameter("cv");
-        System.out.println("¡Entro en EnviarDatos, y realizo la converción correctamente!");
-        System.out.println("[ENVIARDATOS]: STRING = " + json);
-        ConversorJson cj = new ConversorJson();
-        Camion camion = cj.convertirJson(json);
-        System.out.println("[ENVIARDATO]: se creo el camión" + camion);
+        System.out.println("[SERVLET/ENVIARDATOS]: JSON: " + json);
+        Camion camion = ConversorJson.convertirJson(json);
+        /*
+            PRUEBAS PARA VER LA CUESTIÓN DE LA FECHA :D
+        */
+        //Date fecha = new Date("'"+camion.getFecha()+"'");
         envioDeDatos envio = new envioDeDatos();
         envio.recibirDatos(camion, cv);
-        System.out.println("Envío correctamente");
-        System.out.println(json);
         
     }
 

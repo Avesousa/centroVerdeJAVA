@@ -5,17 +5,14 @@
         <group>
             <file>file:/C:/Users/20956852766/Desktop/DGREC/JAVA/webCentroVerde/web/js/funciones.js</file>
             <file>file:/C:/Users/20956852766/Desktop/DGREC/JAVA/webCentroVerde/web/js/Camion.js</file>
-            <file>file:/C:/Users/20956852766/Desktop/DGREC/JAVA/webCentroVerde/web/js/Metodo.js</file>
-            <file>file:/C:/Users/20956852766/Desktop/DGREC/JAVA/webCentroVerde/src/java/Servelt/abrirMetodo.java</file>
-            <file>file:/C:/Users/20956852766/Desktop/DGREC/JAVA/webCentroVerde/web/include/escritorio.jsp</file>
-            <file>file:/C:/Users/20956852766/Desktop/DGREC/JAVA/webCentroVerde/web/js/Bolson.js</file>
-            <file>file:/C:/Users/20956852766/Desktop/DGREC/JAVA/webCentroVerde/web/css/estilos.css</file>
-            <file>file:/C:/Users/20956852766/Desktop/DGREC/JAVA/webCentroVerde/web/js/estilos.js</file>
-            <file>file:/C:/Users/20956852766/Desktop/DGREC/JAVA/webCentroVerde/src/java/Servelt/InicioSesion.java</file>
+            <file>file:/C:/Users/20956852766/Desktop/DGREC/JAVA/webCentroVerde/src/java/Conectadores/Probar.java</file>
             <file>file:/C:/Users/20956852766/Desktop/DGREC/JAVA/webCentroVerde/src/java/Servelt/mandarMetodo.java</file>
             <file>file:/C:/Users/20956852766/Desktop/DGREC/JAVA/webCentroVerde/web/cargaInsitu.jsp</file>
-            <file>file:/C:/Users/20956852766/Desktop/DGREC/JAVA/webCentroVerde/web/js/ingreso.js</file>
-            <file>file:/C:/Users/20956852766/Desktop/DGREC/JAVA/webCentroVerde/web/js/Canal.js</file>
+            <file>file:/C:/Users/20956852766/Desktop/DGREC/JAVA/webCentroVerde/src/java/Servelt/enviarDatos.java</file>
+            <file>file:/C:/Users/20956852766/Desktop/DGREC/JAVA/webCentroVerde/src/java/Conectadores/Iniciar.java</file>
+            <file>file:/C:/Users/20956852766/Desktop/DGREC/JAVA/webCentroVerde/web/js/cargaScript.html</file>
+            <file>file:/C:/Users/20956852766/Desktop/DGREC/JAVA/webCentroVerde/src/java/Conectadores/envioDeDatos.java</file>
+            <file>file:/C:/Users/20956852766/Desktop/DGREC/JAVA/webCentroVerde/src/java/Conectadores/traerMetodos.java</file>
         </group>
     </open-files>
 </project-private>

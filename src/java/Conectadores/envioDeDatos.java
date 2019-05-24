@@ -2,6 +2,7 @@
 package Conectadores;
 
 import domain.*;
+import java.sql.*;
 import java.sql.Statement;
 import javax.swing.JOptionPane;
 
@@ -10,9 +11,8 @@ public class envioDeDatos extends Conexion {
         try {
             System.out.println("[ENTRO EN BASE DE DATOS]: ENTRO RECIEN, CAMION: " +camion + " CV: " + cv );
             System.out.println("[ENTRO EN BASE DE DATOS]: FECHA: " + camion.getFecha());
-            String sql = "INSERT INTO ingresos_centros_verdes(fecha,hora,id_cv,peso_total) VALUES('"+
-                    camion.getFecha()+"','"+camion.getHora()+"',"+cv+","+
-                    camion.getPesoTotal()+");";
+            String sql = "INSERT INTO ingresos_centros_verdes(fecha,id_cv,peso_total) VALUES('"+
+                    new Timestamp(camion.getFecha().getTime())+"',"+cv+","+camion.getPesoTotal()+");";
             ps = conectador.prepareStatement(sql,Statement.RETURN_GENERATED_KEYS);
             ps.executeUpdate();
             resultado = this.ps.getGeneratedKeys();

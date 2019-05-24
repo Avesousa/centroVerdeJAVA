@@ -92,8 +92,8 @@
                             pattern="([A-Z]{3}[0-9]{3}|[A-Z]{2}[0-9]{3}[A-Z]{2})"
                             oninput="this.value = this.value.toUpperCase(); verificarPatente(this.value);" 
                             onblur="verificarPatente(this.value);" required><br><br>
-                            <input type="hidden" id="fecha" value="21/05/2019"> 
-                            <input type="hidden" id="hora" value="18:00"> 
+                            <input type="hidden" id="fecha" value="in"> 
+                            <input type="hidden" id="hora" value="in"> 
                             <input type="hidden" id="idCanal" value="<%=canalUsado%>">
                             <input type="hidden" id="linkCanal" value="<%=linkDosUsado%>">
                             <input type="hidden" id="idCv" value="<%=idCv%>">
