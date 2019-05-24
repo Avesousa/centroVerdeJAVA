@@ -131,11 +131,7 @@
                                   <th>MATERIAL</th>
                                   <th>PESO</th>
                               </tr>
-                              <tr>
-                                  <td>H</td>
-                                  <td>ESTO ES UNA PRUEBA PARA ORDENAR</td>
-                                  <td>1</td>
-                              </tr>
+                              
                           </table>
                               <button disabled id="botonEnviar" class="boton botonCargar" name="btn1" onClick="camion.ultimoCanal.enviar()">Enviar</button>
                       </div>
