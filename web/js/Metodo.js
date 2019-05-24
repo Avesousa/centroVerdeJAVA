@@ -6,6 +6,7 @@ class Metodo {
         //consultaOpcionesSelect(idcv, "#etapa",'e');
         //consultaOpcionesSelect(idcanal, "#material",'m');
     }
+    
     datos(){
         this.etapa = $('#etapa').val();
         this.subetapa = $('#subetapa').val();
@@ -41,6 +42,16 @@ class CargaConBolsonesEtapa extends Metodo{
     pesoTotal(elementosCargados) {
         return elementosCargados.map(elemento => elemento.obtenerPesoTotal()).reduce((elemento1, elemento2) => elemento1 + elemento2);
     }
+}
+
+
+class EntradaSalida extends Metodo {
+
+  cargar() {
+
+    return new PesoTotalEntradaSalida(this.pesoEntrada,this.pesoSalida);
+  }
+
 }
 
 
