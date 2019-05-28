@@ -11,6 +11,7 @@ class Bolson {
         this.material = _material;
         this.caracteristica = "bolson";
         this.esBolson = true;
+        this.cantidad = 1;
     }
 
     /*Se obtiene el peso total del bolson*/

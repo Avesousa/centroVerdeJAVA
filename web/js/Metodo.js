@@ -76,6 +76,18 @@ class EntradaSalida extends Metodo {
 
 }
 
+class CantidadPesoE{
+
+   cargar() {
+     this.datos();
+     return new CaracteristicaMaterial(this.cantidad,this.material);
+
+      
+   }
+
+
+
+}
 
 /*module.exports = {
     Metodo: Metodo
