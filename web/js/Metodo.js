@@ -50,9 +50,6 @@ class CargaConBolsonesEtapa extends Metodo {
 
 }
 
-camion.ultimoCanal.metodo.verificadorCargar();
-
-
 class EntradaSalida extends Metodo {
 
     constructor() {
