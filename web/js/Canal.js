@@ -15,13 +15,13 @@ class Canal {
     
     enviar(){
         camion.cargarDatos();
-        const metodoBandera = this.nombreMetodo
+        const metodoBandera = this.nombreMetodo;
         delete camion.ultimoCanal;
         delete this.metodo;
         var datos = JSON.stringify(camion);
         limpiarInput(true,metodoBandera);
         $.post("enviarDatos", {valor: datos,cv:$("#idCv").val(),user:$("#idUser").val()}, function (res){
-            trabajoCompleto();
+            trabajoCompleto(res);
         });
     }
 
@@ -56,6 +56,7 @@ class Canal {
         case "entradaSalida":
             alerta("EL METODO QUE SE INTENTA CREAR, NO ESTÁ EN FUNCIONAMIENTO...");
             this.metodo = new EntradaSalida();
+            this.metodo.mostrarPantallaDeMetodo();
             break;
         case "cantidadPesoE":
             alerta("EL METODO QUE SE INTENTA CREAR, NO ESTÁ EN FUNCIONAMIENTO...");
