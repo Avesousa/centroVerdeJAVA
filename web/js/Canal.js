@@ -7,10 +7,10 @@ class Canal {
     }
 
     validarExistenciaDeMaterial(_elemento) {
-        var indice = elementosPorMaterial.map(elemento => elemento.material).indexOf(elemento.material);
+        var indice = elementosPorMaterial.map(elemento => elemento.material).indexOf(_elemento.material);
         if (indice != -1) {
-            elementosPorMaterial[indice].pesoTotal += _elemento.pesoTotal();
-            elementosPorMaterial[indice].cantidad += _elemento.cantidad;
+            this.elementosPorMaterial[indice].pesoTotal += _elemento.pesoTotal();
+            this. elementosPorMaterial[indice].cantidad += _elemento.cantidad;
         }
         else {
           this.elementosPorMaterial.push(new SumaTotalPorMaterial(_elemento.material,_elemento.cantidad,_elemento.caracteristica,_elemento.pesoTotal));
