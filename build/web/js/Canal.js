@@ -3,18 +3,34 @@ class Canal {
     constructor(_nombre) {
         this.nombreCanal = _nombre;
         this.elementosCargados = [];
+        this.elementosPorMaterial = [];
+    }
+
+    validarExistenciaDeMaterial(_elemento) {
+        var indice = elementosPorMaterial.map(elemento => elemento.material).indexOf(elemento.material);
+        if (indice != -1) {
+            elementosPorMaterial[indice].pesoTotal += _elemento.pesoTotal();
+            elementosPorMaterial[indice].cantidad += _elemento.cantidad;
+        }
+        else {
+          this.elementosPorMaterial.push(_elemento);
+        }
     }
 
     cargar() {
-        this.elementosCargados.push(this.metodo.cargar());
+        var nuevoElementoCargado = this.metodo.cargar();
+        this.elementosCargados.push(nuevoElementoCargado);
+        validarExistenciaDeMaterial(NuevoElementoCargado);
         $("#cantidadMostrado").html(this.elementosCargados.length);
-        $("#pesoMostrado").html(this.obtenerPesoTotal()+"KG");
+        $("#pesoMostrado").html(this.obtenerPesoTotal() + "KG");
         limpiarInput();
-        if(this.metodo.envioDirecto) this.enviar();
+        if (this.metodo.envioDirecto) this.enviar();
     }
-    
-    enviar(){
+
+
+    enviar() {
         camion.cargarDatos();
+        this.elementosPorMaterial();
         const metodoBandera = this.nombreMetodo;
         delete camion.ultimoCanal;
         delete this.metodo;
@@ -25,7 +41,7 @@ class Canal {
         });
     }
 
-    comenzarMetodo(_metodo){
+    comenzarMetodo(_metodo) {
         this.nombreMetodo = _metodo;
         limpiarZona();
     switch (_metodo) {
@@ -88,9 +104,10 @@ class Canal {
             break;
         default:
             alerta("EL METODO AGREGADO NO EXISTE");
+
     }
-}
-    
+    }
+
     obtenerPesoTotal() {
         return this.elementosCargados.map(elemento => elemento.pesoTotal).reduce((elemento1, elemento2) => elemento1 + elemento2);
     }
