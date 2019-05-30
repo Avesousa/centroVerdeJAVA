@@ -4,7 +4,7 @@ class SumaTotalPorMaterial {
    this.material = _material;
    this.cantidad = _cantidad;
    this.caracteristica = _caracteristica;
-   this.peso = _peso;
+   this.pesoTotal = _peso;
    
   }
 
