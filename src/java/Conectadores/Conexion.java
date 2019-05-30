@@ -20,6 +20,7 @@ public class Conexion {
     public int id_usuario;
     public int id_cliente;
     public int cargo;
+    public boolean elOk = false;
     public PreparedStatement ps = null;
     public Conexion() {
         this.conectador = establecerConexion();

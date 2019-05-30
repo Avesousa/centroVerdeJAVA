@@ -31,6 +31,7 @@ public class enviarDatos extends HttpServlet {
         //Date fecha = new Date("'"+camion.getFecha()+"'");
         envioDeDatos envio = new envioDeDatos();
         envio.recibirDatos(camion,cv,user);
+        response.getWriter().print(envio.elOk);
         
     }
 

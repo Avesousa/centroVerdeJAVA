@@ -1,4 +1,10 @@
-function tipoDeCarga(nombre, idCanal, idCv) {   
+function tipoDeCarga(nombre, idCanal, idCv) { 
+    
+    //PLANTEAR OPERACIÓN A REALIZAR:
+    //-INGRESO
+    //-EGRESO
+    //-RITRO BOLSON
+    //-OTRO
     swal({
         type: "Aviso informátivo",
         text: "Con el medio de captación de " + nombre + "¿Qué tipo de carga querés realizar?",
@@ -218,12 +224,23 @@ function cambioPantalla(idNuevo, link, metodo) {
     });
 }
 
-function trabajoCompleto(){
+function trabajoCompleto(bol){
+  var mensaje;
+  var icono;
+  if(bol == "true"){
+     icono = "success";
+     mensaje = '¡Ya se ha cargado correctamente!';
+  }
+  else {
+      icono = "error";
+      mensaje = '¡Ha ocurrido un error con la carga!';
+  }
+  
   swal({
   position: 'top-end',
-  icon: 'success',
-  title: '¡Ya se ha cargado correctamente!',
-  showConfirmButton: false,
+  icon: icono,
+  title: mensaje,
+  showConfirmButton: bol,
   timer: 1500
 })
 }
@@ -237,8 +254,7 @@ function traerFecha(tipo){
 }
 
 function limpiarZona(){
-    $(".seccionBolsonSelect div").css("display","none");
-    $(".seccionBolson input").css("display","none");
+    $(".seccionBolsonSelect div, seccionBolson input, #botonEnviar, #botonCargar").css("display","none");
 }
 function limpiarInput(bool,metodo){
     $(".seccionBolson input").val("");
@@ -246,8 +262,28 @@ function limpiarInput(bool,metodo){
         $("#patente").val("");
         $("#cantidadMostrado").html("0");
         $("#pesoMostrado").html("0,00KG");
+        limpiarZona();
+        $().css("display","none");
         camion = new Camion();
         camion.nuevoCanal($("#idCv").val(),metodo);
         
     }
+}
+
+function crearResumen() {
+    var listaBolson = document.getElementById("tablaResumen");
+    var fila = document.createElement("TR");
+    fila.setAttribute("id", ("n" + elementoCargado));
+    for (var indices = 0; datosextras.length > indices; indices++) {
+        var columna = document.createElement("TD");
+        var textColumna = document.createTextNode(datosextras[indices]);
+        columna.appendChild(textColumna);
+        fila.appendChild(columna);
+    }
+    var btn = document.createElement("TD");
+    btn.innerHTML = '<button onclick="eliminar(' + elementoCargado +')"> x </button>';
+    fila.appendChild(btn);
+    cantidad++;
+    elementoCargado++;
+    listaBolson.appendChild(fila);
 }
