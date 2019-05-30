@@ -13,14 +13,14 @@ class Canal {
             elementosPorMaterial[indice].cantidad += _elemento.cantidad;
         }
         else {
-          this.elementosPorMaterial.push(_elemento);
+          this.elementosPorMaterial.push(new SumaTotalPorMaterial(_elemento.material,_elemento.cantidad,_elemento.caracteristica,_elemento.pesoTotal));
         }
     }
 
     cargar() {
         var nuevoElementoCargado = this.metodo.cargar();
         this.elementosCargados.push(nuevoElementoCargado);
-        validarExistenciaDeMaterial(NuevoElementoCargado);
+        validarExistenciaDeMaterial(nuevoElementoCargado);
         $("#cantidadMostrado").html(this.elementosCargados.length);
         $("#pesoMostrado").html(this.obtenerPesoTotal() + "KG");
         limpiarInput();

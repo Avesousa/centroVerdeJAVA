@@ -152,8 +152,6 @@ function nombreRU(idBolson, _etapa) {
 
         $("#").prop("disabled", e != "n");
     });
-
-
 }
 
 function consultaOpcionesSelect(_consulta, idHtml, _tipoDeConsulta) {
