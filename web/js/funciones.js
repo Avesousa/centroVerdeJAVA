@@ -30,7 +30,6 @@ function tipoDeCarga(nombre, idCanal, idCv) {
         }
     });
 }
-
 function textoDelMetodo(letra) {
 
     switch (letra) {
@@ -49,7 +48,6 @@ function textoDelMetodo(letra) {
     }
 
 }
-
 /*Por medio de está función realiza la gestión con respecto a los métodos,
  * en caso tal de que sean dos métodos, o relacionan si son por el método INSITU (llamado por Miguel)
  * o método normal.*/
@@ -113,7 +111,6 @@ function gestionarMetodos(data, metodoE) {
     });
     
 }
-
 function alerta(text){
    swal({
                 type: "Aviso informátivo",
@@ -136,7 +133,6 @@ function armarJson(valor){
     }
     return final;
 }
-
 function armarString(valor, ubicacion) {
     var resultado = "";
     for (var i = 0; i < valor.length; i++) {
@@ -146,7 +142,6 @@ function armarString(valor, ubicacion) {
     }
     return resultado;
 }
-
 /*funcion para traer el nombre del usuario  sabiendo el centro verde y la*/
 function nombreRU(idBolson, _etapa) {
 
@@ -161,7 +156,6 @@ function nombreRU(idBolson, _etapa) {
 
 
 }
-
 function consultaOpcionesSelect(_consulta, idHtml, _tipoDeConsulta) {
     $.post('buscador', { consulta: _consulta, tipoDeConsulta: _tipoDeConsulta }, function (e) {
         for (var index = 0; index < e.length; index++)
@@ -170,7 +164,6 @@ function consultaOpcionesSelect(_consulta, idHtml, _tipoDeConsulta) {
     }
     )
 }
-
 function armarEtapa(){
     $.post('buscador',{
         id: $("#idCoop").val()
@@ -182,7 +175,6 @@ function armarEtapa(){
         }
     });
 }
-
 function cambioPantalla(idNuevo, link, metodo) {
     
     swal({
@@ -205,7 +197,7 @@ function cambioPantalla(idNuevo, link, metodo) {
         }
     }).then((value) => {
         if(value){
-        console.log("ES POSITIVO PARA ALCOLOIDE DE SI :d");
+        limpiarZona();
         var idCv = $("#idCv").val();
         var id = $("#idCanal").val();
         var linkViejo = $("#linkCanal").val();
@@ -213,7 +205,6 @@ function cambioPantalla(idNuevo, link, metodo) {
         var imgVieja = $("#" + id + "img");
         $("#linkCanal").val(link);
         $("#idCanal").val(idNuevo);
-        $("#"+id+"a").attr("onclick","");
         imgVieja.attr("src", linkViejo + "on.png");
         imgNueva.attr("src", link + "s.png");
         gestionarMetodos({cv:idCv,canal:idNuevo,tipo:metodo},false);
@@ -223,7 +214,6 @@ function cambioPantalla(idNuevo, link, metodo) {
     }
     });
 }
-
 function trabajoCompleto(bol){
   var mensaje;
   var icono;
@@ -244,7 +234,6 @@ function trabajoCompleto(bol){
   timer: 1500
 })
 }
-
 function traerFecha(tipo){
     var fecha = new Date();
     var valor;
@@ -252,12 +241,27 @@ function traerFecha(tipo){
     else valor = fecha.getHours()+":"+fecha.getMinutes();
     return valor;
 }
-
 function limpiarZona(){
-    $(".seccionBolsonSelect div, seccionBolson input, #botonEnviar, #botonCargar").css("display","none");
+    console.log("cambiarPantalla");
+    $(".seccionBolsonSelect div, seccionBolson input, #botonEnviar, #botonCargar, #botonEntradaSalida").css("display","none");
+    $("#botonEnviar").attr("disabled",true);
+    $("#botonEntradaSalida").attr("disabled",true);
+    $("#tablaResumen").html(
+            "<thead>"+
+            "<tr>"+
+            "<th>PROYECTO</th>"+
+            "<th>BOLSON</th>"+
+            "<th>ASOCIADO</th>"+
+            "<th>PESO</th>"+
+            "</tr>"+
+            "</thead>"+
+            "<tbody>"+
+            "</tbody>"
+    );
 }
 function limpiarInput(bool,metodo){
     $(".seccionBolson input").val("");
+    $("#botonCargar").attr("disabled",true);
     if(bool){
         $("#patente").val("");
         $("#cantidadMostrado").html("0");
@@ -265,25 +269,26 @@ function limpiarInput(bool,metodo){
         limpiarZona();
         $().css("display","none");
         camion = new Camion();
-        camion.nuevoCanal($("#idCv").val(),metodo);
+        camion.nuevoCanal($("#idCanal").val(),metodo);
         
     }
 }
-
 function crearResumen() {
-    var listaBolson = document.getElementById("tablaResumen");
-    var fila = document.createElement("TR");
-    fila.setAttribute("id", ("n" + elementoCargado));
-    for (var indices = 0; datosextras.length > indices; indices++) {
-        var columna = document.createElement("TD");
-        var textColumna = document.createTextNode(datosextras[indices]);
-        columna.appendChild(textColumna);
-        fila.appendChild(columna);
-    }
-    var btn = document.createElement("TD");
-    btn.innerHTML = '<button onclick="eliminar(' + elementoCargado +')"> x </button>';
-    fila.appendChild(btn);
-    cantidad++;
-    elementoCargado++;
-    listaBolson.appendChild(fila);
+    var canal = camion.ultimoCanal;
+    var elem = canal.elementosCargados;
+    var id;
+    if(elem[elem.length-1].idBolson) id = elem[elem.length-1].idBolson;
+    else id = "No Disponible";
+    var peso = elem[elem.length-1].pesoTotal;
+    var nom = $("#nombre").val();
+    var proyecto = elem[elem.length-1].etapa;
+    var fila ="<tr>"+
+            "<td>"+proyecto+"</td>"+
+            "<td>"+id+"</td>"+
+            "<td>"+nom+"</td>"+
+            "<td>"+peso+"</td>"+
+            "</tr>";
+   $("#tablaResumen").append(fila);
+    
+    
 }

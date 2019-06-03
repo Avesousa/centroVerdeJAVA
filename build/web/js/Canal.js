@@ -7,10 +7,10 @@ class Canal {
     }
 
     validarExistenciaDeMaterial(_elemento) {
-        var indice = elementosPorMaterial.map(elemento => elemento.material).indexOf(elemento.material);
+        var indice = this.elementosPorMaterial.map(elemento => elemento.material).indexOf(_elemento.material);
         if (indice != -1) {
-            elementosPorMaterial[indice].pesoTotal += _elemento.pesoTotal();
-            elementosPorMaterial[indice].cantidad += _elemento.cantidad;
+            this.elementosPorMaterial[indice].pesoTotal += _elemento.pesoTotal;
+            this.elementosPorMaterial[indice].cantidad += _elemento.cantidad;
         }
         else {
           this.elementosPorMaterial.push(_elemento);
@@ -20,24 +20,26 @@ class Canal {
     cargar() {
         var nuevoElementoCargado = this.metodo.cargar();
         this.elementosCargados.push(nuevoElementoCargado);
-        validarExistenciaDeMaterial(NuevoElementoCargado);
+        //this.validarExistenciaDeMaterial(nuevoElementoCargado);
         $("#cantidadMostrado").html(this.elementosCargados.length);
         $("#pesoMostrado").html(this.obtenerPesoTotal() + "KG");
+        crearResumen();
         limpiarInput();
+        $("#nombreRecuperador").html("");
         if (this.metodo.envioDirecto) this.enviar();
     }
 
 
     enviar() {
         camion.cargarDatos();
-        this.elementosPorMaterial();
+        //this.elementosPorMaterial();
         const metodoBandera = this.nombreMetodo;
         delete camion.ultimoCanal;
         delete this.metodo;
         var datos = JSON.stringify(camion);
-        limpiarInput(true,metodoBandera);
         $.post("enviarDatos", {valor: datos,cv:$("#idCv").val(),user:$("#idUser").val()}, function (res){
             trabajoCompleto(res);
+            limpiarInput(true,metodoBandera);
         });
     }
 
@@ -70,7 +72,7 @@ class Canal {
             //this.metodo = new cargaBolsonIDREF();
             break;
         case "entradaSalida":
-            alerta("EL METODO QUE SE INTENTA CREAR, NO ESTÁ EN FUNCIONAMIENTO...");
+            alert("Está en mantenimiento dicho metodo");
             this.metodo = new EntradaSalida();
             this.metodo.mostrarPantallaDeMetodo();
             break;

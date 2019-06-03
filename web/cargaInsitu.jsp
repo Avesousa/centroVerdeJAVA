@@ -113,10 +113,11 @@
                       </div><br>
                       <div class="seccionBolson" id="datosParaAgregar">
                         <div id ="validadorBolson" class = "divValidacion"></div>
+                        <div id ="nombreRecuperador" class = "nombreDiv"></div>
                         <!-- FIJAR QUE ES LO QUE NECESITA CAMBIAR PARA VERIFICAR NOMBRE E ID-->
                         <input type="text" name="NOMBRERD" id="nombre" placeholder = "Recuperador" oninput="camion.ultimoCanal.metodo.verificadorCargar();">
-                        <input type="number" name="IDRD" id="idRecuperador" min = "1" max ="5" placeholder = "ID del Recuperador" oninput="camion.ultimoCanal.metodo.verificadorCargar();">
-                        <input type="number" name="IDBL" id="idBolson" min = "1" max ="5" placeholder = "ID del Bolsón" oninput="camion.ultimoCanal.metodo.verificadorCargar();">
+                        <input type="number" name="IDRD" id="idRecuperador" min = "1" max ="5" placeholder = "ID del Recuperador">
+                        <input type="number" name="IDBL" id="idBolson" min = "1" max ="5" placeholder = "ID del Bolsón">
                         <input type="number" name="peso" id="pesoBolson" placeholder = "Peso Bolson(KG)" oninput="camion.ultimoCanal.metodo.verificadorCargar();">
                         <input type="number" name="peso" id="pesoEntrada" placeholder = "P. Entrada(KG)" oninput="camion.ultimoCanal.metodo.verificadorCargar();">
                         <input type="number" name="cantidad" id="cantidad" placeholder = "Cantidad" oninput="camion.ultimoCanal.metodo.verificadorCargar();">
@@ -125,13 +126,17 @@
                         <button id="botonCargar" class="boton botonCargar" name="btn1" onClick="camion.ultimoCanal.cargar();" disabled>Cargar</button>
                       </div>
                       <div class="seccionBolson">
-                          <table id="tablaResumen">
+                          <table id="tablaResumen" class="tablesorter">
+                              <thead>
                               <tr>
-                                  <th>MEDIO DE CAPTACIÓN</th>
-                                  <th>MATERIAL</th>
+                                  <th>PROYECTO</th>
+                                  <th>BOLSON</th>
+                                  <th>ASOCIADO</th>
                                   <th>PESO</th>
                               </tr>
-                              
+                             </thead>
+                              <tbody>
+                              </tbody>
                           </table>
                               <button disabled id="botonEnviar" class="boton botonCargar botonEnviar" name="btn1" onClick="camion.ultimoCanal.enviar()">Enviar</button>
                               <button disabled id="botonEntradaSalida" class="boton botonCargar botonEnviar" name="btn1" onClick="camion.ultimoCanal.enviar()">Enviar</button>

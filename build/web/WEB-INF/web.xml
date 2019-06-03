@@ -32,6 +32,10 @@
         <servlet-name>enviarDatos</servlet-name>
         <servlet-class>Servelt.enviarDatos</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>buscadorId</servlet-name>
+        <servlet-class>Servelt.buscadorId</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>InicioSesion</servlet-name>
         <url-pattern>/iniciar</url-pattern>
@@ -63,6 +67,10 @@
     <servlet-mapping>
         <servlet-name>enviarDatos</servlet-name>
         <url-pattern>/enviarDatos</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>buscadorId</servlet-name>
+        <url-pattern>/buscadorId</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

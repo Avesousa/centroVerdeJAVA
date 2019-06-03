@@ -28,7 +28,8 @@ class Metodo {
 class CargaConBolsonesEtapa extends Metodo {
 
     mostrarPantallaDeMetodo() {
-        $('#etapaDiv,#idBolson,#pesoBolson,#botonEnviar,#botonCargar').css("display","inline-block");
+        $('#idBolson,#pesoBolson,#botonEnviar,#botonCargar').css("display","inline-block");
+        $('#etapaDiv').css("display","block");
         
 //        $('#etapaDiv').slideToggle(50);
 //        $('#idBolson').slideToggle(50);
@@ -40,19 +41,37 @@ class CargaConBolsonesEtapa extends Metodo {
     cargar() {
         this.datos();
         return new Bolson(this.idBolson, parseFloat(this.pesoBolson),
-            this.etapa, this.subetapa, "Mixto");
+            this.etapa, this.subetapa, "Mixto", this.idRecuperador);
     }
 
     verificadorCargar(){
-        $("#botonCargar").attr("disabled",!(validarPesoBolson($("#pesoBolson").val())&& $("#idBolson").val() != ""));
+        $("#botonCargar").attr("disabled",
+        (validarPesoBolson($("#pesoBolson").val())&& $("#idBolson").val() != ""));
     }
-
+    
+    buscadorId(){
+        if($("#idBolson").val() != ""){
+        $.post("buscadorId",{
+            id:$("#idBolson").val(),
+            etapa:$("#etapa").val()
+        },function(res){
+            var recuperador = JSON.parse(res);
+            $("#nombreRecuperador").html(recuperador.nombre);
+            $("#nombre").val(recuperador.nombre)
+            $("#idRecuperador").val(recuperador.id); //DEBE SER TOMADO POR EL OBJETO BOLSON EN EL CONVERSOR
+        }); 
+        }else{
+             $("#nombreRecuperador").html("");
+        }
+        
+    }
 
 }
 
 class EntradaSalida extends Metodo {
 
     constructor() {
+        super();
         this.envioDirecto = true;
     }
 
@@ -62,14 +81,18 @@ class EntradaSalida extends Metodo {
     }
 
     verificadorCargar(){
-        $("#botonEntradaSalida").attr("disabled",$("#pesoSalida").val() != "" && $("#pesoEntrada").val() != "" && verificarPatente($("#patente").val()));
+        $("#botonEntradaSalida").attr("disabled",
+            $("#pesoSalida").val() != "" 
+            && $("#pesoEntrada").val() != "" 
+            && verificarPatente($("#patente").val())
+            && parseInt($("#pesoSalida").val()) > parseInt($("#pesoEntrada").val()));
     }
 
     mostrarPantallaDeMetodo() {
         $('#pesoSalida').slideToggle(50);
         $('#botonCargar').css("display","none");
         $('#pesoEntrada').slideToggle(50);
-        $('#botonEntradaSalida').slideToggle(50);
+        $('#botonEntradaSalida').css("display","block");
         //consultar();
     }
 
