@@ -1,5 +1,5 @@
-function tipoDeCarga(nombre, idCanal, idCv) { 
-    
+function tipoDeCarga(nombre, idCanal, idCv) {
+
     //PLANTEAR OPERACIÓN A REALIZAR:
     //-INGRESO
     //-EGRESO
@@ -35,16 +35,16 @@ function textoDelMetodo(letra) {
     switch (letra) {
         case "b":
             return "Carga con Bolson";
-            
+
         case "e":
             return "Carga con Peso de entrada y salida";
-         
+
         case "s":
             return "Carga con Peso de salida";
-           
+
         case "v":
             return "Carga con visualización";
-            
+
     }
 
 }
@@ -91,43 +91,43 @@ function gestionarMetodos(data, metodoE) {
         }
         //cuando es un solo método.
         else {
-            $.post("mandarMetodo", {metodo:armarString(res, 0),canal:data['canal'],tipo:"no" }, function (res) {
+            $.post("mandarMetodo", { metodo: armarString(res, 0), canal: data['canal'], tipo: "no" }, function (res) {
                 canal = JSON.parse(res);
                 if (data['tipo'] != "rapido") {
                     if (metodoE) {
                         window.open('carga.jsp', '_self');
-                    }else{
-                        camion.nuevoCanal(canal.id,canal.metodo);
+                    } else {
+                        camion.nuevoCanal(canal.id, canal.metodo);
                     }
                 } else {
                     if (metodoE) {
                         window.open('cargaInsitu.jsp', '_self');
-                    }else{
-                        camion.nuevoCanal(canal.id,canal.metodo);
+                    } else {
+                        camion.nuevoCanal(canal.id, canal.metodo);
                     }
                 }
             });
         }
     });
-    
+
 }
-function alerta(text){
-   swal({
-                type: "Aviso informátivo",
-                text: text,
-                buttons: {
-                    rapido: {
-                        text: "Aceptar",
-                        visible: true,
-                        closeModal: true
-                    }
-                }
-            });
+function alerta(text) {
+    swal({
+        type: "Aviso informátivo",
+        text: text,
+        buttons: {
+            rapido: {
+                text: "Aceptar",
+                visible: true,
+                closeModal: true
+            }
+        }
+    });
 }
-function armarJson(valor){
+function armarJson(valor) {
     var final = '';
-    for(var i = 0; i < valor.length; i++){
-        if(valor.charAt(i) != '"'){
+    for (var i = 0; i < valor.length; i++) {
+        if (valor.charAt(i) != '"') {
             final += valor.charAt(i);
         }
     }
@@ -162,23 +162,23 @@ function consultaOpcionesSelect(_consulta, idHtml, _tipoDeConsulta) {
     }
     )
 }
-function armarEtapa(){
-    $.post('buscador',{
+function armarEtapa() {
+    $.post('buscador', {
         id: $("#idCoop").val()
-    },function(res){
+    }, function (res) {
         var lista = JSON.parse(res);
-        for(var i in lista.etapas){
-           $("#etapa").append('<option value =' + lista.etapas[i] + '>' + 
-                   lista.etapas[i] + '</option>'); 
+        for (var i in lista.etapas) {
+            $("#etapa").append('<option value =' + lista.etapas[i] + '>' +
+                lista.etapas[i] + '</option>');
         }
     });
 }
 function cambioPantalla(idNuevo, link, metodo) {
-    
+
     swal({
         type: "Aviso informátivo",
         text: "¿Desear terminar la carga por esté canal y agregar otro medio de captación dentro del mismo camión?",
-        timer:5000,
+        timer: 5000,
         buttons: {
             rapido: {
                 text: "SI",
@@ -194,99 +194,106 @@ function cambioPantalla(idNuevo, link, metodo) {
             }
         }
     }).then((value) => {
-        if(value){
-        limpiarZona();
-        var idCv = $("#idCv").val();
-        var id = $("#idCanal").val();
-        var linkViejo = $("#linkCanal").val();
-        var imgNueva = $("#" + idNuevo + "img");
-        var imgVieja = $("#" + id + "img");
-        $("#linkCanal").val(link);
-        $("#idCanal").val(idNuevo);
-        imgVieja.attr("src", linkViejo + "on.png");
-        imgNueva.attr("src", link + "s.png");
-        gestionarMetodos({cv:idCv,canal:idNuevo,tipo:metodo},false);
-        if(camion.ultimoCanal.elementosCargados.length == 0){
-            camion.canales.splice(camion.canales.length-1,1);
+        if (value) {
+            limpiarZona();
+            var idCv = $("#idCv").val();
+            var id = $("#idCanal").val();
+            var linkViejo = $("#linkCanal").val();
+            var imgNueva = $("#" + idNuevo + "img");
+            var imgVieja = $("#" + id + "img");
+            $("#linkCanal").val(link);
+            $("#idCanal").val(idNuevo);
+            imgVieja.attr("src", linkViejo + "on.png");
+            imgNueva.attr("src", link + "s.png");
+            gestionarMetodos({ cv: idCv, canal: idNuevo, tipo: metodo }, false);
+            if (camion.ultimoCanal.elementosCargados.length == 0) {
+                camion.canales.splice(camion.canales.length - 1, 1);
+            }
         }
-    }
     });
 }
-function trabajoCompleto(bol){
-  var mensaje;
-  var icono;
-  if(bol == "true"){
-     icono = "success";
-     mensaje = '¡Ya se ha cargado correctamente!';
-  }
-  else {
-      icono = "error";
-      mensaje = '¡Ha ocurrido un error con la carga!';
-  }
-  
-  swal({
-  position: 'top-end',
-  icon: icono,
-  title: mensaje,
-  showConfirmButton: bol,
-  timer: 1500
-})
+function trabajoCompleto(bol) {
+    var mensaje;
+    var icono;
+    if (bol == "true") {
+        icono = "success";
+        mensaje = '¡Ya se ha cargado correctamente!';
+    }
+    else {
+        icono = "error";
+        mensaje = '¡Ha ocurrido un error con la carga!';
+    }
+
+    swal({
+        position: 'top-end',
+        icon: icono,
+        title: mensaje,
+        showConfirmButton: bol,
+        timer: 1500
+    })
 }
-function traerFecha(tipo){
+function traerFecha(tipo) {
     var fecha = new Date();
     var valor;
-    if(tipo == "f")valor = fecha.getDate()+"/"+(fecha.getMonth()+1)+"/"+fecha.getFullYear();
-    else valor = fecha.getHours()+":"+fecha.getMinutes();
+    if (tipo == "f") valor = fecha.getDate() + "/" + (fecha.getMonth() + 1) + "/" + fecha.getFullYear();
+    else valor = fecha.getHours() + ":" + fecha.getMinutes();
     return valor;
 }
-function limpiarZona(){
+function limpiarZona() {
     console.log("cambiarPantalla");
-    $(".seccionBolsonSelect div, seccionBolson input, #botonEnviar, #botonCargar, #botonEntradaSalida").css("display","none");
-    $("#botonEnviar").attr("disabled",true);
-    $("#botonEntradaSalida").attr("disabled",true);
+    $(".seccionBolsonSelect div, seccionBolson input, #botonEnviar, #botonCargar, #botonEntradaSalida").css("display", "none");
+    $("#botonEnviar").attr("disabled", true);
+    $("#botonEntradaSalida").attr("disabled", true);
     $("#tablaResumen").html(
-            "<thead>"+
-            "<tr>"+
-            "<th>PROYECTO</th>"+
-            "<th>BOLSON</th>"+
-            "<th>ASOCIADO</th>"+
-            "<th>PESO</th>"+
-            "</tr>"+
-            "</thead>"+
-            "<tbody>"+
-            "</tbody>"
+        "<thead>" +
+        "<tr>" +
+        "<th>PROYECTO</th>" +
+        "<th>BOLSON</th>" +
+        "<th>ASOCIADO</th>" +
+        "<th>PESO</th>" +
+        "</tr>" +
+        "</thead>" +
+        "<tbody>" +
+        "</tbody>"
     );
 }
-function limpiarInput(bool,metodo){
+function limpiarInput(bool, metodo) {
     $(".seccionBolson input").val("");
-    $("#botonCargar").attr("disabled",true);
-    if(bool){
+    $("#botonCargar").attr("disabled", true);
+    if (bool) {
         $("#patente").val("");
         $("#cantidadMostrado").html("0");
         $("#pesoMostrado").html("0,00KG");
         limpiarZona();
-        $().css("display","none");
+        $().css("display", "none");
         camion = new Camion();
-        camion.nuevoCanal($("#idCanal").val(),metodo);
-        
+        camion.nuevoCanal($("#idCanal").val(), metodo);
+
     }
 }
 function crearResumen() {
-    var canal = camion.ultimoCanal;
-    var elem = canal.elementosCargados;
-    var id;
-    if(elem[elem.length-1].idBolson) id = elem[elem.length-1].idBolson;
+
+    var elemento = camion.ultimoCanal.elementosCargados.sort((unElemento, otroElemento) => unElemento.etapa.localeCompare(otroElemento.etapa));
+    if (elemento[elemento.length - 1].idBolson) id = elemento[elemento.length - 1].idBolson;
     else id = "No Disponible";
-    var peso = elem[elem.length-1].pesoTotal;
-    var nom = $("#nombre").val();
-    var proyecto = elem[elem.length-1].etapa;
-    var fila ="<tr>"+
-            "<td>"+proyecto+"</td>"+
-            "<td>"+id+"</td>"+
-            "<td>"+nom+"</td>"+
-            "<td>"+peso+"</td>"+
-            "</tr>";
-   $("#tablaResumen").append(fila);
-    
-    
+    $("#tablaResumen").html("");
+    for (var i = 0; i < elemento.length; i++) {
+        $("#tablaResumen").append("<tr>" +
+        "<td>" + elemento[i].etapa + "</td>" +
+        "<td>" + elemento[i].idBolson + "</td>" +
+        "<td>" + elemento[i].nombre + "</td>" +
+        "<td>" + elemento[i].pesoTotal + "</td>" +
+        "</tr>");
+
+    }
+}
+
+
+
+function ordenarElementosCargadosPorEtapa(array) {
+
+
+    return array.sort((unElemento, otroElemento) => unElemento.etapa.localeCompare(otroElemento.etapa));
+
+
 }
