@@ -1,7 +1,8 @@
 
 package Conectadores;
 
-import domain.*;
+import domain.Camion;
+import domain.Camion.Canal;
 import java.sql.*;
 import java.sql.Statement;
 import javax.swing.JOptionPane;
@@ -43,14 +44,14 @@ public class envioDeDatos extends Conexion {
                         +ca.getPesoTotal()+"); ");
                 ps.executeUpdate();
             //Colocar el if para comprobar si es bolson o no....   
-            if(ca.getBolsones().get(0).getEsBolson()){
+            if(ca.getBolsones().get(0).esBolson){
                 for(int j = 0; j < ca.getBolsones().size();j++){
                     System.out.println("[SUBIRRESTANTE]: ENTRO SEGUNDO FOR");
-                    ElementosCargados bo = ca.getBolsones().get(j);
+                    Camion.Canal.InnerElementosCargados bo = ca.getBolsones().get(j);
                     ps = conectador.prepareStatement("INSERT INTO bolsones (id_ingreso,"
-                            + "id_bolson,peso,etapa,subetapa,id_canal) VALUES("+
-                        id+",'"+bo.getIdbolson()+"',"+bo.getPesoTotal()+",'"+bo.getEtapa()+"','"+
-                        bo.getSubEtapa()+"','"+ca.getNombreCanal()+"'); ");
+                            + "id_bolson,peso,etapa,subetapa,id_canal,id_asociado) VALUES("+
+                        id+",'"+bo.idBolson+"',"+bo.getPesoTotal()+",'"+bo.etapa+"','"+
+                        bo.subEtapa+"','"+ca.nombreCanal+"',"+bo.idRecuperador+"); ");
                     ps.executeUpdate();
                 }
             }

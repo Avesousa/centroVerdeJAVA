@@ -51,3 +51,9 @@ function validarPesoBolson(peso) {
     else if(peso != ""){$("#validadorBolson").css("display","none")}
     return (peso>300 || peso == "");
 }
+
+function validarUsoMixto(pri,seg){
+    var opcionUno = ((pri == 1 && seg == 3) || (seg == 1 && pri == 3));
+    var opcionDos = ((pri == 3 && seg == 2) || (seg == 3 && pri == 2));
+    return ((opcionUno || opcionDos) || (camion.ultimoCanal.elementosCargados.length == 0));
+}
