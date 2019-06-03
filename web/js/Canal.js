@@ -7,20 +7,21 @@ class Canal {
     }
 
     validarExistenciaDeMaterial(_elemento) {
-        var indice = this.elementosPorMaterial.map(elemento => elemento.material).indexOf(_elemento.material);
+
+        var indice = elementosPorMaterial.map(elemento => elemento.material).indexOf(_elemento.material);
         if (indice != -1) {
-            this.elementosPorMaterial[indice].pesoTotal += _elemento.pesoTotal;
-            this.elementosPorMaterial[indice].cantidad += _elemento.cantidad;
+            this.elementosPorMaterial[indice].pesoTotal += _elemento.pesoTotal();
+            this. elementosPorMaterial[indice].cantidad += _elemento.cantidad;
         }
         else {
-          this.elementosPorMaterial.push(_elemento);
+          this.elementosPorMaterial.push(new SumaTotalPorMaterial(_elemento.material,_elemento.cantidad,_elemento.caracteristica,_elemento.pesoTotal));
         }
     }
 
     cargar() {
         var nuevoElementoCargado = this.metodo.cargar();
         this.elementosCargados.push(nuevoElementoCargado);
-        //this.validarExistenciaDeMaterial(nuevoElementoCargado);
+        this.validarExistenciaDeMaterial(nuevoElementoCargado);
         $("#cantidadMostrado").html(this.elementosCargados.length);
         $("#pesoMostrado").html(this.obtenerPesoTotal() + "KG");
         crearResumen();

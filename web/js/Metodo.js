@@ -103,9 +103,8 @@ class CantidadPesoE{
 
    cargar() {
      this.datos();
-     return new CaracteristicaMaterial(this.cantidad,this.material);
+     return new CaracteristicaMaterial(this.cantidad,this.material,this.caracteristica);
 
-      
    }
 
 
