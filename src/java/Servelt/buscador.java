@@ -18,6 +18,7 @@ public class buscador extends HttpServlet {
         co.traerEtapas(Integer.parseInt(request.getParameter("id")));
         JSONObject valor = new JSONObject();
         valor.put("etapas", co.etapas);
+        valor.put("valorEtapa",co.etapasValue);
         response.getWriter().write(valor.toString());
     }
 

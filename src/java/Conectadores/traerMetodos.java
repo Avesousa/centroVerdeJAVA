@@ -9,6 +9,7 @@ public class traerMetodos extends Conexion {
     public List nombresDeMetodos = new ArrayList();
     public List tipos = new ArrayList();
     public List etapas = new ArrayList();
+    public List etapasValue = new ArrayList();
     public String nombreDelSegundoMetodo;
     
     public void traerLosMetodos(int idCv, int idCanal){
@@ -47,7 +48,7 @@ public class traerMetodos extends Conexion {
     
     public void traerEtapas(int idCoop){
         try {
-            String sql = "SELECT etapa_visual " +
+            String sql = "SELECT etapa_visual, etapa  " +
             "FROM etapas " +
             "WHERE id_cooperativa = "+idCoop+
             " order by etapa ASC";
@@ -55,6 +56,7 @@ public class traerMetodos extends Conexion {
             resultado = ps.executeQuery();
             while(resultado.next()){
                 etapas.add(resultado.getString("etapa_visual"));
+                etapasValue.add(resultado.getString("etapa"));
             }
         } catch (Exception e) {
             System.out.println("Error en traer metodos: " + e);

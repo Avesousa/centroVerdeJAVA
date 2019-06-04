@@ -10,6 +10,7 @@ class Metodo {
 
     datos() {
         this.etapa = $('#etapa').val();
+        this.etapaVisual = $('#'+this.etapa).html();
         this.subetapa = $('#subetapa').val();
         this.material = $('#material').val();
         this.caracteristica = $('#caracteristica').val();
@@ -41,7 +42,7 @@ class CargaConBolsonesEtapa extends Metodo {
     cargar() {
         this.datos();
         return new Bolson(this.idBolson, parseFloat(this.pesoBolson),
-            this.etapa, this.subetapa, "Mixto", this.idRecuperador);
+            this.etapa, this.subetapa, "Mixto", this.idRecuperador, this.nombre,this.etapaVisual);
     }
 
     verificadorCargar(){
