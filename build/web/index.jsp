@@ -7,7 +7,7 @@
             if(((String)request.getSession().getAttribute("inicio") != null)){
                 
         %>
-        <%@include file='include/cabecera.html' %>
+        <%@include file='include/cabecera.jsp' %>
         <%@include file='include/escritorio.jsp' %>
         <%
         } else{

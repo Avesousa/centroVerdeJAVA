@@ -216,6 +216,21 @@ function cambioPantalla(idNuevo, link, metodo) {
         "debe terminar de cargar.");
     }
 }
+
+//Arreglar preguntar por bolson
+
+function preguntarPorBolsonesVacios(){
+        swal("Bolsones vacios en el camión:",{
+        content: "input",
+        })
+        .then((value) =>{
+            if(!isNaN(value))
+                camion.bolsonesVacios = parseInt(value);
+            else 
+                camion.ultimoCanal.enviar();
+        });
+    }
+
 function trabajoCompleto(bol) {
     var mensaje;
     var icono;

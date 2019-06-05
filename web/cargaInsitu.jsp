@@ -4,7 +4,7 @@
 <html>
     <%@include file='include/infocabecera.html' %>
     <body>
-        <%@include file='include/cabecera.html' %>
+        <%@include file='include/cabecera.jsp' %>
 <div class="contenedorMenu">
     <%
             List lista = (List)request.getSession().getAttribute("lista");

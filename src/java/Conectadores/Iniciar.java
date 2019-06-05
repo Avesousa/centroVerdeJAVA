@@ -17,6 +17,7 @@ public class Iniciar extends Conexion{
     public int id_coop = 0;
     public String centroverde;
     public String cooperativa;
+    public String nombreUsuario;
     
     public boolean ingresar(String usuario, String contraseña){
         try {
@@ -30,18 +31,17 @@ public class Iniciar extends Conexion{
             cargo = resultado.getInt("id_cargo");
             id_centroverde = resultado.getInt("id_centroverde");
             id_user = resultado.getInt("id_usuario");
+            nombreUsuario = resultado.getString("nombre_y_apellido");
             traerCentroVerde(id_centroverde);
-            switch(cargo){
-                case 1: 
-                    traerMetodos(id_centroverde);
-                    break;
-                default:
-                    System.out.println("Aun no ha sido preparado los otros cargos");
-            }
+            traerMetodos(id_centroverde);
+           } else{
+               return false;
            }
            return true;
         } catch (Exception e) {
-            throw new NullPointerException ("No conecto por error: " + e);
+            //throw new NullPointerException ("No conecto por error: " + e);
+            System.out.println("No conecto por error: " + e);
+            return false;
         }
         finally{
            cerrarConexion();

@@ -6,6 +6,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import org.json.JSONObject;
 
 public class InicioSesion extends HttpServlet {
 
@@ -17,6 +18,7 @@ public class InicioSesion extends HttpServlet {
         String contraseña = request.getParameter("pass");
         Iniciar in = new Iniciar();
         boolean valor = in.ingresar(usuario, contraseña);
+        JSONObject res = new JSONObject();
         request.getSession().setAttribute("lista",in.imgCanales);
         request.getSession().setAttribute("listados", in.imgCanalesDos);
         request.getSession().setAttribute("canales", in.abreviaturaCanal);
@@ -28,13 +30,16 @@ public class InicioSesion extends HttpServlet {
         request.getSession().setAttribute("cooperativa", in.cooperativa);
         request.getSession().setAttribute("id_coop", in.id_coop);
         request.getSession().setAttribute("id_user", in.id_user);
+        request.getSession().setAttribute("cargo", in.cargo);
         if(valor){
             request.getSession().setAttribute("inicio","si");
-            response.getWriter().write("ok"+in.cargo);
+            res.put("nombre", in.nombreApellido);
+            res.put("entro", true);
         }else {
-            response.getWriter().write("noOk");
+            res.put("entro", false);
             request.getSession().setAttribute("inicio",null);
         }
+        response.getWriter().write(res.toString());
     }
 
     @Override

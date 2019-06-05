@@ -7,6 +7,7 @@ class Camion {
     constructor() {
         console.log("*********HA CREADO UN NUEVO CAMION************");
         this.canales = [];
+        this.bolsonesVacios = 0;
     }
     
     nuevoCanal(_nombre,_metodo) {

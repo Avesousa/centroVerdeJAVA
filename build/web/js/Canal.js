@@ -5,7 +5,6 @@ class Canal {
         this.elementosCargados = [];
         this.elementosPorMaterial = [];
     }
-
     validarExistenciaDeMaterial(_elemento) {
 
         var indice = this.elementosPorMaterial.map(elemento => elemento.material).indexOf(_elemento.material);
@@ -17,7 +16,6 @@ class Canal {
           this.elementosPorMaterial.push(new SumaTotalPorMaterial(_elemento.material,_elemento.cantidad,_elemento.caracteristica,_elemento.pesoTotal));
         }
     }
-
     cargar() {
         var nuevoElementoCargado = this.metodo.cargar();
         this.elementosCargados.push(nuevoElementoCargado);
@@ -30,21 +28,20 @@ class Canal {
         if (this.metodo.envioDirecto) this.enviar(); 
         else crearResumen();
     }
-
-
     enviar() {
         camion.cargarDatos();
         //this.elementosPorMaterial();
-        const metodoBandera = this.nombreMetodo;
-        delete camion.ultimoCanal;
-        delete this.metodo;
-        var datos = JSON.stringify(camion);
-        $.post("enviarDatos", {valor: datos,cv:$("#idCv").val(),user:$("#idUser").val()}, function (res){
-            trabajoCompleto(res);
-            limpiarInput(true,metodoBandera);
-        });
+        if(preguntarPorBolsonesVacios()){
+            const metodoBandera = this.nombreMetodo;
+            delete camion.ultimoCanal;
+            delete this.metodo;
+            var datos = JSON.stringify(camion);
+            $.post("enviarDatos", {valor: datos,cv:$("#idCv").val(),user:$("#idUser").val()}, function (res){
+                trabajoCompleto(res);
+                limpiarInput(true,metodoBandera);
+            });
+        }
     }
-
     comenzarMetodo(_metodo) {
         this.nombreMetodo = _metodo;
         limpiarZona();
@@ -110,11 +107,9 @@ class Canal {
 
     }
     }
-
     obtenerPesoTotal() {
         return this.elementosCargados.map(elemento => elemento.pesoTotal).reduce((elemento1, elemento2) => elemento1 + elemento2);
     }
-
 }
 
 /*module.exports = {

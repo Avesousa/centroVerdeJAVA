@@ -21,7 +21,26 @@ $(document).ready(function(){
     
     $("#btn-menu").on({
         click:function(){
+            if($("#menu-res").css("display") != "none"){
+                $(".obj .img").css("background","#979A9A");
+            }else{
+                $(".obj .img").css("background","#F7F9F9");
+            }
             $("#menu-res").slideToggle(10);
+            
         }
-    })
+    });
+    
+    $("#cargamenu").on({
+        click:function(){
+            window.open("index.jsp",'_self');
+        }
+    });
+    
+    $("#consultamenu").on({
+        click:function(){
+            alerta("¡Está en mantenimiento!");
+            //window.open("index.jsp",'_self');
+        }
+    });
 });
