@@ -24,10 +24,11 @@ class Canal {
         this.validarExistenciaDeMaterial(nuevoElementoCargado);
         $("#cantidadMostrado").html(this.elementosCargados.length);
         $("#pesoMostrado").html(this.obtenerPesoTotal() + "KG");
-        crearResumen();
         limpiarInput();
         $("#nombreRecuperador").html("");
-        if (this.metodo.envioDirecto) this.enviar();
+        console.log(this.elementosCargados);
+        if (this.metodo.envioDirecto) this.enviar(); 
+        else crearResumen();
     }
 
 
@@ -73,7 +74,6 @@ class Canal {
             //this.metodo = new cargaBolsonIDREF();
             break;
         case "entradaSalida":
-            alert("Está en mantenimiento dicho metodo");
             this.metodo = new EntradaSalida();
             this.metodo.mostrarPantallaDeMetodo();
             break;

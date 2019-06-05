@@ -2,7 +2,6 @@ class Metodo {
     constructor() {
         this.nombre = "Metodo creado";
         armarEtapa();
-        limpiarZona();
         this.envioDirecto = false;
         //consultaOpcionesSelect(idcv, "#etapa",'e');
         //consultaOpcionesSelect(idcanal, "#material",'m');
@@ -29,14 +28,12 @@ class Metodo {
 class CargaConBolsonesEtapa extends Metodo {
 
     mostrarPantallaDeMetodo() {
-        $('#idBolson,#pesoBolson,#botonEnviar,#botonCargar').css("display","inline-block");
-        $('#etapaDiv').css("display","block");
-        
-//        $('#etapaDiv').slideToggle(50);
-//        $('#idBolson').slideToggle(50);
-//        $('#pesoBolson').slideToggle(50);
-//        $('#botonEnviar').slideToggle(50);
-//        $('#botonCargar').slideToggle(50);
+        $('#botonEnviar,#botonCargar').css("display","inline-block");
+        $('#etapaDiv,#mostradorCantidad,#mostradorPeso').css("display","block");
+        $('#idBolson').slideToggle(50);
+        $('#pesoBolson').slideToggle(50);
+        $('#tablaResumen').css("display","table");
+        $('.contador').css("width","46%")
     }
 
     cargar() {
@@ -46,8 +43,12 @@ class CargaConBolsonesEtapa extends Metodo {
     }
 
     verificadorCargar(){
-        $("#botonCargar").attr("disabled",
-        (validarPesoBolson($("#pesoBolson").val())&& $("#idBolson").val() != ""));
+        $("#botonCargar").prop("disabled",!(
+        validarPesoBolson($("#pesoBolson").val()) 
+        && ($("#idRecuperador").val() != "")));
+        console.log("VERIFICADORDECARGAR: " + (
+        validarPesoBolson($("#pesoBolson").val()) 
+        && ($("#idRecuperador").val() != "")));
     }
     
     buscadorId(){
@@ -78,22 +79,23 @@ class EntradaSalida extends Metodo {
 
     cargar() {
         this.datos();
-        return new PesoTotalEntradaSalida(this.pesoEntrada, this.pesoSalida);
+        return new PesoTotalEntradaSalida(parseFloat(this.pesoEntrada), parseFloat(this.pesoSalida));
     }
 
     verificadorCargar(){
-        $("#botonEntradaSalida").attr("disabled",
+        $("#botonEntradaSalida").prop("disabled",!(
             $("#pesoSalida").val() != "" 
             && $("#pesoEntrada").val() != "" 
-            && verificarPatente($("#patente").val())
-            && parseInt($("#pesoSalida").val()) > parseInt($("#pesoEntrada").val()));
+            && patenteVerificador($("#patente").val())
+            && parseInt($("#pesoSalida").val()) < parseInt($("#pesoEntrada").val())));
     }
 
     mostrarPantallaDeMetodo() {
         $('#pesoSalida').slideToggle(50);
         $('#botonCargar').css("display","none");
         $('#pesoEntrada').slideToggle(50);
-        $('#botonEntradaSalida').css("display","block");
+        $('#botonEntradaSalida, #mostradorPeso').css("display","inline-block");
+        $('.contador').css("width","90%");
         //consultar();
     }
 

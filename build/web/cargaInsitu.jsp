@@ -91,8 +91,8 @@
                             <input type="text" name="patente" id="patente" placeholder="AA123AA" maxlength="7"
                             title="Deberás ingresar valores de patente ejemplo: AA123AA ó AAA123"
                             pattern="([A-Z]{3}[0-9]{3}|[A-Z]{2}[0-9]{3}[A-Z]{2})"
-                            oninput="this.value = this.value.toUpperCase(); verificarPatente(this.value);" 
-                            onblur="verificarPatente(this.value);" required><br><br>
+                            oninput="this.value = this.value.toUpperCase(); verificarPatente();" 
+                            onblur="verificarPatente();" required><br><br>
                             <input type="hidden" id="fecha" value="in"> 
                             <input type="hidden" id="hora" value="in"> 
                             <input type="hidden" id="idCanal" value="<%=canalUsado%>">
@@ -139,7 +139,7 @@
                               </tbody>
                           </table>
                               <button disabled id="botonEnviar" class="boton botonCargar botonEnviar" name="btn1" onClick="camion.ultimoCanal.enviar()">Enviar</button>
-                              <button disabled id="botonEntradaSalida" class="boton botonCargar botonEnviar" name="btn1" onClick="camion.ultimoCanal.enviar()">Enviar</button>
+                              <button disabled id="botonEntradaSalida" class="boton botonCargar botonEnviar" name="btn1" onClick="camion.ultimoCanal.cargar()">Enviar</button>
                       </div>
                     </div>
                   </div>

@@ -27,9 +27,7 @@ public class abrirMetodo extends HttpServlet {
         System.out.println(request.getParameter("canal"));
         //Ya comienza a traer los métodos, con los id de canales y cv correspondiente.
         if(me.cantidadMetodos > 1){
-            String s = "d"+me.tipos.get(0) + me.tipos.get(1);
-            List li = me.nombresDeMetodos;
-            response.getWriter().write(s);
+            response.getWriter().write("d"+me.tipos.get(0) + me.tipos.get(1));
         } else {
             response.getWriter().write("u"+me.nombreMetodo);
         }

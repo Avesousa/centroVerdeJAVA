@@ -196,9 +196,7 @@ function cambioPantalla(idNuevo, link, metodo) {
             }
         }).then((value) => {
             if(value){
-            limpiarZona();
             var idCv = $("#idCv").val();
-            var id = $("#idCanal").val();
             var linkViejo = $("#linkCanal").val();
             var imgNueva = $("#" + idNuevo + "img");
             var imgVieja = $("#" + id + "img");
@@ -206,6 +204,7 @@ function cambioPantalla(idNuevo, link, metodo) {
             $("#idCanal").val(idNuevo);
             imgVieja.attr("src", linkViejo + "on.png");
             imgNueva.attr("src", link + "s.png");
+            limpiarZona();
             gestionarMetodos({cv:idCv,canal:idNuevo,tipo:metodo},false);
             if(camion.ultimoCanal.elementosCargados.length == 0){
                 camion.canales.splice(camion.canales.length-1,1);
@@ -220,13 +219,16 @@ function cambioPantalla(idNuevo, link, metodo) {
 function trabajoCompleto(bol) {
     var mensaje;
     var icono;
+    var tiempo;
     if (bol == "true") {
         icono = "success";
         mensaje = '¡Ya se ha cargado correctamente!';
+        timepo = 2000;
     }
     else {
         icono = "error";
-        mensaje = '¡Ha ocurrido un error con la carga!';
+        mensaje = '¡Ha ocurrido un error con la carga!, comunícate con administrador';
+        tiempo = 3000;
     }
 
     swal({
@@ -234,7 +236,7 @@ function trabajoCompleto(bol) {
         icon: icono,
         title: mensaje,
         showConfirmButton: bol,
-        timer: 1500
+        timer: tiempo
     })
 }
 function traerFecha(tipo) {
@@ -246,7 +248,7 @@ function traerFecha(tipo) {
 }
 function limpiarZona() {
     console.log("cambiarPantalla");
-    $(".seccionBolsonSelect div, seccionBolson input, #botonEnviar, #botonCargar, #botonEntradaSalida").css("display", "none");
+    $(".seccionBolsonSelect div, .seccionBolson input, #botonEnviar, #botonCargar, #botonEntradaSalida, #tablaResumen,#mostradorCantidad, #mostradorPeso").css("display", "none");
     $("#botonEnviar").attr("disabled", true);
     $("#botonEntradaSalida").attr("disabled", true);
     $("#tablaResumen").html(
@@ -299,4 +301,11 @@ function crearResumen() {
 
     }
 }
+function sumaDePesos(){
+    var pesoE = $("#pesoEntrada").val();
+    var pesoS = $("#pesoSalida").val();
+    if(pesoE>pesoS)$("#pesoMostrado").html(pesoE-pesoS + "KG");
+    else $("#pesoMostrado").html(pesoS-pesoE + "KG");
+}
+
 

@@ -3,16 +3,17 @@
 <html>
     <%@include file='include/infocabecera.html' %>
     <body>
-        <%@include file='include/cabecera.html' %>
         <%
             if(((String)request.getSession().getAttribute("inicio") != null)){
                 
         %>
+        <%@include file='include/cabecera.html' %>
         <%@include file='include/escritorio.jsp' %>
         <%
         } else{
             //String l = request.getSession().getAttribute("inicio").toString();
         %>
+        <%@include file='include/cabecerados.html' %>
         <div id="contenido">
             <div id="ingreso-principal" class ="ingreso contenedor contenedorIngreso">
                 <div class="caja">

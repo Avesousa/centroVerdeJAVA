@@ -2,6 +2,7 @@
 $(document).ready(function(){
     $("#idBolson, #idRecuperador, #etapa").on({
         keyup:function(){
+            console.log("entro en eventos");
             camion.ultimoCanal.metodo.buscadorId();
             camion.ultimoCanal.metodo.verificadorCargar();
         },
@@ -10,4 +11,17 @@ $(document).ready(function(){
             camion.ultimoCanal.metodo.buscadorId();
         }
     });
+    
+    $("#pesoEntrada, #pesoSalida").on({
+        keyup:function(){
+            camion.ultimoCanal.metodo.verificadorCargar();
+            sumaDePesos();
+        }
+    });
+    
+    $("#btn-menu").on({
+        click:function(){
+            $("#menu-res").slideToggle(10);
+        }
+    })
 });
