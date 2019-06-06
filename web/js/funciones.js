@@ -336,6 +336,7 @@ function crearResumen() {
         "<td>" + elemento[i].idBolson + "</td>" +
         "<td>" + elemento[i].nombre+ "</td>" +
         "<td>" + elemento[i].pesoTotal + "</td>" +
+        "<td><button onclick = 'elminarElementoCargado("+ elemento[i].referencia+");'> X </button></td>"+
         "</tr>");
 
     }
