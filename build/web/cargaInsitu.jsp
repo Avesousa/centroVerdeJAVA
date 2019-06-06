@@ -105,7 +105,7 @@
                             <select name="etapa" id="etapa"></select><br>
                         </div>
                         <div id="materialDiv">
-                            <select name="material" id="material" onchange="consulta(this.value,'#caracteristica','c')"></select><br>
+                            <select name="material" id="material" onchange="armarFormato(this.value)"></select><br>
                         </div>
                         <div id="caracteristicaDiv">
                         <select name="caracteristica" id="caracteristica"></select><br>
@@ -138,7 +138,7 @@
                               <tbody>
                               </tbody>
                           </table>
-                              <button disabled id="botonEnviar" class="boton botonCargar botonEnviar" name="btn1" onClick="camion.ultimoCanal.enviar()">Enviar</button>
+                              <button disabled id="botonEnviar" class="boton botonCargar botonEnviar" name="btn1" onClick="camion.ultimoCanal.metodo.enviar()">Enviar</button>
                               <button disabled id="botonEntradaSalida" class="boton botonCargar botonEnviar" name="btn1" onClick="camion.ultimoCanal.cargar()">Enviar</button>
                       </div>
                     </div>

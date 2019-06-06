@@ -173,6 +173,30 @@ function armarEtapa() {
         }
     });
 }
+function armarFormato(_material){
+    $.post('buscadorFormato',{
+        material: _material,
+        id: $("idCv").val()
+    }, function(res){
+        colocarArmado('#caracteristica',res);
+    })
+}
+function armarMaterial(){
+    $.post('buscadorMaterial',{
+        id: $("#idCv").val(),
+    },function(res){
+        colocarArmado('#material',res);
+        });
+    
+}
+
+function colocarArmado(id,_lista){
+    var lista = JSON.parse(_lista);
+        for (var i in lista.elementos){
+            $(id).append('<option id= '+lista.elementos[i]+' value = '+ lista.elementos[i] + '>'+
+            lista.elementos[i] + '</option>');
+        }
+}
 function cambioPantalla(idNuevo, link, metodo) {
     var id = $("#idCanal").val();
     if(validarUsoMixto(idNuevo,id)){

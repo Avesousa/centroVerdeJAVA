@@ -31,7 +31,6 @@ class Canal {
     enviar() {
         camion.cargarDatos();
         //this.elementosPorMaterial();
-        if(preguntarPorBolsonesVacios()){
             const metodoBandera = this.nombreMetodo;
             delete camion.ultimoCanal;
             delete this.metodo;
@@ -40,72 +39,71 @@ class Canal {
                 trabajoCompleto(res);
                 limpiarInput(true,metodoBandera);
             });
-        }
     }
     comenzarMetodo(_metodo) {
         this.nombreMetodo = _metodo;
         limpiarZona();
-    switch (_metodo) {
-        case "cargaBolsonEtapa":
-            this.metodo = new CargaConBolsonesEtapa();
-            this.metodo.mostrarPantallaDeMetodo();
-            break;
-        case "cargaBolson":
-            alerta("EL METODO QUE SE INTENTA CREAR, NO ESTÁ EN FUNCIONAMIENTO...");
-            //this.metodo = new cargaBolson();
-            break;
-        case "cargaBolsonNombre":
-            alerta("EL METODO QUE SE INTENTA CREAR, NO ESTÁ EN FUNCIONAMIENTO...");
-            //this.metodo = new cargaBolsonNombre();
-            break;
-        case "salidaMaterialE":
-            alerta("EL METODO QUE SE INTENTA CREAR, NO ESTÁ EN FUNCIONAMIENTO...");
-            //this.metodo = new salidaMaterialE();
-            break;
-        case "salidaE":
-            alerta("EL METODO QUE SE INTENTA CREAR, NO ESTÁ EN FUNCIONAMIENTO...");
-            //this.metodo = new salidaE();
-            break;
-        case "cargaBolsonIDREF":
-            alerta("EL METODO QUE SE INTENTA CREAR, NO ESTÁ EN FUNCIONAMIENTO...");
-            //this.metodo = new cargaBolsonIDREF();
-            break;
-        case "entradaSalida":
-            this.metodo = new EntradaSalida();
-            this.metodo.mostrarPantallaDeMetodo();
-            break;
-        case "cantidadPesoE":
-            alerta("EL METODO QUE SE INTENTA CREAR, NO ESTÁ EN FUNCIONAMIENTO...");
-            //this.metodo = new cantidadPesoE();
-            break;
-        case "entradaSalidaE":
-            alerta("EL METODO QUE SE INTENTA CREAR, NO ESTÁ EN FUNCIONAMIENTO...");
-            //this.metodo = new entradaSalidaE();
-            break;
-        case "cargaBolsonNOMBREID":
-            alerta("EL METODO QUE SE INTENTA CREAR, NO ESTÁ EN FUNCIONAMIENTO...");
-            //this.metodo = new cargaBolsonNOMBREID();
-            break;
-        case "cantidadPesoASOC":
-            alerta("EL METODO QUE SE INTENTA CREAR, NO ESTÁ EN FUNCIONAMIENTO...");
-            //this.metodo = new cantidadPesoASOC();
-            break;
-        case "cargaBolsonASOC":
-            alerta("EL METODO QUE SE INTENTA CREAR, NO ESTÁ EN FUNCIONAMIENTO...");
-            //this.metodo = new cargaBolsonASOC();
-            break;
-        case "cantidadPesoASOCE":
-            alerta("EL METODO QUE SE INTENTA CREAR, NO ESTÁ EN FUNCIONAMIENTO...");
-            //this.metodo = new cantidadPesoASOCE();
-            break;
-        case "entradaSalidaASOCE":
-            alerta("EL METODO QUE SE INTENTA CREAR, NO ESTÁ EN FUNCIONAMIENTO...");
-            //this.metodo = new entradaSalidaASOCE();
-            break;
-        default:
-            alerta("EL METODO AGREGADO NO EXISTE");
+        switch (_metodo) {
+            case "cargaBolsonEtapa":
+                this.metodo = new CargaConBolsonesEtapa();
+                break;
+            case "cargaBolson":
+                alerta("EL METODO QUE SE INTENTA CREAR, NO ESTÁ EN FUNCIONAMIENTO...");
+                //this.metodo = new cargaBolson();
+                break;
+            case "cargaBolsonNombre":
+                alerta("EL METODO QUE SE INTENTA CREAR, NO ESTÁ EN FUNCIONAMIENTO...");
+                //this.metodo = new cargaBolsonNombre();
+                break;
+            case "salidaMaterialE":
+                alerta("EL METODO QUE SE INTENTA CREAR, NO ESTÁ EN FUNCIONAMIENTO...");
+                //this.metodo = new salidaMaterialE();
+                break;
+            case "salidaE":
+                alerta("EL METODO QUE SE INTENTA CREAR, NO ESTÁ EN FUNCIONAMIENTO...");
+                //this.metodo = new salidaE();
+                break;
+            case "cargaBolsonIDREF":
+                alerta("EL METODO QUE SE INTENTA CREAR, NO ESTÁ EN FUNCIONAMIENTO...");
+                //this.metodo = new cargaBolsonIDREF();
+                break;
+            case "entradaSalida":
+                this.metodo = new EntradaSalida();
+                break;
+            case "cantidadPesoE":
+                alerta("EL METODO QUE SE INTENTA CREAR, NO ESTÁ EN FUNCIONAMIENTO...");
+                //this.metodo = new cantidadPesoE();
+                break;
+            case "entradaSalidaE":
+                alerta("EL METODO QUE SE INTENTA CREAR, NO ESTÁ EN FUNCIONAMIENTO...");
+                //this.metodo = new entradaSalidaE();
+                break;
+            case "cargaBolsonNOMBREID":
+                alerta("EL METODO QUE SE INTENTA CREAR, NO ESTÁ EN FUNCIONAMIENTO...");
+                //this.metodo = new cargaBolsonNOMBREID();
+                break;
+            case "cantidadPesoASOC":
+                alerta("EL METODO QUE SE INTENTA CREAR, NO ESTÁ EN FUNCIONAMIENTO...");
+                //this.metodo = new cantidadPesoASOC();
+                break;
+            case "cargaBolsonASOC":
+                alerta("EL METODO QUE SE INTENTA CREAR, NO ESTÁ EN FUNCIONAMIENTO...");
+                //this.metodo = new cargaBolsonASOC();
+                break;
+            case "cantidadPesoASOCE":
+                alerta("EL METODO QUE SE INTENTA CREAR, NO ESTÁ EN FUNCIONAMIENTO...");
+                //this.metodo = new cantidadPesoASOCE();
+                break;
+            case "entradaSalidaASOCE":
+                alerta("EL METODO QUE SE INTENTA CREAR, NO ESTÁ EN FUNCIONAMIENTO...");
+                //this.metodo = new entradaSalidaASOCE();
+                break;
+            default:
+                alerta("EL METODO AGREGADO NO EXISTE");
 
-    }
+        }
+    
+        this.metodo.mostrarPantallaDeMetodo();
     }
     obtenerPesoTotal() {
         return this.elementosCargados.map(elemento => elemento.pesoTotal).reduce((elemento1, elemento2) => elemento1 + elemento2);

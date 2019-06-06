@@ -36,6 +36,18 @@
         <servlet-name>buscadorId</servlet-name>
         <servlet-class>Servelt.buscadorId</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>materialFormato</servlet-name>
+        <servlet-class>Servelt.materialFormato</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>buscadorFormato</servlet-name>
+        <servlet-class>Servelt.buscadorFormato</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>buscadorMaterial</servlet-name>
+        <servlet-class>Servelt.buscadorMaterial</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>InicioSesion</servlet-name>
         <url-pattern>/iniciar</url-pattern>
@@ -71,6 +83,18 @@
     <servlet-mapping>
         <servlet-name>buscadorId</servlet-name>
         <url-pattern>/buscadorId</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>materialFormato</servlet-name>
+        <url-pattern>/materialFormato</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>buscadorFormato</servlet-name>
+        <url-pattern>/buscadorFormato</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>buscadorMaterial</servlet-name>
+        <url-pattern>/buscadorMaterial</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

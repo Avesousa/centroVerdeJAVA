@@ -23,6 +23,10 @@ class Metodo {
         this.pesoUnitario = $('#pesoUnitario').val();
 
     }
+    
+    enviar(){
+        camion.ultimoCanal.enviar();
+    }
 }
 
 class CargaConBolsonesEtapa extends Metodo {
@@ -66,6 +70,20 @@ class CargaConBolsonesEtapa extends Metodo {
              $("#nombreRecuperador").html("");
         }
         
+    }
+    
+    enviar(){
+        swal("Bolsones vacios en el camión:",{
+        content: "input",
+        })
+        .then((value) =>{
+            if(!isNaN(value)){
+                camion.bolsonesVacios = parseInt(value);
+                super.enviar();
+            }else {
+//                camion.ultimoCanal.enviar();
+            }
+        });
     }
 
 }
