@@ -12,17 +12,16 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import org.json.JSONObject;
 
-public class buscadorMaterial extends HttpServlet {
+public class pesoPorMaterial extends HttpServlet {
+
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         traerMetodos co = new traerMetodos();
-        co.traerMaterial(Integer.parseInt(request.getParameter("id")));
-        JSONObject valor = new JSONObject();
-        valor.put("elementos", co.materiales);
-        response.getWriter().write(valor.toString());
+        co.traerPeso(request.getParameter("mar"), request.getParameter("car"), 
+                Integer.parseInt(request.getParameter("cv")));
+        response.getWriter().write(co.peso);
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

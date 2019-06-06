@@ -1,7 +1,6 @@
 class Metodo {
     constructor() {
         this.nombre = "Metodo creado";
-        armarEtapa();
         this.envioDirecto = false;
         //consultaOpcionesSelect(idcv, "#etapa",'e');
         //consultaOpcionesSelect(idcanal, "#material",'m');
@@ -32,6 +31,7 @@ class Metodo {
 class CargaConBolsonesEtapa extends Metodo {
 
     mostrarPantallaDeMetodo() {
+        armarEtapa();
         $('#botonEnviar,#botonCargar').css("display","inline-block");
         $('#etapaDiv,#mostradorCantidad,#mostradorPeso').css("display","block");
         $('#idBolson').slideToggle(50);
@@ -106,6 +106,7 @@ class EntradaSalida extends Metodo {
             && $("#pesoEntrada").val() != "" 
             && patenteVerificador($("#patente").val())
             && parseInt($("#pesoSalida").val()) < parseInt($("#pesoEntrada").val())));
+        sumaDePesos();
     }
 
     mostrarPantallaDeMetodo() {
@@ -120,13 +121,40 @@ class EntradaSalida extends Metodo {
 
 }
 
-class CantidadPesoE{
+class EntradaSalidaE extends EntradaSalida{
+    cargar(){
+        this.datos();
+        return new PesoTotalEntradaSalida(parseFloat(this.pesoSalida),parseFloat(this.pesoEntrada));
+    }
+}
+
+
+
+class CantidadPesoE extends Metodo{
 
    cargar() {
      this.datos();
      return new CaracteristicaMaterial(this.cantidad,this.material,this.caracteristica);
 
    }
+   
+   mostrarPantallaDeMetodo() {
+       armarMaterial();
+       armarFormato($("#material").val());
+       $('#botonEnviar,#botonCargar').css("display","inline-block");
+       $('#materialDiv,#mostradorPeso,#caracteristicaDiv').css("display","block");
+       $('#cantidad').slideToggle(50);
+       $('#tablaResumen').css("display","table");
+       $('.contador').css("width","90%");
+    }
+    
+    verificadorCargar(){
+       this.datos();
+       if(this.cantidad != "")
+        this.opcion = new CaracteristicaMaterial(this.cantidad,this.material,this.caracteristica);
+       $("#mostradorPeso").html(this.opcion.pesoTotal + "KG");
+       
+    }
 
 
 
