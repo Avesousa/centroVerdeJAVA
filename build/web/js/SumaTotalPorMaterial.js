@@ -7,6 +7,4 @@ class SumaTotalPorMaterial {
    this.pesoTotal = _peso;
    
   }
-
-
 }

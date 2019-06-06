@@ -20,6 +20,7 @@ public class buscadorFormato extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         traerMetodos co = new traerMetodos();
+        System.out.println("[BUSCADORDEFORMATO]: " +request.getParameter("id"));
         co.traerFormato(request.getParameter("material"),Integer.parseInt(request.getParameter("id")));
         JSONObject valor = new JSONObject();
         valor.put("elementos", co.formatos);

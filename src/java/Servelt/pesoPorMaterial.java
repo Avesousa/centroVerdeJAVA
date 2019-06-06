@@ -19,9 +19,10 @@ public class pesoPorMaterial extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         traerMetodos co = new traerMetodos();
-        co.traerPeso(request.getParameter("mar"), request.getParameter("car"), 
+        co.traerPeso(request.getParameter("mat"), request.getParameter("car"), 
                 Integer.parseInt(request.getParameter("cv")));
-        response.getWriter().write(co.peso);
+        System.out.println("[PESO EN PESOPORMATERIAL]: " + co.peso);
+        response.getWriter().write(String.valueOf(co.peso));
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

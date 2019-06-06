@@ -140,7 +140,6 @@ class CantidadPesoE extends Metodo{
    
    mostrarPantallaDeMetodo() {
        armarMaterial();
-       armarFormato($("#material").val());
        $('#botonEnviar,#botonCargar').css("display","inline-block");
        $('#materialDiv,#mostradorPeso,#caracteristicaDiv').css("display","block");
        $('#cantidad').slideToggle(50);
@@ -151,8 +150,11 @@ class CantidadPesoE extends Metodo{
     verificadorCargar(){
        this.datos();
        if(this.cantidad != "")
+           console.log("MATERIAL EN EL VERIFICADOR: " + this.material);
         this.opcion = new CaracteristicaMaterial(this.cantidad,this.material,this.caracteristica);
-       $("#mostradorPeso").html(this.opcion.pesoTotal + "KG");
+        console.log("EN CANTIDAD ACá");
+        console.log(this.opcion.pesoTotal);
+       $("#mostradorPeso").html((this.opcion.pesoTotal) + "KG");
        
     }
 

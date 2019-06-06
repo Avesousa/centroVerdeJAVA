@@ -162,32 +162,28 @@ function armarEtapa() {
     });
 }
 function armarFormato(_material){
-    console.log("ARMAR FORMATO: " + _material);
+    $("#caracteristica").html("");
     $.post('buscadorFormato',{
         material: _material,
-        id: $("idCv").val()
+        id: $("#idCv").val()
     }, function(res){
         colocarArmado('#caracteristica',res);
     });
 }
-
 function armarMaterial(){
+    $("#material").html("");
     $.post('buscadorMaterial',{
         id: $("#idCv").val()
     },function(res){
         colocarArmado('#material',res);
+        armarFormato($("#material").val());
     });
     
 }
-
 function colocarArmado(id,_lista){
     var lista = JSON.parse(_lista);
-    console.log("COLOCARARMADO: ");
-    console.log(lista);
         for (var i in lista.elementos){
-            console.log(id);
-            console.log(lista.elementos[i]);
-            $(id).append('<option id= '+lista.elementos[i]+' value = '+ lista.elementos[i] + '>'+
+            $(id).append('<option value = "'+ lista.elementos[i] + '">'+
             lista.elementos[i] + '</option>');
         }
 }
@@ -234,9 +230,7 @@ function cambioPantalla(idNuevo, link, metodo) {
         "debe terminar de cargar.");
     }
 }
-
 //Arreglar preguntar por bolson
-
 function preguntarPorBolsonesVacios(){
         swal("Bolsones vacios en el camión:",{
         content: "input",
@@ -248,7 +242,6 @@ function preguntarPorBolsonesVacios(){
                 camion.ultimoCanal.enviar();
         });
     }
-
 function trabajoCompleto(bol) {
     var mensaje;
     var icono;
@@ -341,7 +334,6 @@ function sumaDePesos(){
     if(pesoE>pesoS)$("#pesoMostrado").html(pesoE-pesoS + "KG");
     else $("#pesoMostrado").html(pesoS-pesoE + "KG");
 }
-
 function eliminarElementoCargado(id){
     
     const elementoCargado = camion.ultimoCanal.elementosCargados.filter(elemento => elemento.referencia == id)[0];
@@ -360,6 +352,14 @@ function eliminarElementoCargado(id){
     $("#tablaResumen tbody").html("");
 
 }
+function retornarPeso(_material,_caracteristica,_cantidad,obj){
+      $.post("pesoPorMaterial",{cv: $('#idCv').val(),mat: _material,car: _caracteristica},function(res){
+          colocarPeso(res,_cantidad,obj);
+    })
+  }
+function colocarPeso(peso,_cantidad,obj){
+      obj.pesoTotal = parseFloat(peso) * parseInt(_cantidad);
+  }
 
 
 

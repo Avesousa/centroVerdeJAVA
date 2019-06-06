@@ -90,7 +90,7 @@ public class traerMetodos extends Conexion {
         try {
             String sql = "SELECT * " +
             "FROM materialformato " +
-            "WHERE material = "+ material +" id_cv = "+idCv+ " and peso <> 0"+
+            "WHERE material = '"+ material +"' and id_cv = "+idCv+ " and peso <> 0"+
             " order by formato ASC";
             ps = conectador.prepareStatement(sql);
             resultado = ps.executeQuery();
@@ -103,9 +103,13 @@ public class traerMetodos extends Conexion {
     }
     
     public void traerPeso(String material, String formato, int idCv){
+        System.out.println("TRAER PESO: material: " + material);
+        System.out.println("TRAER PESO: formato: " + formato);
+        System.out.println("TRAER PESO: cv: " + idCv);
         try {
             String sql = "SELECT * FROM materialformato WHERE"+
-                        "id_cv = "+idCv+" and material = " + material + " and formato = " + formato;
+                        " id_cv = "+idCv+" and material = '" + material + 
+                        "' and formato = '" + formato + "';";
             ps = conectador.prepareStatement(sql);
             resultado = ps.executeQuery();
             if(resultado.next()){
