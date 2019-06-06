@@ -361,3 +361,6 @@ function eliminarElementoCargado(id){
     crearResumen();
 
 }
+
+
+
