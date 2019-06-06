@@ -360,3 +360,6 @@ function eliminarElementoCargado(id){
     $("#tablaResumen tbody").html("");
 
 }
+
+
+
