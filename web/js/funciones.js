@@ -329,6 +329,7 @@ function crearResumen() {
         "<td>" + elemento[i].idBolson + "</td>" +
         "<td>" + elemento[i].nombre+ "</td>" +
         "<td>" + elemento[i].pesoTotal + "</td>" +
+        "<td><button onclick = 'elminarElementoCargado("+ elemento[i].referencia+");'> X </button></td>"+
         "</tr>");
 
     }
@@ -340,4 +341,16 @@ function sumaDePesos(){
     else $("#pesoMostrado").html(pesoS-pesoE + "KG");
 }
 
+function eliminarElementoCargado(id){
+    
+    const elementoCargado = camion.ultimoCanal.elementosCargados.filter(elemento => elemento.refencia == id)[0];
 
+    camion.ultimoCanal.elementosPorMaterial.map(elementoMaterial =>{
+        if(elementoMaterial.material== elementoCargado.material) elementoMaterial.pesoTotal -= elementoCargado.pesoTotal
+    });
+
+    camion.ultimoCanal.elementosCargados = camion.ultimoCanal.elementosCargados.filter(elemento => elemento !== elementoCargado);
+
+    crearResumen();
+
+}
