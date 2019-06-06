@@ -4,7 +4,7 @@ class Canal {
         this.nombreCanal = _nombre;
         this.elementosCargados = [];
         this.elementosPorMaterial = [];
-        this.ingreso = (_nombre != 4 || _nombre != 5)
+    
     }
     validarExistenciaDeMaterial(_elemento) {
 

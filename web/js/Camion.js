@@ -14,6 +14,7 @@ class Camion {
         this.ultimoCanal = new Canal(_nombre);
         this.ultimoCanal.comenzarMetodo(_metodo);
         this.canales.push(this.ultimoCanal);
+        this.esIngreso = (_nombre != 4 || _nombre != 5); 
     }
 
     cargarDatos(){
@@ -29,6 +30,8 @@ class Camion {
    pesoTotal(){
         return this.canales.map(canal => canal.obtenerPesoTotal()).reduce((valor1,valor2)=> valor1+valor2);
     }
+
+   
 }
 
 /*module.exports = {
