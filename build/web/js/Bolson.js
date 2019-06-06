@@ -15,6 +15,7 @@ class Bolson {
         this.cantidad = 1;
         this.idRecuperador = _idRecuperador;
         this.nombre = _nombre;
+        this.referencia = camion.ultimoCanal.elementosCargados.length;
     }
 
     /*Se obtiene el peso total del bolson*/

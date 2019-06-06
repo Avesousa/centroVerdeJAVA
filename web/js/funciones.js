@@ -162,6 +162,7 @@ function armarEtapa() {
     });
 }
 function armarFormato(_material){
+    console.log("ARMAR FORMATO: " + _material);
     $.post('buscadorFormato',{
         material: _material,
         id: $("idCv").val()
@@ -329,7 +330,7 @@ function crearResumen() {
         "<td>" + elemento[i].idBolson + "</td>" +
         "<td>" + elemento[i].nombre+ "</td>" +
         "<td>" + elemento[i].pesoTotal + "</td>" +
-        "<td><button onclick = 'elminarElementoCargado("+ elemento[i].referencia+");'> X </button></td>"+
+        "<td><button onclick = 'eliminarElementoCargado("+ elemento[i].referencia+");'> X </button></td>"+
         "</tr>");
 
     }
@@ -343,14 +344,19 @@ function sumaDePesos(){
 
 function eliminarElementoCargado(id){
     
-    const elementoCargado = camion.ultimoCanal.elementosCargados.filter(elemento => elemento.refencia == id)[0];
+    const elementoCargado = camion.ultimoCanal.elementosCargados.filter(elemento => elemento.referencia == id)[0];
 
     camion.ultimoCanal.elementosPorMaterial.map(elementoMaterial =>{
-        if(elementoMaterial.material== elementoCargado.material) elementoMaterial.pesoTotal -= elementoCargado.pesoTotal
+        if(elementoMaterial.material== elementoCargado.material){
+            elementoMaterial.pesoTotal -= elementoCargado.pesoTotal;
+            elementoMaterial.cantidad--;
+        }
     });
 
     camion.ultimoCanal.elementosCargados = camion.ultimoCanal.elementosCargados.filter(elemento => elemento !== elementoCargado);
-
-    crearResumen();
+    if(camion.ultimoCanal.elementosCargados.length > 0)
+        crearResumen();
+    else
+    $("#tablaResumen tbody").html("");
 
 }

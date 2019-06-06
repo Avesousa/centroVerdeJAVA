@@ -81,7 +81,7 @@ class CargaConBolsonesEtapa extends Metodo {
                 camion.bolsonesVacios = parseInt(value);
                 super.enviar();
             }else {
-//                camion.ultimoCanal.enviar();
+                camion.ultimoCanal.metodo.enviar();
             }
         });
     }
