@@ -10,6 +10,9 @@ public class traerMetodos extends Conexion {
     public List tipos = new ArrayList();
     public List etapas = new ArrayList();
     public List etapasValue = new ArrayList();
+    public List materiales = new ArrayList();
+    public List formatos = new ArrayList();
+    public int peso;
     public String nombreDelSegundoMetodo;
     
     public void traerLosMetodos(int idCv, int idCanal){
@@ -35,14 +38,17 @@ public class traerMetodos extends Conexion {
         try {
             String sql = "SELECT M.nombre_metodo " +
             "FROM canal_centroverde CV, metodos M " +
-            "WHERE CV.id_centroverde = "+idCv+" and CV.id_canal = "+idCanal+" and M.id_metodo = CV.id_metodo and M.tipo_metodo ="+tipo;
+            "WHERE CV.id_centroverde = "+idCv+" and CV.id_canal = "+idCanal +
+            " and M.id_metodo = CV.id_metodo and M.tipo_metodo = '"+tipo + "'";
+            System.out.println(sql);
             ps = conectador.prepareStatement(sql);
             resultado = ps.executeQuery();
             while(resultado.next()){
                 nombreDelSegundoMetodo = resultado.getString("M.nombre_metodo");
+                System.out.println("[TRAERMETODOS DOS]: " + nombreDelSegundoMetodo);
             }
         } catch (Exception e) {
-            System.out.println("Error en traer metodos: " + e);
+            System.out.println("Error en traer metodos de dos: " + e);
         }
     }
     
@@ -63,4 +69,50 @@ public class traerMetodos extends Conexion {
         }
     }
     
+    public void traerMaterial(int idCv){
+        try {
+            String sql = "SELECT * " +
+            "FROM materialformato " +
+            "WHERE id_cv = "+idCv+ " and peso <> 0"+
+            " order by material ASC";
+            ps = conectador.prepareStatement(sql);
+            resultado = ps.executeQuery();
+            while(resultado.next()){
+                materiales.add(resultado.getString("material"));
+                System.out.println(materiales);
+            }
+        } catch (Exception e) {
+            System.out.println("Error en traer metodos: " + e);
+        }
+    }
+    
+    public void traerFormato(String material,int idCv){
+        try {
+            String sql = "SELECT * " +
+            "FROM materialformato " +
+            "WHERE material = "+ material +" id_cv = "+idCv+ " and peso <> 0"+
+            " order by formato ASC";
+            ps = conectador.prepareStatement(sql);
+            resultado = ps.executeQuery();
+            while(resultado.next()){
+                formatos.add(resultado.getString("formato"));
+            }
+        } catch (Exception e) {
+            System.out.println("Error en traer metodos: " + e);
+        }
+    }
+    
+    public void traerPeso(String material, String formato, int idCv){
+        try {
+            String sql = "SELECT * FROM materialformato WHERE"+
+                        "id_cv = "+idCv+" and material = " + material + " and formato = " + formato;
+            ps = conectador.prepareStatement(sql);
+            resultado = ps.executeQuery();
+            if(resultado.next()){
+                this.peso = resultado.getInt("peso");
+            }
+        } catch (Exception e) {
+            System.out.println("Error en traer metodos: " + e);
+        }
+    }
 }

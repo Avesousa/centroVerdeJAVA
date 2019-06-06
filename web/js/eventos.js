@@ -12,10 +12,9 @@ $(document).ready(function(){
         }
     });
     
-    $("#pesoEntrada, #pesoSalida").on({
+    $("#pesoEntrada, #pesoSalida, #cantidad").on({
         keyup:function(){
             camion.ultimoCanal.metodo.verificadorCargar();
-            sumaDePesos();
         }
     });
     

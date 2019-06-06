@@ -142,18 +142,6 @@ function armarString(valor, ubicacion) {
     }
     return resultado;
 }
-/*funcion para traer el nombre del usuario  sabiendo el centro verde y la*/
-function nombreRU(idBolson, _etapa) {
-
-    $.post("traeridru", { id: idBolson, etapa: _etapa }, function (e) {
-        if (e != "n")
-            $("#validador").html("<p>El nombre del recuperador es " + e + "</p>");
-        else
-            $("#validador").html("<p>El Id especificado no existe en la base de datos</p>");
-
-        $("#").prop("disabled", e != "n");
-    });
-}
 function consultaOpcionesSelect(_consulta, idHtml, _tipoDeConsulta) {
     $.post('buscador', { consulta: _consulta, tipoDeConsulta: _tipoDeConsulta }, function (e) {
         for (var index = 0; index < e.length; index++)
@@ -179,20 +167,25 @@ function armarFormato(_material){
         id: $("idCv").val()
     }, function(res){
         colocarArmado('#caracteristica',res);
-    })
+    });
 }
+
 function armarMaterial(){
     $.post('buscadorMaterial',{
-        id: $("#idCv").val(),
+        id: $("#idCv").val()
     },function(res){
         colocarArmado('#material',res);
-        });
+    });
     
 }
 
 function colocarArmado(id,_lista){
     var lista = JSON.parse(_lista);
+    console.log("COLOCARARMADO: ");
+    console.log(lista);
         for (var i in lista.elementos){
+            console.log(id);
+            console.log(lista.elementos[i]);
             $(id).append('<option id= '+lista.elementos[i]+' value = '+ lista.elementos[i] + '>'+
             lista.elementos[i] + '</option>');
         }

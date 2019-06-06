@@ -48,6 +48,10 @@
         <servlet-name>buscadorMaterial</servlet-name>
         <servlet-class>Servelt.buscadorMaterial</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>pesoPorMaterial</servlet-name>
+        <servlet-class>Servelt.pesoPorMaterial</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>InicioSesion</servlet-name>
         <url-pattern>/iniciar</url-pattern>
@@ -95,6 +99,10 @@
     <servlet-mapping>
         <servlet-name>buscadorMaterial</servlet-name>
         <url-pattern>/buscadorMaterial</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>pesoPorMaterial</servlet-name>
+        <url-pattern>/pesoPorMaterial</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

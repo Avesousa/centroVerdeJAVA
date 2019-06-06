@@ -26,8 +26,8 @@ public class mandarMetodo extends HttpServlet {
             response.getWriter().write(valor.toString());
         } else{
             traerMetodos co = new traerMetodos();
-            co.traerMetodosDeDos(Integer.parseInt(request.getParameter("canal")), 
-                    Integer.parseInt(request.getParameter("cv")),tipo);
+            co.traerMetodosDeDos(Integer.parseInt(request.getParameter("cv")), 
+                    Integer.parseInt(request.getParameter("canal")),tipo);
             request.getSession().setAttribute("metodo", co.nombreDelSegundoMetodo);
             request.getSession().setAttribute("canalUsado", canal);
             valor.put("id", canal);
