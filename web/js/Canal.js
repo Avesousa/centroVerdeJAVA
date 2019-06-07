@@ -48,57 +48,45 @@ class Canal {
         switch (_metodo) {
             case "cargaBolsonEtapa":
                 this.metodo = new CargaConBolsonesEtapa();
-                break;
             case "cargaBolson":
                 return alerta("EL METODO QUE SE INTENTA CREAR, NO ESTÁ EN FUNCIONAMIENTO...");
                 //this.metodo = new cargaBolson();
-                break;
             case "cargaBolsonNombre":
                 return alerta("EL METODO QUE SE INTENTA CREAR, NO ESTÁ EN FUNCIONAMIENTO...");
                 //this.metodo = new cargaBolsonNombre();
-                break;
             case "salidaMaterialE":
                 return alerta("EL METODO QUE SE INTENTA CREAR, NO ESTÁ EN FUNCIONAMIENTO...");
                 //this.metodo = new salidaMaterialE();
-                break;
             case "salidaE":
                 return alerta("EL METODO QUE SE INTENTA CREAR, NO ESTÁ EN FUNCIONAMIENTO...");
                 //this.metodo = new salidaE();
-                break;
             case "cargaBolsonIDREF":
                 return alerta("EL METODO QUE SE INTENTA CREAR, NO ESTÁ EN FUNCIONAMIENTO...");
                 //this.metodo = new cargaBolsonIDREF();
-                break;
             case "entradaSalida":
                 this.metodo = new EntradaSalida();
-                break;
             case "cantidadPesoE":
                 this.metodo = new CantidadPesoE();
-                break;
             case "entradaSalidaE":
                 return alerta("EL METODO QUE SE INTENTA CREAR, NO ESTÁ EN FUNCIONAMIENTO...");
                 //this.metodo = new entradaSalidaE();
-                break;
             case "cargaBolsonNOMBREID":
                 return alerta("EL METODO QUE SE INTENTA CREAR, NO ESTÁ EN FUNCIONAMIENTO...");
                 //this.metodo = new cargaBolsonNOMBREID();
-                break;
             case "cantidadPesoASOC":
                 return alerta("EL METODO QUE SE INTENTA CREAR, NO ESTÁ EN FUNCIONAMIENTO...");
                 //this.metodo = new cantidadPesoASOC();
-                break;
             case "cargaBolsonASOC":
                 return alerta("EL METODO QUE SE INTENTA CREAR, NO ESTÁ EN FUNCIONAMIENTO...");
                 //this.metodo = new cargaBolsonASOC();
-                break;
             case "cantidadPesoASOCE":
                 return alerta("EL METODO QUE SE INTENTA CREAR, NO ESTÁ EN FUNCIONAMIENTO...");
                 //this.metodo = new cantidadPesoASOCE();
-                break;
             case "entradaSalidaASOCE":
                 return alerta("EL METODO QUE SE INTENTA CREAR, NO ESTÁ EN FUNCIONAMIENTO...");
                 //this.metodo = new entradaSalidaASOCE();
-                break;
+            case "descartePatente":
+                return this.metodo = null;
             default:
                 return alerta("EL METODO AGREGADO NO EXISTE");
 

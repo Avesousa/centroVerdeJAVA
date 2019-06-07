@@ -162,6 +162,14 @@ class CantidadPesoE extends Metodo{
 
 }
 
+class DescartePatente extends Metodo {
+
+
+
+
+
+}
+
 /*module.exports = {
     Metodo: Metodo
 };
