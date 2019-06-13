@@ -13,10 +13,6 @@
         <servlet-class>Servelt.abrirMetodo</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>TraerIdRu</servlet-name>
-        <servlet-class>Servelt.TraerIdRu</servlet-class>
-    </servlet>
-    <servlet>
         <servlet-name>pantallaMetodo</servlet-name>
         <servlet-class>Servelt.pantallaMetodo</servlet-class>
     </servlet>
@@ -52,6 +48,10 @@
         <servlet-name>pesoPorMaterial</servlet-name>
         <servlet-class>Servelt.pesoPorMaterial</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>cerrarSesion</servlet-name>
+        <servlet-class>Servelt.cerrarSesion</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>InicioSesion</servlet-name>
         <url-pattern>/iniciar</url-pattern>
@@ -63,10 +63,6 @@
     <servlet-mapping>
         <servlet-name>abrirMetodo</servlet-name>
         <url-pattern>/abrirMetodo</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>TraerIdRu</servlet-name>
-        <url-pattern>/traeridru</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>pantallaMetodo</servlet-name>
@@ -103,6 +99,10 @@
     <servlet-mapping>
         <servlet-name>pesoPorMaterial</servlet-name>
         <url-pattern>/pesoPorMaterial</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>cerrarSesion</servlet-name>
+        <url-pattern>/cerrarSesion</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

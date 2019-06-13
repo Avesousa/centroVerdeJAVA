@@ -5,9 +5,21 @@ class CaracteristicaMaterial{
     this.caracteristica = _caracteristica;
     this.cantidad = _cantidad;
     this.material = _material;
-    retornarPeso(this.material,this.caracteristica,this.cantidad,this);
+    this.pesoTotal = retornarPeso(this.material,this.caracteristica,this.cantidad);
+    this.referencia = camion.ultimoCanal.elementosCargados.length;
     console.log(this);
   }
   
+  primero(){
+      return this.caracteristica;
+  }
+  
+  segundo(){
+      return this.material;
+  }
+  
+  tercero(){
+      return this.cantidad;
+  }
  
 }

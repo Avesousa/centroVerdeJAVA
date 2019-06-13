@@ -9,9 +9,11 @@ public class TraerDatos extends Conexion{
         try {
            String sql = "SELECT * FROM recuperadores WHERE id_bolson_recuperador = "+id+" and " +
                    "proyecto = '" + etapa+"';";
+           System.out.println(sql);
            ps = conectador.prepareStatement(sql);
            resultado = ps.executeQuery();
-           while(resultado.next()){
+            
+           if(resultado.next()){
                 this.nombre = resultado.getString("asociado");
                 this.id = resultado.getInt("id_recuperador");
            }

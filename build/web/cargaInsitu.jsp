@@ -128,12 +128,6 @@
                       <div class="seccionBolson">
                           <table id="tablaResumen" class="tablesorter">
                               <thead>
-                              <tr>
-                                  <th>PROYECTO</th>
-                                  <th>BOLSON</th>
-                                  <th>ASOCIADO</th>
-                                  <th>PESO</th>
-                              </tr>
                              </thead>
                               <tbody>
                               </tbody>

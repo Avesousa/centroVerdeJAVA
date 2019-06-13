@@ -76,8 +76,7 @@ class Canal {
                 this.metodo = new CantidadPesoE();
                 break;
             case "entradaSalidaE":
-                return alerta("EL METODO QUE SE INTENTA CREAR, NO ESTÁ EN FUNCIONAMIENTO...");
-                //this.metodo = new entradaSalidaE();
+                this.metodo = new EntradaSalidaE();
                 break;
             case "cargaBolsonNOMBREID":
                 return alerta("EL METODO QUE SE INTENTA CREAR, NO ESTÁ EN FUNCIONAMIENTO...");
@@ -98,6 +97,9 @@ class Canal {
             case "entradaSalidaASOCE":
                 return alerta("EL METODO QUE SE INTENTA CREAR, NO ESTÁ EN FUNCIONAMIENTO...");
                 //this.metodo = new entradaSalidaASOCE();
+                break;
+            case "descartePatente":
+                this.metodo = new DescartePatente();
                 break;
             default:
                 return alerta("EL METODO AGREGADO NO EXISTE");

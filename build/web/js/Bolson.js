@@ -23,6 +23,18 @@ class Bolson {
     pesoTotal(){
         return this.pesoTotal;
     }
+    
+    primero(){
+      return this.etapaV;
+    }
+  
+  segundo(){
+      return this.idBolson;
+  }
+  
+  tercero(){
+      return this.nombre;
+  }
 }
 
 /*module.exports = {

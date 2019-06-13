@@ -2,12 +2,10 @@
 $(document).ready(function(){
     $("#idBolson, #idRecuperador, #etapa").on({
         keyup:function(){
-            console.log("entro en eventos");
             camion.ultimoCanal.metodo.buscadorId();
             camion.ultimoCanal.metodo.verificadorCargar();
         },
         change:function(){
-            console.log("ENTRO EN CHANGE");
             camion.ultimoCanal.metodo.buscadorId();
         }
     });
@@ -30,16 +28,45 @@ $(document).ready(function(){
         }
     });
     
+    $("#patente").on({
+        keyup:function(){
+            camion.verificarDatos();
+        },
+        change:function(){
+            camion.verificarDatos();
+        }
+    });
+    
+    $("#fecha,#hora").on({
+        blur:function(){
+            camion.verificarDatos();
+        }
+    })
+    
     $("#cargamenu").on({
         click:function(){
             window.open("index.jsp",'_self');
         }
     });
     
+    $("#cerrar").on({
+       click:function(){
+           $.post("cerrarSesion");
+           window.open("index.jsp",'_self');
+       }
+    });
+    
     $("#consultamenu").on({
         click:function(){
             alerta("¡Está en mantenimiento!");
             //window.open("index.jsp",'_self');
+        }
+    });
+    
+    $("#botonSeguir").on({
+        click:function(){
+            $("#cargaComun").slideToggle(50);
+            $("#sectorCamion").slideToggle(50);
         }
     });
 });

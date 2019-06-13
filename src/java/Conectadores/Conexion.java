@@ -11,7 +11,7 @@ public class Conexion {
     private static final String PORT = "3306";
     private static final String USERNAME = "dgrecuser";
     private static final String PASSWORD = "";
-    private static final String DATABASE = "centroverde";
+    private static final String DATABASE = "centroverdenueva";
     private static final String URL = "jdbc:mysql://"+HOST+":"+PORT+"/"+DATABASE;
     public Connection conectador = null;
     public ResultSet resultado = null;
@@ -31,6 +31,7 @@ public class Conexion {
         try{
             Class.forName("com.mysql.cj.jdbc.Driver");
             conexion = DriverManager.getConnection(URL, USERNAME, PASSWORD);
+            System.out.println("[CONEXION]: REALIZO CONEXIÓN A BASE DE DATOS");
             
         } catch(Exception e){
             System.out.println("No conectó: " + e);

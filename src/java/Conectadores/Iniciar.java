@@ -72,13 +72,18 @@ public class Iniciar extends Conexion{
                 + "WHERE M.id_centroverde = "+idcv+"  and C.id_canal = M.id_canal";
             ps = conectador.prepareStatement(sql);
             resultado = ps.executeQuery();
+            System.out.println("[TRAERMETODOS]");
+            System.out.println(idcv);
             while(resultado.next()){
+                
                 imgCanales.add(resultado.getString("C.imagen"));
                 imgCanalesDos.add(resultado.getString("C.imagendos"));
                 nombreCanal.add(resultado.getString("C.nombre"));
                 idCanal.add(resultado.getString("C.id_canal"));
                 abreviaturaCanal.add(resultado.getString("C.abreviatura"));
             }
+            System.out.println(imgCanales);
+            System.out.println(imgCanalesDos);
         } catch (Exception e) {
             System.out.println(e);
         }

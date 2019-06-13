@@ -38,7 +38,7 @@
             %>
             
             
-            <li class="cerrar">Salir</li>
+            <li id="cerrar" class="cerrar">Salir</li>
 
         </ul>
          <img class = "logoCV" src="image/LEYENDA.png" alt="Logo de la dirección">

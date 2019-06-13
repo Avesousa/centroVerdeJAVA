@@ -37,6 +37,7 @@ class CargaConBolsonesEtapa extends Metodo {
         $('#idBolson').slideToggle(50);
         $('#pesoBolson').slideToggle(50);
         $('#tablaResumen').css("display","table");
+        mostrarTabla("PROYECTO", "BOLSON", "ASOCIADO");
         $('.contador').css("width","46%")
     }
 
@@ -126,9 +127,17 @@ class EntradaSalidaE extends EntradaSalida{
         this.datos();
         return new PesoTotalEntradaSalida(parseFloat(this.pesoSalida),parseFloat(this.pesoEntrada));
     }
+    
+    verificadorCargar(){
+        $("#botonEntradaSalida").prop("disabled",!(
+            $("#pesoSalida").val() != "" 
+            && $("#pesoEntrada").val() != "" 
+            && patenteVerificador($("#patente").val())
+            && parseInt($("#pesoSalida").val()) > parseInt($("#pesoEntrada").val())));
+        sumaDePesos();
+    }
+
 }
-
-
 
 class CantidadPesoE extends Metodo{
 
@@ -144,26 +153,31 @@ class CantidadPesoE extends Metodo{
        $('#materialDiv,#mostradorPeso,#caracteristicaDiv').css("display","block");
        $('#cantidad').slideToggle(50);
        $('#tablaResumen').css("display","table");
+        mostrarTabla("FORMATO", "MATERIAL", "CANTIDAD");
        $('.contador').css("width","90%");
     }
     
     verificadorCargar(){
        this.datos();
-       if(this.cantidad != "")
-           console.log("MATERIAL EN EL VERIFICADOR: " + this.material);
-        this.opcion = new CaracteristicaMaterial(this.cantidad,this.material,this.caracteristica);
-        console.log("EN CANTIDAD ACá");
-        console.log(this.opcion.pesoTotal);
-       $("#mostradorPeso").html((this.opcion.pesoTotal) + "KG");
-       
+       $("#mostradorPeso").html((retornarPeso(this.material,this.caracteristica,this.cantidad)) + "KG");
+       $("#botonCargar").prop("disabled",$("#cantidad").val() == "")
     }
 
 
 
 }
 
-/*module.exports = {
-    Metodo: Metodo
-};
-*/
-
+class DescartePatente extends Metodo{
+    mostrarPantallaDeMetodo(){
+        $('#botonCargar').css("display","none");
+        $('#botonEnviar').css("display","inline-block");
+    }
+    verificadorCargar(){
+        $("#botonEnviar").prop("disabled",!(
+            patenteVerificador($("#patente").val())));
+    }
+    
+    cargar(){
+        
+    }
+}

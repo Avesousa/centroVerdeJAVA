@@ -59,6 +59,19 @@ header img {
 .carga{
     margin-top: 10%;
 }
+#cargaComun{
+    display:none;
+}
+
+#sectorCamion{
+    width: 95%;
+    margin: 0 auto;
+    text-align: center;
+}
+
+#sectorCamion input{
+    width: 100%;
+}
 .contenedorEs{
     margin-top: 6%; 
     margin-bottom: 90px;
@@ -142,7 +155,8 @@ header img {
 /*/////////ESCRITORIO/////////*/
 #divEgreso,
 #divIngreso,
-#divIngresoE {
+#divIngresoE,
+#divOtros{
     text-align: center;
     font-family: Arial, Helvetica, sans-serif;
     background-color: white;

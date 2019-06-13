@@ -8,13 +8,14 @@ class Camion {
         console.log("*********HA CREADO UN NUEVO CAMION************");
         this.canales = [];
         this.bolsonesVacios = 0;
+        this.comentarios = "";
     }
     
     nuevoCanal(_nombre,_metodo) {
         this.ultimoCanal = new Canal(_nombre);
         this.ultimoCanal.comenzarMetodo(_metodo);
         this.canales.push(this.ultimoCanal);
-        this.esIngreso = (_nombre != 4 || _nombre != 5); 
+        this.esIngreso = (_nombre != 4 && _nombre != 5); 
     }
 
     cargarDatos(){
@@ -23,12 +24,19 @@ class Camion {
         if($('#fecha').val() == "in"){
             this.fechaHora = new Date().toString();
         }else{
-            this.fechaHora = new Date($('#fecha').val() + " " + $('#hora').val());
+            this.fechaHora = new Date($('#fecha').val() + " " + $('#hora').val()).toString();
         }
     }
     /*Este método devuelve el peso total de todos los canales asociados al camión*/
    pesoTotal(){
         return this.canales.map(canal => canal.obtenerPesoTotal()).reduce((valor1,valor2)=> valor1+valor2);
+    }
+    
+    verificarDatos(){
+        $("#botonSeguir").prop("disabled",(!(
+            verificarHora() 
+            && verificarFecha()
+            && patenteVerificador($("#patente").val()))));
     }
 
    

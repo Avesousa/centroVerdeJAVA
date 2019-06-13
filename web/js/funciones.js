@@ -151,6 +151,7 @@ function consultaOpcionesSelect(_consulta, idHtml, _tipoDeConsulta) {
     )
 }
 function armarEtapa() {
+    $("#etapa").append('<option></option>');
     $.post('buscador', {
         id: $("#idCoop").val()
     }, function (res) {
@@ -167,7 +168,8 @@ function armarFormato(_material){
         material: _material,
         id: $("#idCv").val()
     }, function(res){
-        colocarArmado('#caracteristica',res);
+        colocarArmado('#caracteristica',res); 
+        camion.ultimoCanal.metodo.verificadorCargar();
     });
 }
 function armarMaterial(){
@@ -178,7 +180,6 @@ function armarMaterial(){
         colocarArmado('#material',res);
         armarFormato($("#material").val());
     });
-    
 }
 function colocarArmado(id,_lista){
     var lista = JSON.parse(_lista);
@@ -230,7 +231,6 @@ function cambioPantalla(idNuevo, link, metodo) {
         "debe terminar de cargar.");
     }
 }
-//Arreglar preguntar por bolson
 function preguntarPorBolsonesVacios(){
         swal("Bolsones vacios en el camión:",{
         content: "input",
@@ -240,6 +240,16 @@ function preguntarPorBolsonesVacios(){
                 camion.bolsonesVacios = parseInt(value);
             else 
                 camion.ultimoCanal.enviar();
+        });
+    }
+function comentar(texto){
+        swal(texto,{
+        content: "input",
+        closeOnClickOutside: false,
+        closeOnEsc: false,
+        })
+        .then((value) =>{
+            camion.comentarios =+ " / " + value +  " / ";
         });
     }
 function trabajoCompleto(bol) {
@@ -279,16 +289,12 @@ function limpiarZona() {
     $("#botonEntradaSalida").attr("disabled", true);
     $("#tablaResumen").html(
         "<thead>" +
-        "<tr>" +
-        "<th>PROYECTO</th>" +
-        "<th>BOLSON</th>" +
-        "<th>ASOCIADO</th>" +
-        "<th>PESO</th>" +
-        "</tr>" +
         "</thead>" +
         "<tbody>" +
         "</tbody>"
     );
+    $("#cargaComun").css("display","none");
+    $("#sectorCamion").css("display","inline-block");
 }
 function limpiarInput(bool, metodo) {
     $(".seccionBolson input").val("");
@@ -307,21 +313,18 @@ function limpiarInput(bool, metodo) {
 function crearResumen() {
 
     var elemento = camion.ultimoCanal.elementosCargados
-          .sort((unElemento, otroElemento) => unElemento.idBolson - otroElemento.idBolson)
-            .sort((unElemento, otroElemento) => unElemento.etapa.localeCompare(otroElemento.etapa));
-//     var elemento = camion.ultimoCanal.elementosCargados.sort(
-//             function(un,otro){
-//                 
-//             })
-    if (elemento[elemento.length - 1].idBolson) id = elemento[elemento.length - 1].idBolson;
+          .sort((unElemento, otroElemento) => unElemento.segundo() - otroElemento.segundo())
+            .sort((unElemento, otroElemento) => unElemento.primero().localeCompare(otroElemento.primero()));
+
+    if (elemento[elemento.length - 1].segundo()) id = elemento[elemento.length - 1].segundo();
     else id = "No Disponible";
 
     $("#tablaResumen tbody").html("");
     for (var i = 0; i < elemento.length; i++) {
         $("#tablaResumen").append("<tr>" +
-        "<td>" + elemento[i].etapaV + "</td>" +
-        "<td>" + elemento[i].idBolson + "</td>" +
-        "<td>" + elemento[i].nombre+ "</td>" +
+        "<td>" + elemento[i].primero() + "</td>" +
+        "<td>" + elemento[i].segundo() + "</td>" +
+        "<td>" + elemento[i].tercero() + "</td>" +
         "<td>" + elemento[i].pesoTotal + "</td>" +
         "<td><button onclick = 'eliminarElementoCargado("+ elemento[i].referencia+");'> X </button></td>"+
         "</tr>");
@@ -352,14 +355,27 @@ function eliminarElementoCargado(id){
     $("#tablaResumen tbody").html("");
 
 }
-function retornarPeso(_material,_caracteristica,_cantidad,obj){
+function retornarPeso(_material,_caracteristica,_cantidad){
       $.post("pesoPorMaterial",{cv: $('#idCv').val(),mat: _material,car: _caracteristica},function(res){
-          colocarPeso(res,_cantidad,obj);
-    })
+          console.log("PESO: " + res);
+          if(_cantidad != ""){
+              console.log("ENTRO EN IF");
+              pesoCaracteristica = parseFloat(res) * parseInt(_cantidad);
+          }else {
+            pesoCaracteristica = 0;
+          }
+    });
+    return pesoCaracteristica;
   }
-function colocarPeso(peso,_cantidad,obj){
-      obj.pesoTotal = parseFloat(peso) * parseInt(_cantidad);
-  }
-
+function mostrarTabla(primero,segundo,tercero){
+        $("#tablaResumen thead").html(
+            '<tr>'+
+            '<th>'+primero+'</th>'+
+            '<th>'+segundo+'</th>'+
+            '<th>'+tercero+'</th>'+
+            '<th>PESO</th>'+
+            '</tr>'
+        )
+    }
 
 
