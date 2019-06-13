@@ -166,7 +166,6 @@ class CantidadPesoE extends Metodo{
 
 
 }
-
 class DescartePatente extends Metodo{
     mostrarPantallaDeMetodo(){
         $('#botonCargar').css("display","none");
