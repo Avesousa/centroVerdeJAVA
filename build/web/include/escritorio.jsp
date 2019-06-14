@@ -60,6 +60,17 @@
               }}
           %>
         </div>
+        <div id="divOtros">
+          <h1 class="tituloEscritorio">Otras cargas</h1>
+            <a onclick="alerta('¡En mantenimiento!')">
+                <img id="BOLSONimg" class="botonIngreso" alt="&quot;Boton del método RD&quot;" src="image/BOLSONon.png" 
+               onmouseover="hacerHover('image/BOLSON','BOLSONimg','')" onmouseout="hacerHover('image/BOLSON','BOLSONimg','on')">
+            </a>
+            <a onclick="alerta('¡En mantenimiento!')">
+                <img id="OTROSimg" class="botonIngreso" alt="&quot;Boton del método RD&quot;" src="image/OTROSon.png" 
+               onmouseover="hacerHover('image/OTROS','OTROSimg','')" onmouseout="hacerHover('image/OTROS','OTROSimg','on')">
+            </a>
+        </div>
       </div>
     </div>
 </div>

@@ -48,6 +48,7 @@ class Canal {
         switch (_metodo) {
             case "cargaBolsonEtapa":
                 this.metodo = new CargaConBolsonesEtapa();
+                break
             case "cargaBolson":
                 return alerta("EL METODO QUE SE INTENTA CREAR, NO ESTÁ EN FUNCIONAMIENTO...");
                 //this.metodo = new cargaBolson();
@@ -76,7 +77,6 @@ class Canal {
                 return alerta("EL METODO QUE SE INTENTA CREAR, NO ESTÁ EN FUNCIONAMIENTO...");
                 //this.metodo = new cargaBolsonNOMBREID();
             case "cantidadPesoASOC":
-                return alerta("EL METODO QUE SE INTENTA CREAR, NO ESTÁ EN FUNCIONAMIENTO...");
                 //this.metodo = new cantidadPesoASOC();
             case "cargaBolsonASOC":
                 return alerta("EL METODO QUE SE INTENTA CREAR, NO ESTÁ EN FUNCIONAMIENTO...");

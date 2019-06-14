@@ -52,6 +52,10 @@
         <servlet-name>cerrarSesion</servlet-name>
         <servlet-class>Servelt.cerrarSesion</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>consultarBOLSON</servlet-name>
+        <servlet-class>Servelt.consultarBOLSON</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>InicioSesion</servlet-name>
         <url-pattern>/iniciar</url-pattern>
@@ -103,6 +107,10 @@
     <servlet-mapping>
         <servlet-name>cerrarSesion</servlet-name>
         <url-pattern>/cerrarSesion</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>consultarBOLSON</servlet-name>
+        <url-pattern>/consultarBOLSON</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

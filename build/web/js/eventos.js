@@ -59,7 +59,7 @@ $(document).ready(function(){
     $("#consultamenu").on({
         click:function(){
             alerta("¡Está en mantenimiento!");
-            //window.open("index.jsp",'_self');
+            window.open("consultas.jsp",'_self');
         }
     });
     

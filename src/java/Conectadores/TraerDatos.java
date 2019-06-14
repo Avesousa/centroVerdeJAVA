@@ -15,7 +15,7 @@ public class TraerDatos extends Conexion{
             
            if(resultado.next()){
                 this.nombre = resultado.getString("asociado");
-                this.id = resultado.getInt("id_recuperador");
+                // this.id = resultado.getInt("id_recuperador");
            }
         } catch (Exception e) {
             throw new NullPointerException ("No conecto por error: " + e);

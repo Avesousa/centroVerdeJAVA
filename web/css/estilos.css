@@ -156,7 +156,8 @@ header img {
 #divEgreso,
 #divIngreso,
 #divIngresoE,
-#divOtros{
+#divOtros,
+#divConsultas{
     text-align: center;
     font-family: Arial, Helvetica, sans-serif;
     background-color: white;
@@ -173,7 +174,8 @@ header img {
     border-radius: 15px;
     font-family: 'Roboto', sans-serif;
 }
-#divEgreso{
+#divEgreso,
+#divOtros{
     margin-top: 4%;
 }
 
