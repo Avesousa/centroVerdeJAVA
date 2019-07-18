@@ -5,7 +5,7 @@
  */
 package Servelt;
 
-import Conectadores.traerMetodos;
+import Conectadores.TraerMetodos;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.List;
@@ -19,7 +19,7 @@ public class abrirMetodo extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         //response.setContentType("text/html;charset=UTF-8");
-        traerMetodos me = new traerMetodos();
+        TraerMetodos me = new TraerMetodos();
         //Crea conexión con base de datos, para comenzar a traer Metodos.
         me.traerLosMetodos(Integer.parseInt(request.getParameter("cv")),
                 Integer.parseInt(request.getParameter("canal")));

@@ -23,11 +23,10 @@
             for(int i = 0; i < lista.size(); i++){
                 canal = canales.get(i).toString();
                 linkdos = listaDos.get(i).toString();
-                if(!canal.equals("VENTA" ) && !canal.equals("DESCARTE")){
+                id = Integer.parseInt(idCanal.get(i).toString());
+                if(id <= 4){
                     link = lista.get(i).toString();
                     nombre = nombreCanal.get(i).toString();
-                    id = Integer.parseInt(idCanal.get(i).toString());
-                    System.out.println(link);
           %>
           <a onclick="tipoDeCarga('<%=nombre%>',<%=id%>,<%=idCv%>);">
               <img id="<%=id%>img" class="botonIngreso" alt="Boton del método <%=canal%>" src="<%=link%>.png" 
@@ -43,14 +42,11 @@
           <%
               for(int i = 0; i < lista.size(); i++){
                   canal = canales.get(i).toString();
-                  System.out.println("Entro al segundo div y el canal: " + canal);
                   linkdos = listaDos.get(i).toString();
-                  if(canal.equals("VENTA") || canal.equals("DESCARTE")){
-                      System.out.println("Ingreso al if");
-                      link = lista.get(i).toString();
-                      System.out.println(link);                      
+                  id = Integer.parseInt(idCanal.get(i).toString());
+                  if(id > 4 && id <= 6){
+                      link = lista.get(i).toString();                  
                       nombre = nombreCanal.get(i).toString();
-                      id = Integer.parseInt(idCanal.get(i).toString());
             %>
             <a onclick="tipoDeCarga('<%=nombre%>',<%=id%>,<%=idCv%>);">
                 <img id="<%=id%>img" class="botonIngreso" alt="&quot;Boton del método RD&quot;" src="<%=link%>.png" 
@@ -62,14 +58,22 @@
         </div>
         <div id="divOtros">
           <h1 class="tituloEscritorio">Otras cargas</h1>
-            <a onclick="alerta('¡En mantenimiento!')">
-                <img id="BOLSONimg" class="botonIngreso" alt="&quot;Boton del método RD&quot;" src="image/BOLSONon.png" 
-               onmouseover="hacerHover('image/BOLSON','BOLSONimg','')" onmouseout="hacerHover('image/BOLSON','BOLSONimg','on')">
+            <%
+              for(int i = 0; i < lista.size(); i++){
+                  canal = canales.get(i).toString();
+                  linkdos = listaDos.get(i).toString();
+                  id = Integer.parseInt(idCanal.get(i).toString());
+                  if(id > 6){
+                      link = lista.get(i).toString();                     
+                      nombre = nombreCanal.get(i).toString();
+            %>
+            <a onclick="tipoDeCarga('<%=nombre%>',<%=id%>,<%=idCv%>,true);">
+                <img id="<%=id%>img" class="botonIngreso" alt="&quot;Boton del método RD&quot;" src="<%=link%>.png" 
+               onmouseover="hacerHover('<%=linkdos%>','<%=id%>img','')" onmouseout="hacerHover('<%=linkdos%>','<%=id%>img','on')">
             </a>
-            <a onclick="alerta('¡En mantenimiento!')">
-                <img id="OTROSimg" class="botonIngreso" alt="&quot;Boton del método RD&quot;" src="image/OTROSon.png" 
-               onmouseover="hacerHover('image/OTROS','OTROSimg','')" onmouseout="hacerHover('image/OTROS','OTROSimg','on')">
-            </a>
+            <%
+              }}
+          %>
         </div>
       </div>
     </div>

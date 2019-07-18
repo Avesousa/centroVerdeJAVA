@@ -1,4 +1,4 @@
-function tipoDeCarga(nombre, idCanal, idCv) {
+function tipoDeCarga(nombre, idCanal, idCv, otro) {
 
     //PLANTEAR OPERACIÓN A REALIZAR:
     //-INGRESO
@@ -7,7 +7,7 @@ function tipoDeCarga(nombre, idCanal, idCv) {
     //-OTRO
     swal({
         type: "Aviso informátivo",
-        text: "Con el medio de captación de " + nombre + "¿Qué tipo de carga querés realizar?",
+        text: nombre + ": ¿Qué tipo de carga querés realizar?",
         buttons: {
             rapido: {
                 text: "IN SITU",
@@ -24,7 +24,7 @@ function tipoDeCarga(nombre, idCanal, idCv) {
         }
     }).then((value) => {
         if (value == "rapido" || value == "normal") {
-            gestionarMetodos({ cv: idCv, canal: idCanal, tipo: value }, true);
+            gestionarMetodos({ cv: idCv, canal: idCanal, tipo: value, esOtro: otro }, true);
         } else {
             swal.close();
         }
@@ -34,16 +34,16 @@ function textoDelMetodo(letra) {
 
     switch (letra) {
         case "b":
-            return "Carga con Bolson";
+            return "Bolsón";
 
         case "e":
-            return "Carga con Peso de entrada y salida";
+            return "Peso de Entrada y peso de Salida";
 
         case "s":
-            return "Carga con Peso de salida";
+            return "Material y peso Salida";
 
         case "v":
-            return "Carga con visualización";
+            return "Identificación Visual";
 
     }
 
@@ -95,13 +95,19 @@ function gestionarMetodos(data, metodoE) {
                 canal = JSON.parse(res);
                 if (data['tipo'] != "rapido") {
                     if (metodoE) {
-                        window.open('carga.jsp', '_self');
+                        if(!data['esOtro'])
+                            window.open('carga.jsp', '_self');
+                        else
+                            window.open('cargaOtros.jsp','_self');
                     } else {
                         camion.nuevoCanal(canal.id, canal.metodo);
                     }
                 } else {
                     if (metodoE) {
-                        window.open('cargaInsitu.jsp', '_self');
+                        if(!data['esOtro'])
+                            window.open('cargaInsitu.jsp', '_self');
+                        else
+                            window.open('cargaInsituOtros.jsp', '_self');
                     } else {
                         camion.nuevoCanal(canal.id, canal.metodo);
                     }
@@ -115,6 +121,8 @@ function alerta(text) {
     swal({
         type: "Aviso informátivo",
         text: text,
+        closeOnClickOutside: false,
+        closeOnEsc: false,
         buttons: {
             rapido: {
                 text: "Aceptar",
@@ -151,7 +159,7 @@ function consultaOpcionesSelect(_consulta, idHtml, _tipoDeConsulta) {
     )
 }
 function armarEtapa() {
-    $("#etapa").append('<option></option>');
+    $("#etapa").append('<option value="sin">Procedencia:</option>');
     $.post('buscador', {
         id: $("#idCoop").val()
     }, function (res) {
@@ -188,12 +196,10 @@ function colocarArmado(id,_lista){
             lista.elementos[i] + '</option>');
         }
 }
-function cambioPantalla(idNuevo, link, metodo) {
-    var id = $("#idCanal").val();
-    if(validarUsoMixto(idNuevo,id)){
+function cambioPantalla(idNuevo, link, metodo,id) {
         swal({
             type: "Aviso informátivo",
-            text: "¿Desear terminar la carga por esté canal y agregar otro medio de captación dentro del mismo camión?",
+            text: "¿Desear terminar la carga de esté canal?",
             timer:5000,
             buttons: {
                 rapido: {
@@ -226,14 +232,12 @@ function cambioPantalla(idNuevo, link, metodo) {
             }
         }
         });
-    }else{
-        alerta("No se puede agregar esté medio de captación, "+
-        "debe terminar de cargar.");
-    }
 }
 function preguntarPorBolsonesVacios(){
         swal("Bolsones vacios en el camión:",{
         content: "input",
+        closeOnClickOutside: false,
+        closeOnEsc: false,
         })
         .then((value) =>{
             if(!isNaN(value))
@@ -242,14 +246,19 @@ function preguntarPorBolsonesVacios(){
                 camion.ultimoCanal.enviar();
         });
     }
-function comentar(texto){
+function comentar(texto,valor){
         swal(texto,{
         content: "input",
         closeOnClickOutside: false,
         closeOnEsc: false,
         })
         .then((value) =>{
-            camion.comentarios =+ " / " + value +  " / ";
+            if(value != ""){
+                camion.comentarios += " / " + value +  " / ";
+            }
+            if(valor){
+                camion.ultimoCanal.enviar();
+            }
         });
     }
 function trabajoCompleto(bol) {
@@ -295,14 +304,18 @@ function limpiarZona() {
     );
     $("#cargaComun").css("display","none");
     $("#sectorCamion").css("display","inline-block");
+    $("#fecha").val("");
+    $("#hora").val("");
+    $("#cantidadMostrado").html("0");
+    $("#pesoMostrado").html("0,00 kg");
 }
 function limpiarInput(bool, metodo) {
-    $(".seccionBolson input").val("");
+    $(".seccionBolson input, .seccionBolson textarea").val("");
+    $(".seccionBolson textarea").prop("disabled",false);
     $("#botonCargar").attr("disabled", true);
+    $("#botonSeguir").attr("disabled",true);
     if (bool) {
         $("#patente").val("");
-        $("#cantidadMostrado").html("0");
-        $("#pesoMostrado").html("0,00KG");
         limpiarZona();
         $().css("display", "none");
         camion = new Camion();
@@ -325,8 +338,8 @@ function crearResumen() {
         "<td>" + elemento[i].primero() + "</td>" +
         "<td>" + elemento[i].segundo() + "</td>" +
         "<td>" + elemento[i].tercero() + "</td>" +
-        "<td>" + elemento[i].pesoTotal + "</td>" +
-        "<td><button onclick = 'eliminarElementoCargado("+ elemento[i].referencia+");'> X </button></td>"+
+        "<td>" + elemento[i].cuarto() + "</td>" +
+        "<td><button class='botonEliminar' onclick = 'eliminarElementoCargado("+ elemento[i].referencia+");'> X </button></td>"+
         "</tr>");
 
     }
@@ -334,7 +347,8 @@ function crearResumen() {
 function sumaDePesos(){
     var pesoE = $("#pesoEntrada").val();
     var pesoS = $("#pesoSalida").val();
-    if(pesoE>pesoS)$("#pesoMostrado").html(pesoE-pesoS + "KG");
+    var idCanal = parseInt($("#idCanal").val());
+    if(idCanal < 5)$("#pesoMostrado").html(pesoE-pesoS + "KG");
     else $("#pesoMostrado").html(pesoS-pesoE + "KG");
 }
 function eliminarElementoCargado(id){
@@ -349,17 +363,29 @@ function eliminarElementoCargado(id){
     });
 
     camion.ultimoCanal.elementosCargados = camion.ultimoCanal.elementosCargados.filter(elemento => elemento !== elementoCargado);
-    if(camion.ultimoCanal.elementosCargados.length > 0)
+    if(camion.ultimoCanal.elementosCargados.length > 0){
         crearResumen();
+        actualizarTablero();
+    }
     else
-    $("#tablaResumen tbody").html("");
+        $("#tablaResumen tbody").html("");
+    actualizarTablero(camion.ultimoCanal.elementosCargados.length > 0);
 
+}
+
+function actualizarTablero(bool){
+    if(bool){
+        $("#cantidadMostrado").html(camion.ultimoCanal.obtenerCantidadTotal());
+        $("#pesoMostrado").html(camion.ultimoCanal.obtenerPesoTotal() + " kg");
+    } else {
+        $("#cantidadMostrado").html("0");
+        $("#pesoMostrado").html("0 kg");
+    }
 }
 function retornarPeso(_material,_caracteristica,_cantidad){
       $.post("pesoPorMaterial",{cv: $('#idCv').val(),mat: _material,car: _caracteristica},function(res){
           console.log("PESO: " + res);
           if(_cantidad != ""){
-              console.log("ENTRO EN IF");
               pesoCaracteristica = parseFloat(res) * parseInt(_cantidad);
           }else {
             pesoCaracteristica = 0;
@@ -367,15 +393,124 @@ function retornarPeso(_material,_caracteristica,_cantidad){
     });
     return pesoCaracteristica;
   }
-function mostrarTabla(primero,segundo,tercero){
-        $("#tablaResumen thead").html(
-            '<tr>'+
-            '<th>'+primero+'</th>'+
-            '<th>'+segundo+'</th>'+
-            '<th>'+tercero+'</th>'+
-            '<th>PESO</th>'+
-            '</tr>'
-        )
-    }
+function mostrarTabla(primero,segundo,tercero,_cuarto){
+    var cuarto = _cuarto;
+    if(!cuarto)cuarto = "PESO";
+    $("#tablaResumen thead").html(
+        '<tr>'+
+        '<th>'+primero+'</th>'+
+        '<th>'+segundo+'</th>'+
+        '<th>'+tercero+'</th>'+
+        '<th>'+cuarto+'</th>'+
+        '</tr>'
+    )
+}
+function consultarBolsones(){
+    $("#tableroConsulta").css("display","block");
+    $.post('consultar',{
+        id:$("#id_user").val(),
+        caso: "bolson"
+    },function(res){
+        var lista = JSON.parse(res);
+        $("#tablaConsulta tbody, #tablaConsulta thead").html("");
+        $("#tablaConsulta thead").html(
+            "<tr><th>ID INGRESO</th>"+
+            "<th>FECHA</th>"+
+            "<th>PATENTE</th>"+
+            "<th>ETAPA</th>"+
+            "<th>ID BOLSON</th>"+
+            "<th>MEDIO DE CAPTACIÓN</th>"+
+            "<th>CENTRO VERDE</th>"+
+            "<th>ID ASOCIADO</th>"+
+            "<th>ASOCIADO</th>"+
+            "<th>PESO</th>"+
+            "<th>USUARIO</th><tr>");
+        for (var i = 0; i < lista.elementos.length; i++) {
+            $("#tablaConsulta").append("<tr>" +
+            "<td>" + lista.elementos[i].id_ingreso + "</td>" +
+            "<td>" + lista.elementos[i].fecha + "</td>" +
+            "<td>" + lista.elementos[i].patente + "</td>" +
+            "<td>" + lista.elementos[i].etapa + "</td>" +
+            "<td>" + lista.elementos[i].id_bolson + "</td>" +
+            "<td>" + lista.elementos[i].canal + "</td>" +
+            "<td>" + lista.elementos[i].centroverde + "</td>" +
+            "<td>" + lista.elementos[i].id_asociado + "</td>" +
+            "<td>" + lista.elementos[i].asociado + "</td>" +
+            "<td>" + lista.elementos[i].peso + "</td>" +
+            "<td>" + lista.elementos[i].usuario + "</td>"+
+            "</tr>");
+        }
+        //$('#tablaConsulta').DataTable();
+        console.log("TERMINO");
+    });
+}
 
+function consultarMaterial(){
+    $("#tableroConsulta").css("display","block");
+    $.post('consultar',{
+        id:$("#id_user").val(),
+        caso: "material"
+    },function(res){
+        var lista = JSON.parse(res);
+        $("#tablaConsulta tbody, #tablaConsulta thead").html("");
+        $("#tablaConsulta thead").html(
+            "<tr><th>ID INGRESO</th>"+
+            "<th>ID MATERIAL</th>"+
+            "<th>FECHA</th>"+
+            "<th>PATENTE</th>"+
+            "<th>MEDIO DE CAPTACIÓN</th>"+
+            "<th>CENTRO VERDE</th>"+
+            "<th>FORMATO</th>"+
+            "<th>MATERIAL</th>"+
+            "<th>PESO</th>"+
+            "<th>USUARIO</th><tr>");
+        for (var i = 0; i < lista.elementos.length; i++) {
+            $("#tablaConsulta").append("<tr>" +
+            "<td>" + lista.elementos[i].id_ingreso + "</td>" +
+            "<td>" + lista.elementos[i].id_material + "</td>" +
+            "<td>" + lista.elementos[i].fecha + "</td>" +
+            "<td>" + lista.elementos[i].patente + "</td>" +
+            "<td>" + lista.elementos[i].canal + "</td>" +
+            "<td>" + lista.elementos[i].centroverde + "</td>" +
+            "<td>" + lista.elementos[i].formato + "</td>" +
+            "<td>" + lista.elementos[i].material + "</td>" +
+            "<td>" + lista.elementos[i].peso + "</td>" +
+            "<td>" + lista.elementos[i].usuario + "</td>"+
+            "</tr>");
+        }
+        //$('#tablaConsulta').DataTable();
+        console.log("TERMINO datatable");
+    });
+}
+function consultarCamiones(){
+    $("#tableroConsulta").css("display","block");
+    $.post('consultar',{
+        id:$("#id_user").val(),
+        caso: "camion"
+    },function(res){
+        var lista = JSON.parse(res);
+        $("#tablaConsulta tbody, #tablaConsulta thead").html("");
+        $("#tablaConsulta thead").html(
+            "<tr><th>ID INGRESO</th>"+
+            "<th>FECHA</th>"+
+            "<th>PATENTE</th>"+
+            "<th>MEDIO DE CAPTACIÓN</th>"+
+            "<th>CENTRO VERDE</th>"+
+            "<th>PESO</th>"+
+            "<th>USUARIO</th><tr>");
+        for (var i = 0; i < lista.elementos.length; i++) {
+            $("#tablaConsulta").append("<tr>" +
+            "<td>" + lista.elementos[i].id_ingreso + "</td>" +
+            "<td>" + lista.elementos[i].fecha + "</td>" +
+            "<td>" + lista.elementos[i].patente + "</td>" +
+            "<td>" + lista.elementos[i].canal + "</td>" +
+            "<td>" + lista.elementos[i].centroverde + "</td>" +
+            "<td>" + lista.elementos[i].peso + "</td>" +
+            "<td>" + lista.elementos[i].usuario + "</td>"+
+            "</tr>");
+        }
+        //$('#tablaConsulta').DataTable();
+        console.log("TERMINO hizo datatable");
+    });
+}
 

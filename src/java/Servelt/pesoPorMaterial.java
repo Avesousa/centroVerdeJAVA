@@ -5,7 +5,7 @@
  */
 package Servelt;
 
-import Conectadores.traerMetodos;
+import Conectadores.TraerMetodos;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.ServletException;
@@ -18,7 +18,7 @@ public class pesoPorMaterial extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        traerMetodos co = new traerMetodos();
+        TraerMetodos co = new TraerMetodos();
         co.traerPeso(request.getParameter("mat"), request.getParameter("car"), 
                 Integer.parseInt(request.getParameter("cv")));
         System.out.println("[PESO EN PESOPORMATERIAL]: " + co.peso);

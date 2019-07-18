@@ -15,13 +15,13 @@ class Camion {
         this.ultimoCanal = new Canal(_nombre);
         this.ultimoCanal.comenzarMetodo(_metodo);
         this.canales.push(this.ultimoCanal);
-        this.esIngreso = (_nombre != 4 && _nombre != 5); 
+        this.esIngreso = (_nombre < 5); 
     }
 
     cargarDatos(){
         //Elimine hora, para que pueda recibirlo de mejor manera en JAVA
         this.patente = $('#patente').val();
-        if($('#fecha').val() == "in"){
+        if($('#fecha').prop("type") == "hidden"){
             this.fechaHora = new Date().toString();
         }else{
             this.fechaHora = new Date($('#fecha').val() + " " + $('#hora').val()).toString();

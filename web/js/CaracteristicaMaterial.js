@@ -21,5 +21,9 @@ class CaracteristicaMaterial{
   tercero(){
       return this.cantidad;
   }
+  
+  cuarto(){
+      return this.pesoTotal;
+  }
  
 }

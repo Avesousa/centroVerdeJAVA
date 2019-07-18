@@ -3,7 +3,7 @@ package Conectadores;
 import java.util.ArrayList;
 import java.util.List;
 
-public class traerMetodos extends Conexion {
+public class TraerMetodos extends Conexion {
     public int cantidadMetodos;
     public String nombreMetodo;
     public List nombresDeMetodos = new ArrayList();

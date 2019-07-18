@@ -7,12 +7,16 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 
 public class Conexion {
-    private static final String HOST = "172.27.204.57";
+    //private static final String HOST = "172.27.204.57";
     private static final String PORT = "3306";
-    private static final String USERNAME = "dgrecuser";
-    private static final String PASSWORD = "";
-    private static final String DATABASE = "centroverdenueva";
-    private static final String URL = "jdbc:mysql://"+HOST+":"+PORT+"/"+DATABASE;
+    //private static final String USERNAME = "dgrecuser";
+    //private static final String PASSWORD = "";
+    //private static final String DATABASE = "centroverdenueva";
+    private static final String HOST = "10.22.0.82";
+    private static final String USERNAME = "adminDgrec";
+    private static final String PASSWORD = "26390042Po.";
+    private static final String DATABASE = "centroverde";
+    private static final String URL = "jdbc:mysql://"+HOST+":"+PORT+"/"+DATABASE+"?useSSL=false";
     public Connection conectador = null;
     public ResultSet resultado = null;
     public String nombreApellido;

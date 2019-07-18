@@ -5,7 +5,7 @@
  */
 package Servelt;
 
-import Conectadores.envioDeDatos;
+import Conectadores.EnvioDeDatos;
 import domain.*;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -29,7 +29,7 @@ public class enviarDatos extends HttpServlet {
             PRUEBAS PARA VER LA CUESTIÓN DE LA FECHA :D
         */
         //Date fecha = new Date("'"+camion.getFecha()+"'");
-        envioDeDatos envio = new envioDeDatos();
+        EnvioDeDatos envio = new EnvioDeDatos();
         envio.recibirDatos(camion,cv,user);
         response.getWriter().print(envio.elOk);
         

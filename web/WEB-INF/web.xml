@@ -53,8 +53,12 @@
         <servlet-class>Servelt.cerrarSesion</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>consultarBOLSON</servlet-name>
-        <servlet-class>Servelt.consultarBOLSON</servlet-class>
+        <servlet-name>consultar</servlet-name>
+        <servlet-class>Servelt.consultar</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>validacionMixto</servlet-name>
+        <servlet-class>Servelt.validacionMixto</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>InicioSesion</servlet-name>
@@ -109,12 +113,19 @@
         <url-pattern>/cerrarSesion</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-        <servlet-name>consultarBOLSON</servlet-name>
-        <url-pattern>/consultarBOLSON</url-pattern>
+        <servlet-name>consultar</servlet-name>
+        <url-pattern>/consultar</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>validacionMixto</servlet-name>
+        <url-pattern>/validacionMixto</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
             30
         </session-timeout>
     </session-config>
+    <error-page>
+        <location>/index.jsp</location>
+    </error-page>
 </web-app>

@@ -6,8 +6,8 @@
 %>
 <div id="divInformacion">
     <div class="infouser">
-       <p><b>usuario:</b> <%=usuarioR%></p>
-       <p><b>cooperativa:</b> <%=cooperativaR%></p>
+       <p><b>Usuario:</b> <%=usuarioR%></p>
+       <p><b>Cooperativa:</b> <%=cooperativaR%></p>
        <p><b>Centro Verde:</b> <%=centroverdeR%></p>
     </div>
 </div>

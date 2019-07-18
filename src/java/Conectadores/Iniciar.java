@@ -34,6 +34,7 @@ public class Iniciar extends Conexion{
             nombreUsuario = resultado.getString("nombre_y_apellido");
             traerCentroVerde(id_centroverde);
             traerMetodos(id_centroverde);
+            crearConexion();
            } else{
                return false;
            }
@@ -45,6 +46,15 @@ public class Iniciar extends Conexion{
         }
         finally{
            cerrarConexion();
+        }
+    }
+    
+    private void crearConexion(){
+        try {
+            String sql = "INSERT INTO ingreso_usuario(id_usuario) VALUES("+this.id_user+")";
+            conectador.prepareStatement(sql).executeUpdate();
+        } catch (Exception e) {
+            System.out.println("[INICIAR - LOGS]: Error en crearconexion: " + e);
         }
     }
     
@@ -69,7 +79,8 @@ public class Iniciar extends Conexion{
         try {
             String sql = "SELECT DISTINCT C.imagen, C.imagendos, C.nombre, C.abreviatura, C.id_canal "
                 + "FROM canales C, canal_centroverde M "
-                + "WHERE M.id_centroverde = "+idcv+"  and C.id_canal = M.id_canal";
+                + "WHERE M.id_centroverde = "+idcv+"  and C.id_canal = M.id_canal"
+                + " order by C.id_canal ASC";
             ps = conectador.prepareStatement(sql);
             resultado = ps.executeQuery();
             System.out.println("[TRAERMETODOS]");

@@ -25,7 +25,6 @@
             <li id="cargamenu">Carga</li>
             <%
                 int num = ((int)request.getSession().getAttribute("cargo").hashCode());
-                System.out.println("ESTÉ ES EL HOLA QUE ARME EN CABECERA: " + num);
             if(num >= 2){
             %>
             <li id="consultamenu">Consultas</li>

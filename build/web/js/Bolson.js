@@ -3,12 +3,11 @@
 class Bolson {
     /*Permite instanciar un bolson setteando id y peso*/
     /*const bolson = new Boldon(idBolson,peso);*/
-    constructor(_idBolson, _pesoTotal, _etapa, _subEtapa,_material,_idRecuperador, _nombre, _etapaVisual) {
+    constructor(_idBolson, _pesoTotal, _etapa,_material,_idRecuperador, _nombre, _etapaVisual) {
         this.idBolson = _idBolson;
         this.pesoTotal = _pesoTotal;
         this.etapaV = _etapaVisual;
         this.etapa = _etapa;
-        this.subEtapa = _subEtapa;
         this.material = _material;
         this.caracteristica = "bolson";
         this.esBolson = true;
@@ -28,15 +27,15 @@ class Bolson {
       return this.etapaV;
     }
   
-  segundo(){
-      return this.idBolson;
-  }
-  
-  tercero(){
-      return this.nombre;
-  }
-}
+    segundo(){
+        return this.idBolson;
+    }
 
-/*module.exports = {
-    Bolson: Bolson,
-};*/
+    tercero(){
+        return this.nombre;
+    }
+    
+    cuarto(){
+        return this.pesoTotal;
+    }
+}

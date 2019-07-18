@@ -9,7 +9,6 @@ class Metodo {
     datos() {
         this.etapa = $('#etapa').val();
         this.etapaVisual = $('#'+this.etapa).html();
-        this.subetapa = $('#subetapa').val();
         this.material = $('#material').val();
         this.caracteristica = $('#caracteristica').val();
         this.nombre = $('#nombre').val();
@@ -24,10 +23,9 @@ class Metodo {
     }
     
     enviar(){
-        camion.ultimoCanal.enviar();
+        comentar("¿Deseas realizar un comentario?", true);
     }
 }
-
 class CargaConBolsonesEtapa extends Metodo {
 
     mostrarPantallaDeMetodo() {
@@ -37,20 +35,22 @@ class CargaConBolsonesEtapa extends Metodo {
         $('#idBolson').slideToggle(50);
         $('#pesoBolson').slideToggle(50);
         $('#tablaResumen').css("display","table");
-        mostrarTabla("PROYECTO", "BOLSON", "ASOCIADO");
-        $('.contador').css("width","46%")
+        mostrarTabla("PROCEDENCIA", "BOLSÓN", "ASOCIADO");
+        $('.contador').css("width","46%");
     }
 
     cargar() {
         this.datos();
+        $("#idBolson").focus();
         return new Bolson(this.idBolson, parseFloat(this.pesoBolson),
-            this.etapa, this.subetapa, "Mixto", this.idRecuperador, this.nombre,this.etapaVisual);
+            this.etapa, "Mixto", this.idRecuperador, this.nombre,this.etapaVisual);
     }
 
     verificadorCargar(){
         $("#botonCargar").prop("disabled",!(
         validarPesoBolson($("#pesoBolson").val()) 
-        && ($("#idRecuperador").val() != "")));
+        && ($("#idRecuperador").val() != "")
+        && ($("#etapa").val() != "sin")));
         console.log("VERIFICADORDECARGAR: " + (
         validarPesoBolson($("#pesoBolson").val()) 
         && ($("#idRecuperador").val() != "")));
@@ -88,7 +88,6 @@ class CargaConBolsonesEtapa extends Metodo {
     }
 
 }
-
 class EntradaSalida extends Metodo {
 
     constructor() {
@@ -98,6 +97,7 @@ class EntradaSalida extends Metodo {
 
     cargar() {
         this.datos();
+        $("#pesoEntrada").focus();
         return new PesoTotalEntradaSalida(parseFloat(this.pesoEntrada), parseFloat(this.pesoSalida));
     }
 
@@ -121,10 +121,10 @@ class EntradaSalida extends Metodo {
 
 
 }
-
 class EntradaSalidaE extends EntradaSalida{
     cargar(){
         this.datos();
+        $("#pesoSalida").focus();
         return new PesoTotalEntradaSalida(parseFloat(this.pesoSalida),parseFloat(this.pesoEntrada));
     }
     
@@ -138,11 +138,11 @@ class EntradaSalidaE extends EntradaSalida{
     }
 
 }
-
 class CantidadPesoE extends Metodo{
 
    cargar() {
      this.datos();
+     $("#cantidad").focus();
      return new CaracteristicaMaterial(this.cantidad,this.material,this.caracteristica);
 
    }
@@ -150,8 +150,10 @@ class CantidadPesoE extends Metodo{
    mostrarPantallaDeMetodo() {
        armarMaterial();
        $('#botonEnviar,#botonCargar').css("display","inline-block");
-       $('#materialDiv,#mostradorPeso,#caracteristicaDiv').css("display","block");
-       $('#cantidad').slideToggle(50);
+       $('#materialDiv,#caracteristicaDiv').css("display","flex");
+       $("#mostradorPeso").css("display","block");
+       $('#cantidad,#pesoUnitario').slideToggle(50);
+       $('#pesoUnitario').prop("disabled","true");
        $('#tablaResumen').css("display","table");
         mostrarTabla("FORMATO", "MATERIAL", "CANTIDAD");
        $('.contador').css("width","90%");
@@ -159,8 +161,8 @@ class CantidadPesoE extends Metodo{
     
     verificadorCargar(){
        this.datos();
-       $("#mostradorPeso").html((retornarPeso(this.material,this.caracteristica,this.cantidad)) + "KG");
-       $("#botonCargar").prop("disabled",$("#cantidad").val() == "")
+       $("#pesoUnitario").val((parseInt(retornarPeso(this.material,this.caracteristica,this.cantidad))));
+       $("#botonCargar").prop("disabled",$("#cantidad").val() == "");
     }
 
 
@@ -175,8 +177,45 @@ class DescartePatente extends Metodo{
         $("#botonEnviar").prop("disabled",!(
             patenteVerificador($("#patente").val())));
     }
+}
+class SalidaBolsonVacios extends Metodo{
+    mostrarPantallaDeMetodo() {
+        armarEtapa();
+        $('#botonEnviar,#botonCargar').css("display","inline-block");
+        $('#etapaDiv,#mostradorCantidad').css("display","block");
+        $('#cantidad').slideToggle(50);
+        $('#tablaResumen').css("display","table");
+        mostrarTabla("PROCEDENCIA", "REFERENCIA", "INGRESO/EGRESO","CANTIDAD");
+        $('.contador').css("width","90%");
+    }
     
-    cargar(){
-        
+    verificadorCargar(){
+        $("#botonCargar").prop("disabled",!
+            (($("#cantidad").val() != "")&&
+            ($("#etapa").val() != "sin")));
+    }
+    
+    cargar() {
+        this.datos();
+        $("#cantidad").focus();
+        return new BolsonesVacios(parseInt(this.cantidad),this.etapa);
+    }
+}
+
+class OtrasCargas extends Metodo{
+    mostrarPantallaDeMetodo(){
+        $('#botonCargar').css("display","none");
+        $('#botonEnviar').css("display","inline-block");
+    }
+    
+    cargaDato(){
+        camion.comentarios = $("#comentario").val();
+        $("#comentario").prop("disabled","true");
+    }
+    
+    verificadorCargar(){
+        $("#botonEnviar").prop("disabled",!
+        (($("#comentario").val() != "")&&
+         patenteVerificador($("#patente").val())));
     }
 }

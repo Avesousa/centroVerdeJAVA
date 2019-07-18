@@ -1,17 +1,23 @@
-//window.onload = (function(){
+//Todas la funciones creadas para JQuery
 $(document).ready(function(){
+    //Funciones que realiza en el metodo de carga.
     $("#idBolson, #idRecuperador, #etapa").on({
         keyup:function(){
             camion.ultimoCanal.metodo.buscadorId();
             camion.ultimoCanal.metodo.verificadorCargar();
         },
         change:function(){
-            camion.ultimoCanal.metodo.buscadorId();
+            if($("#idCanal").val() < 7)
+                camion.ultimoCanal.metodo.buscadorId();
+            camion.ultimoCanal.metodo.verificadorCargar();
         }
     });
     
     $("#pesoEntrada, #pesoSalida, #cantidad").on({
         keyup:function(){
+            camion.ultimoCanal.metodo.verificadorCargar();
+        },
+        change:function(){
             camion.ultimoCanal.metodo.verificadorCargar();
         }
     });
@@ -58,8 +64,25 @@ $(document).ready(function(){
     
     $("#consultamenu").on({
         click:function(){
-            alerta("¡Está en mantenimiento!");
             window.open("consultas.jsp",'_self');
+        }
+    });
+    
+    $("#selconsultor").on({
+        change:function(){
+            var e = $("#selconsultor").val();
+            switch(e){
+               case "b":
+                   consultarBolsones();
+                   break;
+               case "m":
+                   consultarMaterial();
+                   break;
+               case "c":
+                   consultarCamiones();
+                   break;
+                   
+            }
         }
     });
     
@@ -70,3 +93,4 @@ $(document).ready(function(){
         }
     });
 });
+

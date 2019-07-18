@@ -33,33 +33,35 @@
                 nombre = nombreCanal.get(i).toString();
                 id = Integer.parseInt(idCanal.get(i).toString());  
                 System.out.println("El id del actual es: " + id + " Canal seleccionado es: " + canalUsado);
-                if(canalUsado == id){
-                    linkDosUsado = linkdos;
+                if(id < 7){
+                    if(canalUsado == id){
+                        linkDosUsado = linkdos;
           %>
     <div class="botonMenu" id="<%=id%>">
-        <a id="<%=id%>a" onclick="cambioPantalla('<%=id%>','<%=linkdos%>','rapido')">
+        <a id="<%=id%>a" onclick="validarUsoMixto('<%=id%>','<%=linkdos%>','rapido')">
             <img id="<%=id%>img" alt="Boton del método RD" src="<%=linkdos%>s.png">
         </a>
         
     </div>
         <%
-            }else if(!canal.equals("VENTA" ) && !canal.equals("DESCARTE")){
-            System.out.println("**** EL ID ES IGUAL DEL CANAL USADO**********");
+                }else if(!canal.equals("VENTA" ) && !canal.equals("DESCARTE")){
+                System.out.println("**** EL ID ES IGUAL DEL CANAL USADO**********");
         %>
         <div class="botonMenu" id="<%=id%>">
-       <a id="<%=id%>a" onclick="cambioPantalla('<%=id%>','<%=linkdos%>','rapido')">
+       <a id="<%=id%>a" onclick="validarUsoMixto('<%=id%>','<%=linkdos%>','rapido')">
             <img id="<%=id%>img" alt="Boton del método RD" src="<%=link%>.png">
         </a>
     </div>    
         <%
-        }else{
+            }else{
         %>
         <div class="botonMenu" id="<%=id%>">
-        <a id="<%=id%>a" onclick="cambioPantalla('<%=id%>','<%=linkdos%>','rapido')">
+        <a id="<%=id%>a" onclick="validarUsoMixto('<%=id%>','<%=linkdos%>','rapido')">
             <img id="<%=id%>img" alt="Boton del método RD" src="<%=link%>.png">
         </a>
         </div>
         <%
+            }
         }
                 }
              %> 
@@ -69,7 +71,7 @@
 <div id="carga" class="contenedor carga contenedorCargaMovil">
                 <div class="caja cajaCarga cajaMovil">
                   <div id="bolson" class="contenedorCarga">
-                    <h1 class="tituloEscritorio cargaTitulo">Carga de datos:</h1>
+                    <h1 class="tituloEscritorio cargaTitulo">Carga de Datos:</h1>
                     <!--INFORMACIÓN CON PESO Y CANTIDADES DE BOLSONES-->
                     <div class="mostrador" id="mostrador">
                         <!--CANTIDAD-->
@@ -79,16 +81,16 @@
                         </div>
                         <!--PESO-->
                         <div id="mostradorPeso" class="contador">
-                            <p>Peso total:</p>
-                            <p id="pesoMostrado">0,00KG</p>
+                            <p>Peso Total:</p>
+                            <p id="pesoMostrado"></p>
                         </div><br><br>
                     </div>
                     <!--COMIENZA A CARGAR--> 
                     <!--AGREGAR PATENTE-->
                     <div class="contenidoCarga">
-                    <div id ="validadorPatente" class = "divValidacion">Hola que tal:D</div>
+                    <div id ="validadorPatente" class = "divValidacion">Parece que todo está tranquilo...</div>
                       <div class="seccionBolsonSelect">
-                            <input type="text" name="patente" id="patente" placeholder="AA123AA" maxlength="7"
+                            <input type="text" name="patente" id="patente" placeholder="AA123AA - AAA123" maxlength="7"
                             title="Deberás ingresar valores de patente ejemplo: AA123AA ó AAA123"
                             pattern="([A-Z]{3}[0-9]{3}|[A-Z]{2}[0-9]{3}[A-Z]{2})"
                             oninput="this.value = this.value.toUpperCase(); verificarPatente();" 
@@ -118,11 +120,11 @@
                         <input type="text" name="NOMBRERD" id="nombre" placeholder = "Recuperador" oninput="camion.ultimoCanal.metodo.verificadorCargar();">
                         <input type="number" name="IDRD" id="idRecuperador" min = "1" max ="5" placeholder = "ID del Recuperador">
                         <input type="number" name="IDBL" id="idBolson" min = "1" max ="5" placeholder = "ID del Bolsón">
-                        <input type="number" name="peso" id="pesoBolson" placeholder = "Peso Bolson(KG)" oninput="camion.ultimoCanal.metodo.verificadorCargar();">
-                        <input type="number" name="peso" id="pesoEntrada" placeholder = "P. Entrada(KG)" oninput="camion.ultimoCanal.metodo.verificadorCargar();">
+                        <input type="number" name="peso" id="pesoBolson" placeholder = "Peso Bolsón (kg)" oninput="camion.ultimoCanal.metodo.verificadorCargar();">
+                        <input type="number" name="peso" id="pesoEntrada" placeholder = "P. Entrada (kg)" oninput="camion.ultimoCanal.metodo.verificadorCargar();">
                         <input type="number" name="cantidad" id="cantidad" placeholder = "Cantidad" oninput="camion.ultimoCanal.metodo.verificadorCargar();">
-                        <input type="number" name="peso" id="pesoSalida" placeholder = "P. Salida(KG)" oninput="camion.ultimoCanal.metodo.verificadorCargar();">
-                        <input type="number" name="peso" id="pesoUnitario" placeholder = "P. Material(KG)" oninput="camion.ultimoCanal.metodo.verificadorCargar();">
+                        <input type="number" name="peso" id="pesoSalida" placeholder = "P. Salida (kg)" oninput="camion.ultimoCanal.metodo.verificadorCargar();">
+                        <input type="number" name="peso" id="pesoUnitario" placeholder = "P. Material (kg)" oninput="camion.ultimoCanal.metodo.verificadorCargar();">
                         <button id="botonCargar" class="boton botonCargar" name="btn1" onClick="camion.ultimoCanal.cargar();" disabled>Cargar</button>
                       </div>
                       <div class="seccionBolson">

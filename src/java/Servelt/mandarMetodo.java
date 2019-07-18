@@ -1,6 +1,6 @@
 package Servelt;
 
-import Conectadores.traerMetodos;
+import Conectadores.TraerMetodos;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.lang.Object;
@@ -25,7 +25,7 @@ public class mandarMetodo extends HttpServlet {
             valor.put("metodo", request.getParameter("metodo"));
             response.getWriter().write(valor.toString());
         } else{
-            traerMetodos co = new traerMetodos();
+            TraerMetodos co = new TraerMetodos();
             co.traerMetodosDeDos(Integer.parseInt(request.getParameter("cv")), 
                     Integer.parseInt(request.getParameter("canal")),tipo);
             request.getSession().setAttribute("metodo", co.nombreDelSegundoMetodo);

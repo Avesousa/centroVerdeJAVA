@@ -21,12 +21,11 @@ class Canal {
         var nuevoElementoCargado = this.metodo.cargar();
         this.elementosCargados.push(nuevoElementoCargado);
         this.validarExistenciaDeMaterial(nuevoElementoCargado);
-        $("#cantidadMostrado").html(this.elementosCargados.length);
-        $("#pesoMostrado").html(this.obtenerPesoTotal() + "KG");
+        actualizarTablero(true);
         limpiarInput();
         $("#nombreRecuperador").html("");
         console.log(this.elementosCargados);
-        if (this.metodo.envioDirecto) this.enviar(); 
+        if (this.metodo.envioDirecto) camion.ultimoCanal.metodo.enviar(); 
         else crearResumen();
     }
     enviar() {
@@ -40,6 +39,7 @@ class Canal {
                 trabajoCompleto(res);
                 limpiarInput(true,metodoBandera);
             });
+            $("#patente").focus();
     }
     comenzarMetodo(_metodo) {
         this.nombreMetodo = _metodo;
@@ -90,6 +90,12 @@ class Canal {
             case "descartePatente":
                 this.metodo = new DescartePatente();
                 break;
+            case "SalidaBolsonVacios":
+                this.metodo = new SalidaBolsonVacios();
+                break;
+            case "OtrasCargas":
+                this.metodo = new OtrasCargas();
+                break;
             default:
                 return alerta("EL METODO AGREGADO NO EXISTE");
 
@@ -101,6 +107,10 @@ class Canal {
     }
     obtenerPesoTotal() {
         return this.elementosCargados.map(elemento => elemento.pesoTotal).reduce((elemento1, elemento2) => elemento1 + elemento2);
+    }
+    
+    obtenerCantidadTotal() {
+        return this.elementosCargados.map(elemento => elemento.cantidad).reduce((elemento1, elemento2) => elemento1 + elemento2);
     }
 }
 
