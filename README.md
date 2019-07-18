@@ -12,4 +12,4 @@ Para realizar las pruebas de la aplicación, se deberá aplicar el uso de una VP
 Utilizar la VPN fortiClient y sus credenciales de gobierno.
 2095685276
 
-y el ingreso a la aplicación utilizar la ip del servidor 10.22.0.82:8080
+y el ingreso a la aplicación utilizar la ip del servidor 10.22.0.82:8080/cv
