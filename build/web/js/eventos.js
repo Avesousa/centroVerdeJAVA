@@ -88,9 +88,38 @@ $(document).ready(function(){
     
     $("#botonSeguir").on({
         click:function(){
-            $("#cargaComun").slideToggle(50);
-            $("#sectorCamion").slideToggle(50);
+            moverCargaComun();
         }
     });
+    
+    $("#botonSacar").click(function(){
+        swal({
+            type: "Aviso informátivo",
+            text: "¿Desea eliminar todas las cargas?",
+            timer:5000,
+            buttons: {
+                rapido: {
+                    text: "SI",
+                    value: true,
+                    visible: true,
+                    closeModal: true
+                },
+                normal: {
+                    text: "NO",
+                    value: false,
+                    visible: true,
+                    closeModal: true
+                }
+            }
+        }).then((value) => {
+            if(value){
+                var metodo = camion.ultimoCanal.nombreMetodo;
+                console.log(metodo);
+                eliminarCanal();
+                limpiarInput(true, metodo); 
+            }
+        });
+    });
+    
 });
 

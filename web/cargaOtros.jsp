@@ -125,8 +125,8 @@
                 <input type="number" name="IDBL" id="idBolson" min = "1" max ="5" placeholder = "ID del Bolsón">
                 <input type="number" name="peso" id="pesoBolson" placeholder = "Peso Bolsón (kg)" oninput="camion.ultimoCanal.metodo.verificadorCargar();">
                 <input type="number" name="peso" id="pesoEntrada" placeholder = "P. Entrada (kg)" oninput="camion.ultimoCanal.metodo.verificadorCargar();">
-                <input type="number" name="cantidad" id="cantidad" placeholder = "Cantidad" oninput="camion.ultimoCanal.metodo.verificadorCargar();">
                 <input type="number" name="peso" id="pesoSalida" placeholder = "P. Salida (kg)" oninput="camion.ultimoCanal.metodo.verificadorCargar();">
+                <input type="number" name="cantidad" id="cantidad" placeholder = "Cantidad" oninput="camion.ultimoCanal.metodo.verificadorCargar();">
                 <input type="number" name="peso" id="pesoUnitario" placeholder = "P. Material (kg)" oninput="camion.ultimoCanal.metodo.verificadorCargar();">
                 <textarea type="text" name="comentario" id="comentario" placeholder = "Explique motivo de ingreso del camión" 
                         oninput="camion.ultimoCanal.metodo.verificadorCargar();" onblur="camion.ultimoCanal.metodo.cargaDato();"></textarea>
@@ -140,6 +140,7 @@
                       </tbody>
                   </table>
                       <button disabled id="botonEnviar" class="boton botonCargar botonEnviar" name="btn1" onClick="camion.ultimoCanal.metodo.enviar()">Enviar</button>
+                      <button disabled id="botonSacar" class="boton botonCargar botonSacar" name="btn1">Eliminar todo</button>
                       <button disabled id="botonEntradaSalida" class="boton botonCargar botonEnviar" name="btn1" onClick="camion.ultimoCanal.cargar()">Enviar</button>
               </div>
             </div>

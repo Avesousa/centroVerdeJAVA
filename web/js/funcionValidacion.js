@@ -78,10 +78,6 @@ function validarUsoMixto(pri,link,metodo){
         return alerta("No se puede agregar este medio, "+
                         "primero debes terminar esta carga.");
     });
-   
-//    var opcionUno = ((pri == 1 && seg == 3) || (seg == 1 && pri == 3));
-//    var opcionDos = ((pri == 3 && seg == 2) || (seg == 3 && pri == 2));
-//    return ((opcionUno || opcionDos) || (camion.ultimoCanal.elementosCargados.length == 0));
 }
 function verificarFecha() {
     var dif = parseInt((new Date() - new Date($("#fecha").val())) / (1000 * 60 * 60 * 24));

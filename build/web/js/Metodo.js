@@ -1,11 +1,13 @@
 class Metodo {
-    constructor() {
-        this.nombre = "Metodo creado";
+    constructor(metodo) {
         this.envioDirecto = false;
+        this.elemento;
         //consultaOpcionesSelect(idcv, "#etapa",'e');
         //consultaOpcionesSelect(idcanal, "#material",'m');
     }
-
+    finalizar(){
+        console.log("Ha finalizado la carga");
+    }
     datos() {
         this.etapa = $('#etapa').val();
         this.etapaVisual = $('#'+this.etapa).html();
@@ -21,28 +23,25 @@ class Metodo {
         this.pesoUnitario = $('#pesoUnitario').val();
 
     }
-    
     enviar(){
         comentar("¿Deseas realizar un comentario?", true);
     }
 }
-class CargaConBolsonesEtapa extends Metodo {
+
+class cargaConBolson extends Metodo{
 
     mostrarPantallaDeMetodo() {
-        armarEtapa();
-        $('#botonEnviar,#botonCargar').css("display","inline-block");
-        $('#etapaDiv,#mostradorCantidad,#mostradorPeso').css("display","block");
-        $('#idBolson').slideToggle(50);
+        $('#botonEnviar, #botonSacar,#botonCargar').css("display","inline-block");
+        $('#mostradorCantidad,#mostradorPeso').css("display","block");
         $('#pesoBolson').slideToggle(50);
         $('#tablaResumen').css("display","table");
-        mostrarTabla("PROCEDENCIA", "BOLSÓN", "ASOCIADO");
         $('.contador').css("width","46%");
     }
 
     cargar() {
         this.datos();
         $("#idBolson").focus();
-        return new Bolson(this.idBolson, parseFloat(this.pesoBolson),
+        this.elemento = new Bolson(this.idBolson, parseFloat(this.pesoBolson),
             this.etapa, "Mixto", this.idRecuperador, this.nombre,this.etapaVisual);
     }
 
@@ -54,6 +53,30 @@ class CargaConBolsonesEtapa extends Metodo {
         console.log("VERIFICADORDECARGAR: " + (
         validarPesoBolson($("#pesoBolson").val()) 
         && ($("#idRecuperador").val() != "")));
+    }
+    
+    enviar(){
+        swal("Bolsones vacios en el camión:",{
+        content: "input",
+        })
+        .then((value) =>{
+            if(!isNaN(value)){
+                camion.bolsonesVacios = parseInt(value);
+                super.enviar();
+            }else {
+                camion.ultimoCanal.metodo.enviar();
+            }
+        });
+    }
+}
+class CargaConBolsonesEtapa extends cargaConBolson {
+
+    mostrarPantallaDeMetodo() {
+        super.mostrarPantallaDeMetodo();
+        $('#idBolson').slideToggle(50);
+        armarEtapa();
+        $('#etapaDiv').css("display","block");
+        mostrarTabla("PROCEDENCIA", "BOLSÓN", "ASOCIADO");
     }
     
     buscadorId(){
@@ -72,20 +95,6 @@ class CargaConBolsonesEtapa extends Metodo {
         }
         
     }
-    
-    enviar(){
-        swal("Bolsones vacios en el camión:",{
-        content: "input",
-        })
-        .then((value) =>{
-            if(!isNaN(value)){
-                camion.bolsonesVacios = parseInt(value);
-                super.enviar();
-            }else {
-                camion.ultimoCanal.metodo.enviar();
-            }
-        });
-    }
 
 }
 class EntradaSalida extends Metodo {
@@ -98,7 +107,7 @@ class EntradaSalida extends Metodo {
     cargar() {
         this.datos();
         $("#pesoEntrada").focus();
-        return new PesoTotalEntradaSalida(parseFloat(this.pesoEntrada), parseFloat(this.pesoSalida));
+        this.elemento =  new PesoTotalEntradaSalida(parseFloat(this.pesoEntrada), parseFloat(this.pesoSalida));
     }
 
     verificadorCargar(){
@@ -125,7 +134,7 @@ class EntradaSalidaE extends EntradaSalida{
     cargar(){
         this.datos();
         $("#pesoSalida").focus();
-        return new PesoTotalEntradaSalida(parseFloat(this.pesoSalida),parseFloat(this.pesoEntrada));
+        this.elemento = new PesoTotalEntradaSalida(parseFloat(this.pesoSalida),parseFloat(this.pesoEntrada));
     }
     
     verificadorCargar(){
@@ -138,18 +147,54 @@ class EntradaSalidaE extends EntradaSalida{
     }
 
 }
+class EntradaSalidaMaterialE extends EntradaSalidaE{
+    constructor(){
+        super();
+        this.envioDirecto = false;
+    }
+    
+    mostrarPantallaDeMetodo(){
+        super.mostrarPantallaDeMetodo();
+        armarMaterial();
+        $('#botonEntradaSalida').css("display","none");
+        $('#botonEnviar, #botonSacar,#botonCargar').css("display","inline-block");
+        $('#materialDiv,#caracteristicaDiv').css("display","flex");
+        $('#cantidad').slideToggle(50);
+        $('#tablaResumen').css("display","table");
+        mostrarTabla("FORMATO", "MATERIAL", "CANTIDAD");
+    }
+    
+    verificadorCargar(){
+       $("#botonCargar").prop("disabled",!(
+            $("#pesoSalida").val() != "" 
+            && $("#pesoEntrada").val() != "" 
+            && parseInt($("#pesoSalida").val()) > parseInt($("#pesoEntrada").val())));
+       this.datos();
+    }
+    
+    cargar() {
+     if($('#cantidad').val() == "")
+        $('#cantidad').val(0);
+     this.datos();
+     this.elemento = new CaracteristicaMaterial(this.cantidad,this.material,this.caracteristica,sumaDePesos(),this.pesoSalida);
+    }
+    
+    finalizar(){
+        $("#pesoEntrada").val(
+        camion.ultimoCanal.elementosCargados[camion.ultimoCanal.elementosCargados.length-1].pesoSalida);
+        $("#pesoSalida").focus();
+    }
+}
 class CantidadPesoE extends Metodo{
-
    cargar() {
      this.datos();
      $("#cantidad").focus();
-     return new CaracteristicaMaterial(this.cantidad,this.material,this.caracteristica);
-
+     this.elemento = new CaracteristicaMaterial(this.cantidad,this.material,this.caracteristica);
    }
    
    mostrarPantallaDeMetodo() {
        armarMaterial();
-       $('#botonEnviar,#botonCargar').css("display","inline-block");
+       $('#botonEnviar, #botonSacar,#botonCargar').css("display","inline-block");
        $('#materialDiv,#caracteristicaDiv').css("display","flex");
        $("#mostradorPeso").css("display","block");
        $('#cantidad,#pesoUnitario').slideToggle(50);
@@ -181,7 +226,7 @@ class DescartePatente extends Metodo{
 class SalidaBolsonVacios extends Metodo{
     mostrarPantallaDeMetodo() {
         armarEtapa();
-        $('#botonEnviar,#botonCargar').css("display","inline-block");
+        $('#botonEnviar, #botonSacar,#botonCargar').css("display","inline-block");
         $('#etapaDiv,#mostradorCantidad').css("display","block");
         $('#cantidad').slideToggle(50);
         $('#tablaResumen').css("display","table");
@@ -198,10 +243,9 @@ class SalidaBolsonVacios extends Metodo{
     cargar() {
         this.datos();
         $("#cantidad").focus();
-        return new BolsonesVacios(parseInt(this.cantidad),this.etapa);
+        this.elemento = new BolsonesVacios(parseInt(this.cantidad),this.etapa);
     }
 }
-
 class OtrasCargas extends Metodo{
     mostrarPantallaDeMetodo(){
         $('#botonCargar').css("display","none");

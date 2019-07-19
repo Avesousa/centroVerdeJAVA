@@ -18,7 +18,8 @@ class Canal {
         }
     }
     cargar() {
-        var nuevoElementoCargado = this.metodo.cargar();
+        this.metodo.cargar();
+        var nuevoElementoCargado = this.metodo.elemento;
         this.elementosCargados.push(nuevoElementoCargado);
         this.validarExistenciaDeMaterial(nuevoElementoCargado);
         actualizarTablero(true);
@@ -27,24 +28,23 @@ class Canal {
         console.log(this.elementosCargados);
         if (this.metodo.envioDirecto) camion.ultimoCanal.metodo.enviar(); 
         else crearResumen();
+        this.metodo.finalizar();
     }
     enviar() {
         camion.cargarDatos();
         //this.elementosPorMaterial();
-            const metodoBandera = this.nombreMetodo;
-            delete camion.ultimoCanal;
-            delete this.metodo;
-            var datos = JSON.stringify(camion);
-            $.post("enviarDatos", {valor: datos,cv:$("#idCv").val(),user:$("#idUser").val()}, function (res){
-                trabajoCompleto(res);
-                limpiarInput(true,metodoBandera);
-            });
-            $("#patente").focus();
+        const metodoBandera = this.nombreMetodo;
+        eliminarCanal();
+        var datos = JSON.stringify(camion);
+        $.post("enviarDatos", {valor: datos,cv:$("#idCv").val(),user:$("#idUser").val()}, function (res){
+            trabajoCompleto(res);
+            limpiarInput(true,metodoBandera);
+        });
     }
     comenzarMetodo(_metodo) {
-        this.nombreMetodo = _metodo;
         limpiarZona();
-        console.log(this.nombreMetodo);
+        this.nombreMetodo = _metodo;
+        console.log(_metodo);
         switch (_metodo) {
             case "cargaBolsonEtapa":
                 this.metodo = new CargaConBolsonesEtapa();
@@ -95,6 +95,9 @@ class Canal {
                 break;
             case "OtrasCargas":
                 this.metodo = new OtrasCargas();
+                break;
+            case "entradaSalidaMaterialE":
+                this.metodo = new EntradaSalidaMaterialE();
                 break;
             default:
                 return alerta("EL METODO AGREGADO NO EXISTE");

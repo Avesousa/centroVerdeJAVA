@@ -1,10 +1,4 @@
 function tipoDeCarga(nombre, idCanal, idCv, otro) {
-
-    //PLANTEAR OPERACIÓN A REALIZAR:
-    //-INGRESO
-    //-EGRESO
-    //-RITRO BOLSON
-    //-OTRO
     swal({
         type: "Aviso informátivo",
         text: nombre + ": ¿Qué tipo de carga querés realizar?",
@@ -31,7 +25,6 @@ function tipoDeCarga(nombre, idCanal, idCv, otro) {
     });
 }
 function textoDelMetodo(letra) {
-
     switch (letra) {
         case "b":
             return "Bolsón";
@@ -80,6 +73,7 @@ function gestionarMetodos(data, metodoE) {
                         if (data['tipo'] != "rapido") {
                             window.open('carga.jsp', '_self');
                         } else {
+                            
                             window.open('cargaInsitu.jsp', '_self');
                         }
                     });
@@ -101,6 +95,8 @@ function gestionarMetodos(data, metodoE) {
                             window.open('cargaOtros.jsp','_self');
                     } else {
                         camion.nuevoCanal(canal.id, canal.metodo);
+                            if(camion.ultimoCanal.elementosCargados.length > 0)
+                                moverCargaComun();
                     }
                 } else {
                     if (metodoE) {
@@ -199,7 +195,7 @@ function colocarArmado(id,_lista){
 function cambioPantalla(idNuevo, link, metodo,id) {
         swal({
             type: "Aviso informátivo",
-            text: "¿Desear terminar la carga de esté canal?",
+            text: "¿Desea terminar la carga de esté canal?",
             timer:5000,
             buttons: {
                 rapido: {
@@ -268,7 +264,7 @@ function trabajoCompleto(bol) {
     if (bol == "true") {
         icono = "success";
         mensaje = '¡Ya se ha cargado correctamente!';
-        timepo = 2000;
+        tiempo = 2000;
     }
     else {
         icono = "error";
@@ -280,7 +276,7 @@ function trabajoCompleto(bol) {
         position: 'top-end',
         icon: icono,
         title: mensaje,
-        showConfirmButton: bol,
+        //showConfirmButton: bol,
         timer: tiempo
     })
 }
@@ -293,8 +289,9 @@ function traerFecha(tipo) {
 }
 function limpiarZona() {
     console.log("cambiarPantalla");
-    $(".seccionBolsonSelect div, .seccionBolson input, #botonEnviar, #botonCargar, #botonEntradaSalida, #tablaResumen,#mostradorCantidad, #mostradorPeso").css("display", "none");
-    $("#botonEnviar").attr("disabled", true);
+    $(".seccionBolsonSelect div, .seccionBolson input, #botonEnviar,#botonSacar,"+
+    "#botonCargar, #botonEntradaSalida, #tablaResumen,#mostradorCantidad, #mostradorPeso").css("display", "none");
+    $("#botonEnviar, #botonSacar").attr("disabled", true);
     $("#botonEntradaSalida").attr("disabled", true);
     $("#tablaResumen").html(
         "<thead>" +
@@ -314,14 +311,21 @@ function limpiarInput(bool, metodo) {
     $(".seccionBolson textarea").prop("disabled",false);
     $("#botonCargar").attr("disabled", true);
     $("#botonSeguir").attr("disabled",true);
+    $("#validadorBolson, #validadorPatente").css("display","none");
+    
     if (bool) {
         $("#patente").val("");
         limpiarZona();
         $().css("display", "none");
         camion = new Camion();
         camion.nuevoCanal($("#idCanal").val(), metodo);
+        $("#patente").focus();
 
     }
+}
+function eliminarCanal(){
+    delete camion.ultimoCanal.metodo;
+    delete camion.ultimoCanal;
 }
 function crearResumen() {
 
@@ -350,36 +354,63 @@ function sumaDePesos(){
     var idCanal = parseInt($("#idCanal").val());
     if(idCanal < 5)$("#pesoMostrado").html(pesoE-pesoS + "KG");
     else $("#pesoMostrado").html(pesoS-pesoE + "KG");
+    return pesoS-pesoE;
 }
 function eliminarElementoCargado(id){
-    
     const elementoCargado = camion.ultimoCanal.elementosCargados.filter(elemento => elemento.referencia == id)[0];
+    swal({
+            type: "Aviso informátivo",
+            text: "¿Desea eliminar el bolsón?",
+            timer:5000,
+            buttons: {
+                rapido: {
+                    text: "SI",
+                    value: true,
+                    visible: true,
+                    closeModal: true
+                },
+                normal: {
+                    text: "NO",
+                    value: false,
+                    visible: true,
+                    closeModal: true
+                }
+            }
+        }).then((value) => {
+            if(value){
+                camion.ultimoCanal.elementosPorMaterial.map(elementoMaterial =>{
+                    if(elementoMaterial.material== elementoCargado.material){
+                        elementoMaterial.pesoTotal -= elementoCargado.pesoTotal;
+                        elementoMaterial.cantidad--;
+                    }
+                });
 
-    camion.ultimoCanal.elementosPorMaterial.map(elementoMaterial =>{
-        if(elementoMaterial.material== elementoCargado.material){
-            elementoMaterial.pesoTotal -= elementoCargado.pesoTotal;
-            elementoMaterial.cantidad--;
-        }
-    });
-
-    camion.ultimoCanal.elementosCargados = camion.ultimoCanal.elementosCargados.filter(elemento => elemento !== elementoCargado);
-    if(camion.ultimoCanal.elementosCargados.length > 0){
-        crearResumen();
-        actualizarTablero();
-    }
-    else
-        $("#tablaResumen tbody").html("");
-    actualizarTablero(camion.ultimoCanal.elementosCargados.length > 0);
+                camion.ultimoCanal.elementosCargados = camion.ultimoCanal.elementosCargados.filter(elemento => elemento !== elementoCargado);
+                if(camion.ultimoCanal.elementosCargados.length > 0){
+                    crearResumen();
+                    actualizarTablero();
+                }
+                else{
+                    $("#tablaResumen tbody").html("");
+                }
+                actualizarTablero(camion.ultimoCanal.elementosCargados.length > 0);
+                
+                }
+        });
+    
+    
+    
 
 }
-
 function actualizarTablero(bool){
     if(bool){
         $("#cantidadMostrado").html(camion.ultimoCanal.obtenerCantidadTotal());
         $("#pesoMostrado").html(camion.ultimoCanal.obtenerPesoTotal() + " kg");
+        $("#botonSacar").prop("disabled",false);
     } else {
         $("#cantidadMostrado").html("0");
         $("#pesoMostrado").html("0 kg");
+        $("#botonSacar").prop("disabled",true);
     }
 }
 function retornarPeso(_material,_caracteristica,_cantidad){
@@ -444,7 +475,6 @@ function consultarBolsones(){
         console.log("TERMINO");
     });
 }
-
 function consultarMaterial(){
     $("#tableroConsulta").css("display","block");
     $.post('consultar',{
@@ -512,5 +542,9 @@ function consultarCamiones(){
         //$('#tablaConsulta').DataTable();
         console.log("TERMINO hizo datatable");
     });
+}
+function moverCargaComun(){
+    $("#cargaComun").slideToggle(50);
+    $("#sectorCamion").slideToggle(50);
 }
 

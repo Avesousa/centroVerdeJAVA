@@ -105,6 +105,16 @@ header img {
     background: rgb(10, 86, 138);
     color: rgb(150, 150, 150);
 }
+
+.botonSacar {
+    background: rgb(180,32,0);
+}
+.botonSacar:hover {
+    background: rgb(220, 4, 4);
+}
+.botonSacar:disabled {
+    background: rgb(86, 1, 1);
+}
 .botonAtras img{
     width: 50%;
 }
@@ -275,9 +285,9 @@ textarea{
     margin-bottom: 10px;
 }
 .botonCargar{
-    width: 50%;
+    width: 40%;
 }
-.botonEnviar{
+.botonEnviar, .botonSacar{
     display: none;
 }
 .contenidoCarga{
