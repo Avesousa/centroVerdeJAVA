@@ -10,16 +10,14 @@ public class Consultas extends Conexion {
     private String sql;
     public String elementos;
     public void consultarBolson(int coop){
-        System.out.println("La cooperativa a evaluar es: ");
-        System.out.println(coop);
         try {
             sql = "SELECT I.id_ingreso, Ca.patente, B.id_bolson, B.id_asociado, R.asociado, B.peso,"+
             " Can.abreviatura, I.fecha, U.usuario_usuario, CV.nombre_centroverde, B.etapa"+
-            " FROM bolsones B, recuperadores R,"+
+            " FROM bolsones B, asociados R,"+
             " usuarios U, historico_ingresos_usuario HU,"+
             " ingresos_centros_verdes I, ingreso_camiones Ca,"+
             " canales Can, centro_verde CV"+
-            " WHERE HU.id_ingreso = B.id_ingreso and B.id_asociado = R.id_recuperador"+
+            " WHERE HU.id_ingreso = B.id_ingreso and B.id_asociado = R.id_asociado"+
             " and I.id_ingreso = HU.id_ingreso and HU.id_usuario = U.id_usuario"+
             " and Ca.id_ingreso = I.id_ingreso and B.id_canal = Can.id_canal"+
             " and CV.id_cooperativa = " + coop +
@@ -49,6 +47,7 @@ public class Consultas extends Conexion {
         }
        
     }
+
     
     public void consultarMaterial(int coop){
         System.out.println("La cooperativa a evaluar es: ");

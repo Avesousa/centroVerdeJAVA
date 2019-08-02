@@ -33,6 +33,10 @@
         <servlet-class>Servelt.buscadorId</servlet-class>
     </servlet>
     <servlet>
+        <servlet-name>buscadorPv</servlet-name>
+        <servlet-class>Servelt.buscadorPv</servlet-class>
+    </servlet>
+    <servlet>
         <servlet-name>materialFormato</servlet-name>
         <servlet-class>Servelt.materialFormato</servlet-class>
     </servlet>
@@ -91,6 +95,10 @@
     <servlet-mapping>
         <servlet-name>buscadorId</servlet-name>
         <url-pattern>/buscadorId</url-pattern>
+    </servlet-mapping>
+     <servlet-mapping>
+        <servlet-name>buscadorPv</servlet-name>
+        <url-pattern>/buscadorPv</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>materialFormato</servlet-name>

@@ -92,9 +92,9 @@ public class EnvioDeDatos extends Conexion {
                                     (j+1) + "/" + ca.getBolsones().size());
                                     Camion.Canal.InnerElementosCargados bo = ca.getBolsones().get(j);
                                     ps = conectador.prepareStatement("INSERT INTO bolsones (id_ingreso,"
-                                            + "id_bolson,peso,etapa,id_canal,id_asociado) VALUES("+
+                                            + "id_bolson,peso,etapa,id_canal,id_asociado,otra) VALUES("+
                                         id+",'"+bo.idBolson+"',"+bo.getPesoTotal()+",'"+bo.etapa+
-                                        "','"+ca.nombreCanal+"',"+bo.idRecuperador+"); ");
+                                        "','"+ca.nombreCanal+"','"+bo.idRecuperador+"',"+bo.otra+"); ");
                                     ps.executeUpdate();
                                 }
                             }

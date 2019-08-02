@@ -99,6 +99,12 @@ class Canal {
             case "entradaSalidaMaterialE":
                 this.metodo = new EntradaSalidaMaterialE();
                 break;
+            case "cargaConBolsonesPV":
+                this.metodo = new CargaConBolsonesPV();
+                break;
+            case "entradaSalidaEtapa":
+                this.metodo = new EntradaSalidaEtapa();
+                break;
             default:
                 return alerta("EL METODO AGREGADO NO EXISTE");
 

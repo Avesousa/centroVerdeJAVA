@@ -16,6 +16,7 @@ class Metodo {
         this.nombre = $('#nombre').val();
         this.idRecuperador = $('#idRecuperador').val();
         this.idBolson = $('#idBolson').val();
+        this.idPuntoVerde = $('#idPuntoVerde').val();
         this.pesoBolson = $('#pesoBolson').val();
         this.pesoEntrada = $('#pesoEntrada').val();
         this.cantidad = $('#cantidad').val();
@@ -27,9 +28,7 @@ class Metodo {
         comentar("¿Deseas realizar un comentario?", true);
     }
 }
-
 class cargaConBolson extends Metodo{
-
     mostrarPantallaDeMetodo() {
         $('#botonEnviar, #botonSacar,#botonCargar').css("display","inline-block");
         $('#mostradorCantidad,#mostradorPeso').css("display","block");
@@ -37,24 +36,18 @@ class cargaConBolson extends Metodo{
         $('#tablaResumen').css("display","table");
         $('.contador').css("width","46%");
     }
-
     cargar() {
         this.datos();
         $("#idBolson").focus();
         this.elemento = new Bolson(this.idBolson, parseFloat(this.pesoBolson),
             this.etapa, "Mixto", this.idRecuperador, this.nombre,this.etapaVisual);
     }
-
     verificadorCargar(){
         $("#botonCargar").prop("disabled",!(
         validarPesoBolson($("#pesoBolson").val()) 
         && ($("#idRecuperador").val() != "")
         && ($("#etapa").val() != "sin")));
-        console.log("VERIFICADORDECARGAR: " + (
-        validarPesoBolson($("#pesoBolson").val()) 
-        && ($("#idRecuperador").val() != "")));
     }
-    
     enviar(){
         swal("Bolsones vacios en el camión:",{
         content: "input",
@@ -68,6 +61,30 @@ class cargaConBolson extends Metodo{
             }
         });
     }
+    buscadorId(){
+        if($('#idCanal').val() == 3) var idR = parseInt($("#idPuntoVerde").val());
+        else var idR = $("#idBolson").val();
+        console.log(idR);
+        var etapa = $("#etapa").val();
+        console.log(etapa);
+        if(idR != ""){
+        $.post("buscadorId",{
+            id: idR,
+            etapa: etapa, //$("#etapa").val(),
+            medio:$("#idCanal").val()
+        },function(res){
+            var recuperador = JSON.parse(res);
+            $("#nombreRecuperador").html(recuperador.nombre);
+            $("#nombre").val(recuperador.nombre)
+            console.log(recuperador.id);
+            console.log(recuperador);
+            $("#idRecuperador").val(recuperador.id); //DEBE SER TOMADO POR EL OBJETO BOLSON EN EL CONVERSOR
+        }); 
+        }else{
+             $("#nombreRecuperador").html("");
+        }
+        
+    }
 }
 class CargaConBolsonesEtapa extends cargaConBolson {
 
@@ -78,22 +95,23 @@ class CargaConBolsonesEtapa extends cargaConBolson {
         $('#etapaDiv').css("display","block");
         mostrarTabla("PROCEDENCIA", "BOLSÓN", "ASOCIADO");
     }
+}
+class CargaConBolsonesPV extends cargaConBolson {
+
+    mostrarPantallaDeMetodo() {
+        super.mostrarPantallaDeMetodo();
+        $('#idPuntoVerde').slideToggle(50);
+        armarEtapa(true);
+        mostrarTabla("PROCEDENCIA", "ID PUNTO VERDE", "PUNTO VERDE");
+        $('#UNICA').val("PV");
+        $('#UNICA').html("PV");
+        $('#UNICA').attr("id","PV");
+    }
     
-    buscadorId(){
-        if($("#idBolson").val() != ""){
-        $.post("buscadorId",{
-            id:$("#idBolson").val(),
-            etapa:$("#etapa").val()
-        },function(res){
-            var recuperador = JSON.parse(res);
-            $("#nombreRecuperador").html(recuperador.nombre);
-            $("#nombre").val(recuperador.nombre)
-            $("#idRecuperador").val(recuperador.id); //DEBE SER TOMADO POR EL OBJETO BOLSON EN EL CONVERSOR
-        }); 
-        }else{
-             $("#nombreRecuperador").html("");
-        }
-        
+    cargar(){
+        $('#idBolson').val($('#idPuntoVerde').val());
+        super.cargar();
+        $("#idPuntoVerde").focus();
     }
 
 }
@@ -249,7 +267,7 @@ class SalidaBolsonVacios extends Metodo{
 class OtrasCargas extends Metodo{
     mostrarPantallaDeMetodo(){
         $('#botonCargar').css("display","none");
-        $('#botonEnviar').css("display","inline-block");
+        $('#botonEnviar, #comentario').css("display","inline-block");
     }
     
     cargaDato(){
@@ -262,4 +280,34 @@ class OtrasCargas extends Metodo{
         (($("#comentario").val() != "")&&
          patenteVerificador($("#patente").val())));
     }
+}
+class EntradaSalidaEtapa extends EntradaSalida{
+    
+    mostrarPantallaDeMetodo() {
+        $('#pesoSalida').slideToggle(50);
+        $('#botonCargar').css("display","none");
+        $('#pesoEntrada').slideToggle(50);
+        armarEtapa();
+        $('#etapaDiv').css("display","block");
+        $('#botonEntradaSalida, #mostradorPeso').css("display","inline-block");
+        $('.contador').css("width","90%");
+    }
+    
+    cargar(){
+        this.datos();
+        $("#pesoSalida").focus();
+        this.elemento = new Bolson(0, (parseFloat(this.pesoEntrada) - parseFloat(this.pesoSalida)),
+        this.etapa, "Mixto", 0, "NO CONTIENE",this.etapaVisual, true);
+    }
+    
+    verificadorCargar(){
+        $("#botonEntradaSalida").prop("disabled",!(
+            $("#pesoSalida").val() != "" 
+            && $("#pesoEntrada").val() != "" 
+            && patenteVerificador($("#patente").val())
+            && ($("#etapa").val() != "sin")
+            && parseInt($("#pesoSalida").val()) < parseInt($("#pesoEntrada").val())));
+        sumaDePesos();
+    }
+    
 }

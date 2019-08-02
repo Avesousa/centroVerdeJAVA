@@ -118,9 +118,10 @@
                         <div id ="nombreRecuperador" class = "nombreDiv"></div>
                         <!-- FIJAR QUE ES LO QUE NECESITA CAMBIAR PARA VERIFICAR NOMBRE E ID-->
                         <input type="text" name="NOMBRERD" id="nombre" placeholder = "Recuperador" oninput="camion.ultimoCanal.metodo.verificadorCargar();">
-                        <input type="number" name="IDRD" id="idRecuperador" min = "1" max ="5" placeholder = "ID del Recuperador">
+                        <input type="text" name="IDRD" id="idRecuperador" min = "1" max ="5" placeholder = "ID del Recuperador">
                         <input type="number" name="IDBL" id="idBolson" min = "1" max ="5" placeholder = "ID del Bolsón">
-                        <input type="number" name="peso" id="pesoBolson" placeholder = "Peso Bolsón (kg)" oninput="camion.ultimoCanal.metodo.verificadorCargar();">
+                        <input type="number" name="IDPV" id="idPuntoVerde" min = "1" max ="5" placeholder = "ID del punto verde">
+                        <input type="number" name="peso" id="pesoBolson" placeholder = "Peso (kg)" oninput="camion.ultimoCanal.metodo.verificadorCargar();">
                         <input type="number" name="peso" id="pesoEntrada" placeholder = "P. Entrada (kg)" oninput="camion.ultimoCanal.metodo.verificadorCargar();">
                         <input type="number" name="peso" id="pesoSalida" placeholder = "P. Salida (kg)" oninput="camion.ultimoCanal.metodo.verificadorCargar();">
                         <input type="number" name="cantidad" id="cantidad" placeholder = "Cantidad" oninput="camion.ultimoCanal.metodo.verificadorCargar();">

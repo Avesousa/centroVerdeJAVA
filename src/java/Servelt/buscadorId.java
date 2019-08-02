@@ -24,9 +24,10 @@ public class buscadorId extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         String etapa = request.getParameter("etapa");
+        String medio = request.getParameter("medio");
         int id = Integer.parseInt(request.getParameter("id"));
         TraerDatos td = new TraerDatos();
-        td.traerId(id, etapa);
+        td.traerId(id, etapa, medio);
         JSONObject valor = new JSONObject();
         if(td.nombre != null){
             valor.put("nombre", td.nombre);

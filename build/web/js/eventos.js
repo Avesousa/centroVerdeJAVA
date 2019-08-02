@@ -1,7 +1,7 @@
 //Todas la funciones creadas para JQuery
 $(document).ready(function(){
     //Funciones que realiza en el metodo de carga.
-    $("#idBolson, #idRecuperador, #etapa").on({
+    $("#idBolson, #idRecuperador, #etapa, #idPuntoVerde").on({
         keyup:function(){
             camion.ultimoCanal.metodo.buscadorId();
             camion.ultimoCanal.metodo.verificadorCargar();

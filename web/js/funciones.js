@@ -154,17 +154,21 @@ function consultaOpcionesSelect(_consulta, idHtml, _tipoDeConsulta) {
     }
     )
 }
-function armarEtapa() {
-    $("#etapa").append('<option value="sin">Procedencia:</option>');
-    $.post('buscador', {
-        id: $("#idCoop").val()
-    }, function (res) {
-        var lista = JSON.parse(res);
-        for (var i in lista.etapas) {
-            $("#etapa").append('<option id = '+lista.valorEtapa[i]+' value =' + lista.valorEtapa[i] + '>' +
-                lista.etapas[i] + '</option>');
-        }
-    });
+function armarEtapa(esUnica) {
+    if(esUnica){
+        $("#etapa").append('<option id = "UNICA" value="UNICA" selected>UNICA</option>');
+    }else{
+        $("#etapa").append('<option value="sin">Procedencia:</option>');
+        $.post('buscador', {
+            id: $("#idCoop").val()
+        }, function (res) {
+            var lista = JSON.parse(res);
+            for (var i in lista.etapas) {
+                $("#etapa").append('<option id = '+lista.valorEtapa[i]+' value =' + lista.valorEtapa[i] + '>' +
+                    lista.etapas[i] + '</option>');
+            }
+        });
+    }
 }
 function armarFormato(_material){
     $("#caracteristica").html("");
@@ -187,10 +191,15 @@ function armarMaterial(){
 }
 function colocarArmado(id,_lista){
     var lista = JSON.parse(_lista);
+    if(lista.elementos.length > 0){
         for (var i in lista.elementos){
             $(id).append('<option value = "'+ lista.elementos[i] + '">'+
             lista.elementos[i] + '</option>');
         }
+    } else {
+        alerta("No tiene elementos para cargar...");
+    }
+    
 }
 function cambioPantalla(idNuevo, link, metodo,id) {
         swal({
