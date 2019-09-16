@@ -54,15 +54,15 @@ public class TraerMetodos extends Conexion {
     
     public void traerEtapas(int idCoop){
         try {
-            String sql = "SELECT etapa_visual, etapa  " +
+            String sql = "SELECT DISTINCT etapa_visual " +
             "FROM etapas " +
-            "WHERE id_cooperativa = "+idCoop+
-            " order by etapa ASC";
+            "WHERE id_cooperativa = "+idCoop+" and balancero = 1"+
+            " order by etapa_visual ASC";
             ps = conectador.prepareStatement(sql);
             resultado = ps.executeQuery();
             while(resultado.next()){
                 etapas.add(resultado.getString("etapa_visual"));
-                etapasValue.add(resultado.getString("etapa"));
+                etapasValue.add(resultado.getString("etapa_visual"));
             }
         } catch (Exception e) {
             System.out.println("Error en traer metodos: " + e);

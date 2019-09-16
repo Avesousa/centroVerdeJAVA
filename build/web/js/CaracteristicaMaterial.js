@@ -8,7 +8,8 @@ class CaracteristicaMaterial{
     this.pesoSalida = _pesoSalida;
     if(!_peso)
         this.pesoTotal = retornarPeso(this.material,this.caracteristica,this.cantidad);
-    this.pesoTotal = parseInt(_peso);
+    else
+        this.pesoTotal = parseInt(_peso);
     this.referencia = camion.ultimoCanal.elementosCargados.length;
     console.log(this);
   }

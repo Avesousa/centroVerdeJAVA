@@ -40,7 +40,7 @@ class cargaConBolson extends Metodo{
         this.datos();
         $("#idBolson").focus();
         this.elemento = new Bolson(this.idBolson, parseFloat(this.pesoBolson),
-            this.etapa, "Mixto", this.idRecuperador, this.nombre,this.etapaVisual);
+            this.etapa, "MIXTO", this.idRecuperador, this.nombre,this.etapaVisual);
     }
     verificadorCargar(){
         $("#botonCargar").prop("disabled",!(
@@ -64,20 +64,18 @@ class cargaConBolson extends Metodo{
     buscadorId(){
         if($('#idCanal').val() == 3) var idR = parseInt($("#idPuntoVerde").val());
         else var idR = $("#idBolson").val();
-        console.log(idR);
         var etapa = $("#etapa").val();
-        console.log(etapa);
         if(idR != ""){
         $.post("buscadorId",{
             id: idR,
             etapa: etapa, //$("#etapa").val(),
-            medio:$("#idCanal").val()
+            medio:$("#idCanal").val(),
+            idRecuperador: "no",
+            coop: $("#idCoop").val()
         },function(res){
             var recuperador = JSON.parse(res);
             $("#nombreRecuperador").html(recuperador.nombre);
-            $("#nombre").val(recuperador.nombre)
-            console.log(recuperador.id);
-            console.log(recuperador);
+            $("#nombre").val(recuperador.nombre);
             $("#idRecuperador").val(recuperador.id); //DEBE SER TOMADO POR EL OBJETO BOLSON EN EL CONVERSOR
         }); 
         }else{
@@ -94,6 +92,43 @@ class CargaConBolsonesEtapa extends cargaConBolson {
         armarEtapa();
         $('#etapaDiv').css("display","block");
         mostrarTabla("PROCEDENCIA", "BOLSÓN", "ASOCIADO");
+    }
+}
+class CargaConBolsonesEtapaId extends cargaConBolson {
+    
+    cargar() {
+        this.datos();
+        $("#idRecuperador").focus();
+        this.elemento = new Bolson(this.idRecuperador, parseFloat(this.pesoBolson),
+            this.etapa, "Mixto",this.idBolson, this.nombre,this.etapaVisual);
+    }
+    
+    mostrarPantallaDeMetodo() {
+        super.mostrarPantallaDeMetodo();
+        $('#idRecuperador').slideToggle(50);
+        armarEtapa();
+        $('#etapaDiv').css("display","block");
+        mostrarTabla("PROCEDENCIA", "ID ASOCIADO", "ASOCIADO");
+    }
+    
+    buscadorId(){
+        var etapa = $("#etapa").val();
+        var idR = $("#idRecuperador").val();
+        if(idR != "")
+            $.post("buscadorId",{
+                id: idR,
+                etapa: etapa, //$("#etapa").val(),
+                medio:$("#idCanal").val(),
+                idRecuperador: "si",
+                coop: $("#idCoop").val()
+            },function(res){
+                var recuperador = JSON.parse(res);
+                $("#nombreRecuperador").html(recuperador.nombre);
+                $("#nombre").val(recuperador.nombre);
+                $("#idBolson").val(recuperador.id);
+            }); 
+        else
+            $("#nombreRecuperador").html("");
     }
 }
 class CargaConBolsonesPV extends cargaConBolson {
@@ -222,13 +257,11 @@ class CantidadPesoE extends Metodo{
        $('.contador').css("width","90%");
     }
     
-    verificadorCargar(){
+   verificadorCargar(){
        this.datos();
        $("#pesoUnitario").val((parseInt(retornarPeso(this.material,this.caracteristica,this.cantidad))));
        $("#botonCargar").prop("disabled",$("#cantidad").val() == "");
     }
-
-
 
 }
 class DescartePatente extends Metodo{

@@ -64,6 +64,14 @@
         <servlet-name>validacionMixto</servlet-name>
         <servlet-class>Servelt.validacionMixto</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>cambiarClave</servlet-name>
+        <servlet-class>Servelt.cambiarClave</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>Reporte</servlet-name>
+        <servlet-class>Servelt.Reporte</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>InicioSesion</servlet-name>
         <url-pattern>/iniciar</url-pattern>
@@ -96,7 +104,7 @@
         <servlet-name>buscadorId</servlet-name>
         <url-pattern>/buscadorId</url-pattern>
     </servlet-mapping>
-     <servlet-mapping>
+    <servlet-mapping>
         <servlet-name>buscadorPv</servlet-name>
         <url-pattern>/buscadorPv</url-pattern>
     </servlet-mapping>
@@ -127,6 +135,14 @@
     <servlet-mapping>
         <servlet-name>validacionMixto</servlet-name>
         <url-pattern>/validacionMixto</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>cambiarClave</servlet-name>
+        <url-pattern>/cambiarClave</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>Reporte</servlet-name>
+        <url-pattern>/Reporte</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

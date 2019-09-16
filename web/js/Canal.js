@@ -105,6 +105,9 @@ class Canal {
             case "entradaSalidaEtapa":
                 this.metodo = new EntradaSalidaEtapa();
                 break;
+            case "cargaConBolsonesEtapaId":
+                this.metodo = new CargaConBolsonesEtapaId();
+                break;
             default:
                 return alerta("EL METODO AGREGADO NO EXISTE");
 

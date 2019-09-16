@@ -1,17 +1,15 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package Servelt;
 
 import Conectadores.TraerDatos;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import org.json.JSONException;
 import org.json.JSONObject;
 
 /**
@@ -21,14 +19,23 @@ import org.json.JSONObject;
 public class buscadorId extends HttpServlet {
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
+            throws ServletException, IOException, JSONException {
         response.setContentType("text/html;charset=UTF-8");
         String etapa = request.getParameter("etapa");
         String medio = request.getParameter("medio");
+        String idRecuperador = request.getParameter("idRecuperador");
+        
         int id = Integer.parseInt(request.getParameter("id"));
+        int coop = Integer.parseInt(request.getParameter("coop"));
         TraerDatos td = new TraerDatos();
-        td.traerId(id, etapa, medio);
-        JSONObject valor = new JSONObject();
+        System.out.println("ENTRO EN UN BUSCADOR DE ID");
+        System.out.println(idRecuperador);
+        if(idRecuperador.equals("si"))
+            td.traerId(medio, id, coop);
+        else
+            td.traerId(id, etapa, medio, coop);
+        try {
+            JSONObject valor = new JSONObject();
         if(td.nombre != null){
             valor.put("nombre", td.nombre);
             valor.put("id",td.id);
@@ -36,9 +43,11 @@ public class buscadorId extends HttpServlet {
             valor.put("nombre", "No encontrado");
             valor.put("id", 0);
         }
-        valor.put("proyecto", etapa);
-        response.getWriter().write(valor.toString());
-        
+            valor.put("proyecto", etapa);
+            response.getWriter().write(valor.toString());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }        
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
@@ -53,7 +62,11 @@ public class buscadorId extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        try {
+            processRequest(request, response);
+        } catch (JSONException ex) {
+            Logger.getLogger(buscadorId.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     /**
@@ -67,7 +80,11 @@ public class buscadorId extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        try {
+            processRequest(request, response);
+        } catch (JSONException ex) {
+            Logger.getLogger(buscadorId.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     /**

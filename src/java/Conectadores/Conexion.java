@@ -13,7 +13,7 @@ public class Conexion {
     //private static final String PASSWORD = "";
     //private static final String DATABASE = "centroverdenueva";
     private static final String HOST = "10.22.0.82";
-    private static final String USERNAME = "adminDgrec";
+    private static final String USERNAME = "avesousa";
     private static final String PASSWORD = "26390042Po.";
     private static final String DATABASE = "centroverde";
     private static final String URL = "jdbc:mysql://"+HOST+":"+PORT+"/"+DATABASE+"?useSSL=false";
@@ -24,6 +24,7 @@ public class Conexion {
     public int id_usuario;
     public int id_cliente;
     public int cargo;
+    public String sql;
     public boolean elOk = false;
     public PreparedStatement ps = null;
     public Conexion() {

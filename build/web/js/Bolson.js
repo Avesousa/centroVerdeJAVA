@@ -9,7 +9,7 @@ class Bolson {
         this.etapaV = _etapaVisual;
         this.etapa = _etapa;
         this.material = _material;
-        this.caracteristica = "bolson";
+        this.caracteristica = "BOLSONES";
         this.esBolson = true;
         this.cantidad = 1;
         this.otra = _otra;

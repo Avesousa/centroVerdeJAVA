@@ -1,3 +1,4 @@
+history.forward();
 function tipoDeCarga(nombre, idCanal, idCv, otro) {
     swal({
         type: "Aviso informátivo",
@@ -369,7 +370,7 @@ function eliminarElementoCargado(id){
     const elementoCargado = camion.ultimoCanal.elementosCargados.filter(elemento => elemento.referencia == id)[0];
     swal({
             type: "Aviso informátivo",
-            text: "¿Desea eliminar el bolsón?",
+            text: "¿Desea eliminar el elemento cargado?",
             timer:5000,
             buttons: {
                 rapido: {
@@ -548,12 +549,9 @@ function consultarCamiones(){
             "<td>" + lista.elementos[i].usuario + "</td>"+
             "</tr>");
         }
-        //$('#tablaConsulta').DataTable();
-        console.log("TERMINO hizo datatable");
     });
 }
 function moverCargaComun(){
     $("#cargaComun").slideToggle(50);
     $("#sectorCamion").slideToggle(50);
 }
-

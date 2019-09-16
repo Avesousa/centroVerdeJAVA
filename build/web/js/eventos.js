@@ -13,6 +13,26 @@ $(document).ready(function(){
         }
     });
     
+    $("#cambiarClave").on({
+        click:function(){
+            swal("Ingresa la nueva clave",{
+            content:"input",
+        }).then((value) => {
+            if(value != "")
+            $.post("cambiarClave",
+            {
+                id: $("#idUsuario").val(),
+                clave: value
+            },function(res){
+                alerta(res);
+            });
+            else
+                alerta("¡NO TIENE DATOS PARA CAMBIAR!");
+        });
+            
+        }
+    });
+    
     $("#pesoEntrada, #pesoSalida, #cantidad").on({
         keyup:function(){
             camion.ultimoCanal.metodo.verificadorCargar();
@@ -22,14 +42,29 @@ $(document).ready(function(){
         }
     });
     
-    $("#btn-menu").on({
+    $(".obj").on({
         click:function(){
-            if($("#menu-res").css("display") != "none"){
+            if($("#menu-res").css("display") != "none")
                 $(".obj .img").css("background","#979A9A");
-            }else{
+            else{
                 $(".obj .img").css("background","#F7F9F9");
+                if($("#menu-notificacion").css("display") != "none")
+                    $("#menu-notificacion").slideToggle(10);
             }
             $("#menu-res").slideToggle(10);
+            
+        }
+    });
+    $(".notificacion").on({
+        click:function(){
+            if($("#menu-notificacion").css("display") != "none")
+                $(".obj .img").css("background","#979A9A");
+            else{
+                $(".obj .img").css("background","#F7F9F9");
+                if($("#menu-res").css("display") != "none")
+                    $("#menu-res").slideToggle(10);
+            }
+            $("#menu-notificacion").slideToggle(10);
             
         }
     });
@@ -65,6 +100,12 @@ $(document).ready(function(){
     $("#consultamenu").on({
         click:function(){
             window.open("consultas.jsp",'_self');
+        }
+    });
+    
+    $("#dgrecmenu").on({
+        click:function(){
+            window.open("reporte.jsp","_self");
         }
     });
     
@@ -121,5 +162,27 @@ $(document).ready(function(){
         });
     });
     
+    
+    $("#formularioReporte input[type=submit]").on({
+        click:function(){
+            $("#textoRepuesta").html("Espera mientras se realiza el documento");
+            setTimeout(function(){
+                $("#textoRepuesta").html("");
+            },10000);
+        }
+    });
+    
+    var fecha = new Date();
+    $("#fechaEnd").val(fecha.getFullYear() + "-" + ((fecha.getMonth()+1) > 9 ? (fecha.getMonth()+1) : ("0" + (fecha.getMonth()+1))) + "-" + fecha.getDate());
+    fecha.setDate(fecha.getDate() - 30);
+    $("#fechaStart").val(fecha.getFullYear() + "-" + ((fecha.getMonth()+1) > 9 ? (fecha.getMonth()+1) : ("0" + (fecha.getMonth()+1))) + "-" + fecha.getDate());
+    
+    
 });
+
+
+
+
+    
+    
 

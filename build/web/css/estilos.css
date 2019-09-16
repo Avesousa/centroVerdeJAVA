@@ -65,13 +65,11 @@ header img {
 #cargaComun{
     display:none;
 }
-
 #sectorCamion{
     width: 95%;
     margin: 0 auto;
     text-align: center;
 }
-
 #sectorCamion input{
     width: 100%;
 }
@@ -105,7 +103,6 @@ header img {
     background: rgb(10, 86, 138);
     color: rgb(150, 150, 150);
 }
-
 .botonSacar {
     background: rgb(180,32,0);
 }
@@ -133,7 +130,6 @@ header img {
 .botonBorrar button:hover{
     background: red;
 }
-
 .botonEliminar{
     background: coral;
     width: 25px;
@@ -148,7 +144,6 @@ header img {
     font-weight: 600;
     border: solid coral 1px;
 }
-
 /*//////////DATOS DE INGRESO//////////////*/
 .contenedorIngreso{
     background-color: white;
@@ -173,7 +168,6 @@ header img {
     text-align: center;
     padding: 5px;
 }
-
 textarea{
     width: 90%;
     font-size: 1em;
@@ -183,7 +177,6 @@ textarea{
     max-height: 20%;
     max-width: 100%;
 }
-
 .seccionBolsonSelect div, .seccionBolson input, 
 #tablaResumen, #mostradorCantidad, #mostradorPeso,
 #tableroConsulta,.seccionBolson textarea{
@@ -226,7 +219,6 @@ textarea{
 #tableroConsulta{
     margin-top: 4%;
 }
-
 /*////////INFORMACIÓN DE USUARIO//////////*/
 #divInformacion{
     /*margin-top: 4%;*/
@@ -255,7 +247,6 @@ textarea{
     width: 15%;
     padding: 15px;
 }
-
 .botonMenu{
     display: inline-block;
     width: 5%;
@@ -312,24 +303,20 @@ textarea{
     font-size: 12px;
     padding-left: 20px;
 }
-
 .camionImg{
         width: 20%;
         
     }
-
 .nombreDiv{
     width: 95%;
     margin-left: auto;
     margin-right: auto;
 }
-
 .nombreDiv p{
     color: #000;
     font-size: 10px;
     padding-left: 15px;
 }
-
 .tituloInput{
     font-size: 24px;
     margin: 0;
@@ -412,7 +399,6 @@ select{
     text-align: center;
     background-color: #FACC2E;
 }
-
 #divIngreso select{
     float:none;
 }
@@ -421,7 +407,6 @@ select{
     width: 90%;
     font-size: 1em;
 }
-
 select{
     border-radius: 15px;
     padding: 5px;
@@ -444,7 +429,6 @@ select{
 .seccionBolson td{
     border-bottom: 1px solid black;
 }
-
 .seccionBolson th{
     font-weight: 900;
 }
@@ -814,9 +798,7 @@ footer span{
         width: 18%;
     }
 }
-
 /*//////////////ALERTAS/////////////////*/
-
 .swal-button {
   padding: 7px 19px;
   border-radius: 2px;
@@ -835,7 +817,6 @@ footer span{
 .swal-button:not([disabled]):hover {
     background-color: #E1B605;
 }
-
 /*///////MENU RESPONSIVE ////////////*/
 .lista{margin-top:5px; text-align:left;margin-bottom: 5px;}
 .obj{
@@ -843,11 +824,23 @@ footer span{
 	margin-top:30px 0;
 	padding-left:115px;
 	clear:both;
+        display: inline-block;
+        cursor: pointer;
 }
 .obj .img, .item span{border-radius:3px;}
 .obj .img{float:left; width:60px; height:10px; margin-left:-93px; background:#979A9A; }
 .obj span{height:2px; width:180px; margin-bottom:5px; float:left;}
 .obj span:nth-of-type(3){width:75px; margin-botom:0;}
+.notificacion{
+    display: inline-block;
+    float: right;
+    padding-right: 10px;
+    color: white;
+    cursor: pointer;
+}
+.notificacion span{
+    font-size: 20px;
+}
 .menu {
     font-size: 30px;
     color: white;
@@ -866,12 +859,14 @@ footer span{
     margin-top: 100px;
     color: #CD5C5C;
 }
-
 header .logo-menu{
     width: 20%;
     float: none;
 }
 
+#pensativo {
+    display: none;
+}
 @media screen and (min-width: 550px){
     .obj span{
         margin-bottom: 15px;
