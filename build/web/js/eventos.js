@@ -165,10 +165,26 @@ $(document).ready(function(){
     
     $("#formularioReporte input[type=submit]").on({
         click:function(){
-            $("#textoRepuesta").html("Espera mientras se realiza el documento");
+            $("#textoRepuesta").html("Espera mientras se realiza el documento...");
+            $("#textoRepuesta").addClass("espera");
             setTimeout(function(){
                 $("#textoRepuesta").html("");
+                $("#textoRepuesta").removeClass("espera");
             },10000);
+        }
+    });
+    
+    $("#fechaStart, #fechaEnd").on({
+        change:function(){
+            if(new Date($("#fechaStart").val()) > new Date($("#fechaEnd").val())){
+                $("#textoRepuesta").html("¡La fecha DESDE no puede ser mayor a la de HASTA!");
+                $("#formularioReporte input[type=submit]").prop("disabled",true);
+                $("#textoRepuesta").addClass("error");
+            }else{
+                $("#textoRepuesta").html("");
+                $("#formularioReporte input[type=submit]").prop("disabled",false);
+                $("#textoRepuesta").removeClass("error");
+            }
         }
     });
     

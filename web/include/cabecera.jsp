@@ -29,11 +29,19 @@
     </div>
     <div id="menu-res" class="menu">
         <ul>
-            <li id="cargamenu">Carga</li>
+            
             <%
                 int num = ((int)request.getSession().getAttribute("cargo").hashCode());
                 int idUser = ((int)request.getSession().getAttribute("id_user").hashCode());
-            if(num >= 2){
+            if(num < 3){
+            %>
+            <li id="cargamenu">Carga</li>
+            <%
+            }else{
+            %>
+            <li id="cargamenu">Inicio</li>
+            <%
+            }if(num >= 2){
             %>
             <li id="consultamenu">Consultas</li>
             <%

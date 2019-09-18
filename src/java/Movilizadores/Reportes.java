@@ -35,6 +35,7 @@ public class Reportes {
     private int metodo;
     public List lista = new ArrayList();
     
+    
     private DecimalFormat numero = new DecimalFormat("#.00");
     
 
@@ -58,7 +59,6 @@ public class Reportes {
         this.etapa = etapa;
         this.metodo = metodo;
         crearListaBolson();
-        System.out.println("CREO REPORTES - CLASE -");
     }
 
     public Reportes(String cv, String coop, String id, String fecha, String hora, String patente,  String canal,String formato, String material, double peso, String usuario, String fechaCarga) {
@@ -75,7 +75,43 @@ public class Reportes {
         this.formato = formato;
         this.material = material;
         crearListaCamion();
-        System.out.println("CREO CAMION - CLASE -");
+    }
+    
+    //CABECERA CAMIÓN
+    public Reportes(String camion){
+        lista.add("Centro Verde");
+        lista.add("Cooperativa");
+        lista.add("ID");
+        lista.add("Fecha");
+        lista.add("Hora");
+        lista.add("Patente");
+        lista.add("Medio de Captación");
+        lista.add("Formato");
+        lista.add("Material");
+        lista.add("Peso");
+        lista.add("Usuario");
+        lista.add("Fecha de Carga");
+    }
+    
+    public Reportes(){
+        lista.add("Centro Verde");
+        lista.add("Cooperativa");
+        lista.add("ID Ingreso");
+        lista.add("ID PK  Bolsón ");
+        lista.add("ID Asociado");
+        lista.add("Asociado");
+        lista.add("ID Bolsón Cargado");
+        lista.add("Fecha");
+        lista.add("Hora");
+        lista.add("Etapa Cargada");
+        lista.add("Patente");
+        lista.add("Peso");
+        lista.add("-10% -2KG");
+        lista.add("Monto");
+        lista.add("Usuario de carga");
+        lista.add("Fecha de Carga");
+        lista.add("Etapa Asociada");
+        lista.add("Metodo");
     }
     
     

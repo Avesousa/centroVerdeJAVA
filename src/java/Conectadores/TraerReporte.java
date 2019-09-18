@@ -72,6 +72,7 @@ public class TraerReporte extends Conexion implements Runnable{
             ps = conectador.prepareStatement(sql);
             resultado = ps.executeQuery();
             reportes = new ArrayList();
+            reportes.add(new Reportes());
             while (resultado.next()) {
                 reportes.add(new Reportes(
                         resultado.getString(1),
@@ -138,6 +139,7 @@ public class TraerReporte extends Conexion implements Runnable{
             resultado = ps.executeQuery();
             System.out.println("TERMINÓ TRAERREPORTE - CONEXION -");
             reportes = new ArrayList();
+            reportes.add(new Reportes("null"));
             while (resultado.next()) {
                 reportes.add(new Reportes(
                         resultado.getString(1),

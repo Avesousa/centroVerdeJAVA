@@ -6,6 +6,9 @@
     <div>
       <div class="caja">
           <%@include file='informacion_usuario.jsp' %>
+          <%
+              if(cargo < 3){
+          %>
         <div id="divIngreso">
           <h1 class="tituloEscritorio">Ingreso</h1>
           <%
@@ -75,6 +78,20 @@
               }}
           %>
         </div>
+        <%
+            }else{
+        %>
+        <div>
+            <div id="divIngreso">
+                <h1 class="tituloEscritorio">Sistema</h1>
+                <span>BIENVENID@ <%=usuarioR%>, vista para DGREC</span>
+            </div>
+            
+            
+        </div>
+        <%
+            }
+        %>
       </div>
     </div>
 </div>

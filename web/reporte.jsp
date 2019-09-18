@@ -12,8 +12,7 @@
                 <h1 class="tituloEscritorio">Reporte de carga:</h1>
                 <input id="id_user" type="hidden" value="<%=Integer.parseInt((String)request.getSession().getAttribute("id_coop").toString())%>">
                 <img class="camionImg" src="image/CAMION.png" alt="Camion de centros verdes"><br>
-                <span id="textoRepuesta"></span>
-                
+                <span id="textoRepuesta"></span><br>
                 <form id="formularioReporte" action="<%=request.getContextPath()%>/Reporte">
                     <label>Desde:</label><br>
                     <input type="date" name="fechastart" id="fechaStart"><br>

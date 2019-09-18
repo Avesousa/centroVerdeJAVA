@@ -56,51 +56,7 @@ public class Reporte extends HttpServlet {
         } catch (Exception e) {
             e.printStackTrace();
         }
-                
-        //Lectura del fichero generador con inputStream
-        /*FileInputStream entrada = new FileInputStream(archivo);
-        byte[] bytes = new byte[(int)archivo.length()];
-        
-        //Convertimos en BYTES
-        String base64 = new String(Base64.encodeBase64(bytes));
-        
-        //Escritura del objeto en el response del servlet
-        response.getOutputStream().write(base64.getBytes());
-        
-        //Cierre de la entrada
-        entrada.close();
-        System.out.println(archivo.getName());*/
-        /*
-        Excel libro = new Excel();
-        libro.crearHoja("REPORTE DE BOLSONES");
-        con = new TraerReporte();
-        con.traerBolson();
-        System.out.println("--- CREANDO BOLSONES ---");
-        crearDatos(libro,con);
-        
-        libro.crearHoja("REPORTE DE CAMIONES");
-        con = new TraerReporte();
-        con.traerCamion();
-        System.out.println("--- CREANDO CAMIONES ---");
-        crearDatos(libro,con);
-        
-        response.setContentType("application/vnd.ms-excel");
-        response.setHeader("Content-Disposition", "attachment;filename=reporte "+fecha.getDate()+"-"+ (fecha.getMonth()+ 1) +".xlsx");
-        
-        libro.libro.write(response.getOutputStream());
-        libro.libro.close();
-        
-        */
         System.out.println("LIBRO CERRADO :D");
-    }
-    
-    private void crearDatos(Sheet hoja, TraerReporte con) {
-        for(int i = 0; i < con.reportes.size(); i++){
-            System.out.println("REPORTE: " + i + "/" + con.reportes.size());
-            for(int j = 0; j < con.reportes.get(i).lista.size(); j++){
-                (j > 0 ? hoja.getRow(i) : hoja.createRow(i)).createCell(j).setCellValue(con.reportes.get(i).lista.get(j).toString());
-            }
-        }
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

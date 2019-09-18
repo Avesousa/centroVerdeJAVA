@@ -14,8 +14,6 @@ public class CrearDatos implements Runnable {
         this.hoja = hoja;
     }
     
-    
-    
     @Override
     public void run() {
         for(int i = 0; i < con.reportes.size(); i++){
@@ -23,6 +21,9 @@ public class CrearDatos implements Runnable {
             for(int j = 0; j < con.reportes.get(i).lista.size(); j++){
                 (j > 0 ? hoja.getRow(i) : hoja.createRow(i)).createCell(j).setCellValue(con.reportes.get(i).lista.get(j).toString());
             }
+        }
+        for(int h = 0; h < con.reportes.get(0).lista.size();h++){
+            hoja.autoSizeColumn(h);
         }
     }
     

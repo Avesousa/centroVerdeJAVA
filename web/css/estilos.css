@@ -241,6 +241,7 @@ textarea{
     border-radius: 15px;
     box-shadow: 2px 2px 5px -4px;
     padding: 5px;
+    margin: 0 auto;
 }
 .botonIngreso,
 .botonIngreso{
@@ -573,7 +574,7 @@ footer span{
     }
     
     .cajaCarga{
-        padding: 3%;
+        margin-top: 100px;
     }
 
     .seccionBolson{
@@ -669,7 +670,7 @@ footer span{
     }
     
     .caja{
-        padding: 10%;
+        margin-top: 100px;
     }
     
     .seccionBolson tr{
@@ -871,6 +872,27 @@ header .logo-menu{
     .obj span{
         margin-bottom: 15px;
     }
+}
+#textoRepuesta{
+    font-size: 19px;
+}
+
+#formularioReporte{
+    margin-top: 10px;
+}
+
+.error{
+    background-color: coral;
+    padding: 10px;
+    color: white;
+    border-radius: 5px;
+}
+
+.espera{
+    background-color: burlywood;
+    padding: 10px;
+    color: white;
+    border-radius: 5px;
 }
 
 
